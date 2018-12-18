@@ -1,0 +1,32 @@
+.carousel-indicators-dot li {
+	cursor: pointer;
+	@include circle(1em);
+}
+
+.carousel-indicators-dot .active {
+	@include circle-active(1em);
+}
+
+@include media-breakpoint-down(md) {
+	.carousel-indicators-dot li {
+		cursor: pointer;
+		@include circle(0.75em);
+	}
+
+	.carousel-indicators-dot .active {
+		@include circle-active(0.75em);
+	}
+
+}
+
+@include media-breakpoint-down(xs) {
+	.carousel-indicators-dot li {
+		cursor: pointer;
+		@include circle(0.5em);
+	}
+
+	.carousel-indicators-dot .active {
+		@include circle-active(0.5em);
+	}
+
+}

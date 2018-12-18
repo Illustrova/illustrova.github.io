@@ -1,0 +1,91 @@
+include abstracts/functions.pug
+include abstracts/vars.pug
+include abstracts/mixins.pug
+include partials/portfolio-nav.pug
+include partials/portfolio-item.pug
+include partials/form.pug
+
+doctype html
+html(lang='en')
+	head
+		meta(charset='UTF-8')
+		title Irina Illustrova - Front End Developer
+		meta(name='description', content='A tribute page for the famous actress Audrey  Hepburn')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		meta(property='og:image', content='path/to/image.jpg')
+		base(href="/")
+		//-Fonts
+		link(href="https://fonts.googleapis.com/css?family=Lato:400,400i|Raleway:600,900", rel="stylesheet")
+		//-Stylesheets
+
+		//-DEV
+		//- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		//- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		link(rel='stylesheet', href=`/css/${styleName}.css`)
+		link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css")
+		//- link(rel='stylesheet', href='libs/animate/animate.css')
+		//- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		//- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		//- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	body
+		div.wrapper.container-fluid.px-0
+			header
+				nav(class="navbar fixed-top top-menu navbar-light bg-light align-items-baseline")
+					//- .justify-content-start.align-items-center.d-flex.flex-nowrap
+					.container-fluid.align-items-baseline
+						h1.text-primary.text-nowrap.mb-0 Irina Illustrova
+						p.h2.mb-0.d-none.d-sm-block Front End Developer
+			main.main-content.px-3.pt-2
+				//- .deco-corner-top.d-none.d-lg-block
+				//- .deco-corner-bottom.d-none.d-lg-block
+				//- .inner-wrapper.px-6.pr-7.py-5#fullpage
+				//- .inner-wrapper
+
+				section.section.portfolio.text-center#portfolio
+					.wrapper
+						h2.section-header.mb-0.pt-5.h-15 Works
+						.section-content.p-4.h-85
+							.section-content-wrapper.container-fluid.h-100
+								.row
+									ul.nav.nav-pills.pb-4.px-2
+										+portfolio-nav
+								.row.portfolio-shuffle
+									each project in locals.content.portfolio
+										+portfolio-item(project)
+								.col-1.portfolio-shuffle-sizer
+								
+					+modal-base()
+								//- each project in locals.content.portfolio
+								//- 	+portfolio-modal(project)
+					//- section.section.portfolio.text-center#portfolio
+					//- 	h2.section-header Works
+					//- 	ul.nav.nav-pills.pb-4.px-2
+					//- 		+portfolio-nav(["SASS", "Pug", "Gulp", "Node.js", "React" ])
+					//- 	.container-fluid
+					//- 		.row.portfolio-shuffle
+					//- 			each project in locals.content.portfolio
+					//- 				+portfolio-item(project)
+					//- 		.col-1.portfolio-shuffle-sizer
+					//- 	each project in locals.content.portfolio
+					//- 		+portfolio-modal(project)
+				section.section.contacts#contacts
+					.container-fluid
+						.col-12.col-md-6
+							h2.section-header Get in touch
+							h3.text-main Drop me a line!
+							p.text-secondary Got a cool project? Want to request full CV? Send me a message and I'll get back to you shortly!
+							form
+								+input("name", "Your name", "text") Name
+								+input("email", "Your email", "email") Email
+								+textarea("message", 5, "Your message") Message
+								+submit Send!
+				//- nav#dot-nav
+		//-at the End
+		script(src=`js/${scriptName}.js` defer)
+		script(defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous")

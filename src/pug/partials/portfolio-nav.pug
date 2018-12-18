@@ -1,0 +1,10 @@
+mixin portfolio-nav
+	- var tags = getAllTags(locals.content.portfolio);
+		//- - tags.push("all");
+
+		li.nav-item.portfolio-tag
+			a.nav-link.tag.active(href="#", data-toggle="pill", data-tag="all")
+				| All
+		each tag in tags
+			li.nav-item.portfolio-tag
+				a.nav-link.tag(href="#", data-toggle="pill", data-tag=tag)= tag

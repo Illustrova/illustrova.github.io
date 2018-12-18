@@ -1,0 +1,18 @@
+{
+	"lazyload": false,
+	"imgattrs": false,
+	"icons": {
+		"date": "far fa-calendar-alt",
+		"time": "far fa-clock",
+		"site": "fas fa-globe",
+		"github": "fab fa-github",
+		"codepen": "fab fa-codepen",
+		"previous": "fas fa-chevron-left",
+		"next": "fas fa-chevron-right"
+	},
+	"linkText": {
+		"site": "Website",
+		"github": "Source code",
+		"codepen": "Live demo"
+	}
+}

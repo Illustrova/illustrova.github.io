@@ -1,0 +1,124 @@
+mixin portfolio-item(project)
+	- var href = project.title.replace(/\s+/g, '-').toLowerCase();
+	figure.col-sm-6.col-md-4.col-lg-3.col-xl-2.mb-2.portfolio-item.shuffle-item(data-groups=project.tags)
+		a.portfolio-item-link.d-block.position-relative(href=href + ".html" data-target="#portfolio-item" data-name=project.title data-toggle="modal" id=href)
+			div(class="aspect aspect--" + locals.vars.defaultAspectRatio.width +  "x" + locals.vars.defaultAspectRatio.height)
+				.aspect__inner
+					if project.images.length === 0
+							+no-image()
+					else
+						img(src=project.images[0].url.toLowerCase(), alt=project.images[0].alt class="img-fluid img-thumbnail")
+						//- +img(project.images[0].url, title, sizes50).img-fluid.img-thumbnail
+
+					.overlay.p-3
+						h3.text-primary= project.title
+						small.desc.text-secondary.text-truncate
+							block
+					
+mixin modal-base()
+	.modal.fade.modal-fullscreen(tabindex="-1" role="dialog" aria-labelledby="", aria-hidden="true" id="portfolio-item")
+		//- No additional classes  to .modal-dialog, because it's overridden in modal.js
+		.modal-dialog 
+			.modal-content
+				+modal-header()
+		
+		
+		
+mixin modal-ajax(project)
+	+modal-body
+		//- .row
+		//- 	+project-subtitle()
+		.row
+			if project.images.length === 0
+				.col-md-7
+					+no-image()
+			else if project.images.length === 1
+				+project-image(project.images[0])
+			else
+				+project-image-carousel(project.images, project.title)
+			+project-spec(project.spec, project.tech)
+		.row
+			+project-desc(project.description)
+
+//-================
+//-Modal elements
+//-================
+
+//-Markup elements
+mixin modal-header()
+	nav.modal-header.align-items-center
+		//-Dummy element for alignment
+		a.nav-item.nav-link.ml-auto.invisible(href="#close" class="close") &times;
+		.modal-header-title.d-flex.align-items-center
+			a.modal-nav-previous.nav-item.nav-link(href="#previous" aria-label="previous" title="Previous project")
+				i(class=locals.config.icons.previous)
+			h2.navbar-brand.modal-title.text-primary.mx-3
+			a.modal-nav-next.nav-item.nav-link(href="#next" aria-label="next" title="Next project")
+				i(class=locals.config.icons.next)
+		a.nav-item.nav-link.ml-auto(href="#close" class="close" data-dismiss="modal" aria-label="Close" title="Close") &times;
+
+mixin modal-body()
+	.modal-body
+		.container-fluid
+			block
+
+//-Content elements
+
+//- mixin project-subtitle()
+//- 		.col-md-12.text-left.text-secondary
+//- 			block
+
+mixin project-image(image)
+	.col-md-7
+		img(src=image.url, alt=image.alt class="img-fluid")
+		//- +img(image.url, image.alt, sizes50).img-fluid
+
+mixin project-image-carousel(images, projectTitle)
+	- var carouselName = projectTitle.replace(/\s+/g, '-').toLowerCase() + "-carousel";
+	- var n = 0;
+	.col-md-7
+		div(id=carouselName, data-ride="carousel").carousel.slide
+			ol.carousel-indicators.carousel-indicators-dot
+				while (n < images.length)
+					li(data-target="#" + carouselName, class=(n<1) ? "active" : false, data-slide-to=n++)
+			.carousel-inner
+				each image, index in images
+
+					.carousel-item(class=(index<1) ? "active" : false)
+						+img(image.url, image.alt, sizes50).d-block.w-100
+			a.carousel-control-prev(href="#" + carouselName, role="button" data-slide="prev")
+				span.carousel-control-prev-icon(aria-hidden="true")
+				span.sr-only Previous
+			a.carousel-control-next(href="#" + carouselName, role="button" data-slide="next")
+				span.carousel-control-next-icon(aria-hidden="true")
+				span.sr-only Next
+
+mixin no-image()
+	.no-image
+		.placeholder.text-center
+			i.fas.fa-camera-retro
+
+mixin project-spec(specList, techList)
+	.col-md-5.text-left
+		if specList
+			ul.list-group-flush.text-left.pl-1.project-spec
+				each val, key in specList
+					li.list-group-item.project-date.text-secondary
+						i(class=locals.config.icons[key])
+						if key === "date" || key === "time"
+							span.pl-2.text-dark= val
+						else
+							if Array.isArray(val)
+								+a(val[0])(class="pl-2")= val[1] || locals.config.linkText[key]
+							else if (typeof(val) === "string")
+								+a(val)(class="pl-2")= locals.config.linkText[key]
+		if techList
+			h5.mx-3.mb-2 Technologies
+			ul.list-unstyled.unordered-list.project-tech.pl-1.ml-4
+				each tech in techList
+					li= tech
+
+mixin project-desc(desc)
+	.col-md-12.text-left
+		h3.m-3 Details
+		p= desc

@@ -1,0 +1,124 @@
+{
+	"images": {
+		"memory-game_1240": {
+			"path": "'public\\assets\\img\\portfolio\\memory-game_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"memory-game_1600": {
+			"path": "'public\\assets\\img\\portfolio\\memory-game_1600.png'",
+			"width": 1600,
+			"height": 1000
+		},
+		"memory-game_320": {
+			"path": "'public\\assets\\img\\portfolio\\memory-game_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"memory-game_450": {
+			"path": "'public\\assets\\img\\portfolio\\memory-game_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"memory-game_540": {
+			"path": "'public\\assets\\img\\portfolio\\memory-game_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"memory-game_720": {
+			"path": "'public\\assets\\img\\portfolio\\memory-game_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"memory-game_990": {
+			"path": "'public\\assets\\img\\portfolio\\memory-game_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"memory-game": {
+			"path": "'public\\assets\\img\\portfolio\\memory-game.png'",
+			"width": 1000,
+			"height": 666
+		},
+		"merlin2excel_1240": {
+			"path": "'public\\assets\\img\\portfolio\\merlin2excel_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"merlin2excel_1600": {
+			"path": "'public\\assets\\img\\portfolio\\merlin2excel_1600.png'",
+			"width": 1600,
+			"height": 1000
+		},
+		"merlin2excel_320": {
+			"path": "'public\\assets\\img\\portfolio\\merlin2excel_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"merlin2excel_450": {
+			"path": "'public\\assets\\img\\portfolio\\merlin2excel_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"merlin2excel_540": {
+			"path": "'public\\assets\\img\\portfolio\\merlin2excel_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"merlin2excel_720": {
+			"path": "'public\\assets\\img\\portfolio\\merlin2excel_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"merlin2excel_990": {
+			"path": "'public\\assets\\img\\portfolio\\merlin2excel_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"merlin2excel": {
+			"path": "'public\\assets\\img\\portfolio\\merlin2excel.png'",
+			"width": 1000,
+			"height": 666
+		},
+		"tribute-page_1240": {
+			"path": "'public\\assets\\img\\portfolio\\tribute-page_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"tribute-page_1600": {
+			"path": "'public\\assets\\img\\portfolio\\tribute-page_1600.png'",
+			"width": 1600,
+			"height": 1000
+		},
+		"tribute-page_320": {
+			"path": "'public\\assets\\img\\portfolio\\tribute-page_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"tribute-page_450": {
+			"path": "'public\\assets\\img\\portfolio\\tribute-page_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"tribute-page_540": {
+			"path": "'public\\assets\\img\\portfolio\\tribute-page_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"tribute-page_720": {
+			"path": "'public\\assets\\img\\portfolio\\tribute-page_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"tribute-page_990": {
+			"path": "'public\\assets\\img\\portfolio\\tribute-page_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"tribute-page": {
+			"path": "'public\\assets\\img\\portfolio\\tribute-page.png'",
+			"width": 1000,
+			"height": 666
+		}
+	}
+}

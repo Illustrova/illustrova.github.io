@@ -1,0 +1,19 @@
+{
+	"breakpoints": {
+		"xxs": 320,
+		"xs": 450,
+		"s": 540,
+		"m": 720,
+		"l": 990,
+		"xl": 1240,
+		"xxl": 1600
+	},
+	"defaultImageWidth": 1000,
+	"defaultAspectRatio": {
+		"width": 3,
+		"height": 2
+	},
+	"iconWidth": 32,
+	"iconHeight": 32,
+	"iconHoverColor": "#d1d1d1"
+}

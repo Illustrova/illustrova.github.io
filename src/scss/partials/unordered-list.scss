@@ -1,0 +1,11 @@
+ul.unordered-list > li {
+	display: flex;
+	align-items: center;
+
+	&:before {
+		content: "";
+		margin-right: map-get($spacers, 3);
+		@include dot;
+
+	}
+}

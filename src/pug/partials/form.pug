@@ -1,0 +1,19 @@
+mixin input(id, placeholder, type, subtitle)
+	.form-group
+		label.sr-only(for=id)
+			block
+		input(type= type ? type : "text", id=id, class="form-control", placeholder=placeholder, aria-describedby=subtitle ? id + "-desc" : false, onfocus="this.placeholder=''", onblur="this.placeholder='" + placeholder + "'")
+		if subtitle
+			small(id=id+"-desc", class="form-text text-muted")= subtitle
+
+mixin textarea(id, rows, placeholder, subtitle)
+	.form-group
+		label.sr-only(for=id)
+			block
+		textarea(id=id, class="form-control", rows=rows, placeholder=placeholder,aria-describedby=subtitle ? id + "-desc" : false, onfocus="this.placeholder=''", onblur="this.placeholder='" + placeholder + "'")
+		if subtitle
+			small(id=id+"-desc", class="form-text text-muted")= subtitle
+
+mixin submit()
+	button(type="submit", class="btn btn-outline-primary text-hover-white")
+		block
