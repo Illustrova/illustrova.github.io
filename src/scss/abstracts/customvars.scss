@@ -1,0 +1,15 @@
+// LAYOUT
+$section-heading-height: 8rem;
+
+// ELEMENTS
+// Dots
+$dotsize: $font-size-base * 0.625;
+$dot-margin-y: 2px;
+$dot-border-width: 2px;
+$dotnav-section-height: map-get($spacers, 4);
+// Corners
+$corner-padding: map-get($spacers, 2);
+$corner-thickness: 5px;
+$corner-length: 100px;
+$corner-thickness-sm: 3px;
+$corner-length-sm: 30px;

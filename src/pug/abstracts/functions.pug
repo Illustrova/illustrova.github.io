@@ -17,7 +17,7 @@
 	function getAllTags(arr) {
 		const unique = (value, index, self) => {
 		    return self.indexOf(value) === index;
-		}
+		} 
 		return [].concat.apply([], (arr.map(function(a) {
 			return a.tags;
 		}

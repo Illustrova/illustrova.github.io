@@ -3,101 +3,103 @@
 $modal-header-height: 50px;
 $modal-header-background: #f8f8f8;
 
-// @include media-breakpoint-down(lg) {
-	.modal {
-		&.modal-fullscreen, .bootstrap-fs-modal & {
-			box-shadow: 0px 0px 0px 100px rgba(255, 255, 255, 1); // thick shadow to hide content during mobile Safari overscroll
+.modal {
+	&.modal-fullscreen,
+	.bootstrap-fs-modal & {
+		box-shadow: 0px 0px 0px 100px rgba(255, 255, 255, 1); // thick shadow to hide content during mobile Safari overscroll
 
-			.modal-dialog {
-				margin: 0;
+		.modal-dialog {
+			margin: 0;
+			height: 100%;
+			max-width: 100%;
+
+			.modal-content {
+				border-style: none;
+				border-radius: 0;
 				height: 100%;
-				max-width: 100%;
 
-				.modal-content {
-					border-style: none;
-					border-radius: 0;
-					height: 100%;
+				.modal-footer {
+					position: absolute;
+					top: 0;
+					right: 0;
+					padding: 0;
+					margin: 0 10px 0 0;
+					height: $modal-header-height;
+					min-height: $modal-header-height;
+					line-height: $modal-header-height;
+					background-color: $modal-header-background;
 
-					.modal-footer {
-						position: absolute;
-						top: 0;
-						right: 0;
+					.btn {
+						border: none;
+						background-color: transparent;
+						margin: 0 0 0 10px;
 						padding: 0;
-						margin: 0 10px 0 0;
-						height: $modal-header-height;
-						min-height: $modal-header-height;
-						line-height: $modal-header-height;
-						background-color: $modal-header-background;
+						outline: none;
+						box-shadow: none;
+						font-size: 1rem;
+						color: $link-color;
 
-						.btn {
-							border: none;
-							background-color: transparent;
-							margin: 0 0 0 10px;
-							padding: 0;
-							outline: none;
-							box-shadow: none;
-							font-size: 1.0rem;
-							color: $link-color;
-
-							&:hover, &:active {
-								text-decoration: underline;
-							}
-
-							&[data-dismiss="modal"] {
-								display: none;
-							}
+						&:hover,
+						&:active {
+							text-decoration: underline;
 						}
 
-						.material-icons {
-							vertical-align: middle;
-						}
-
-						.fa {
-							vertical-align: middle;
-							font-size: 1.25em;
+						&[data-dismiss='modal'] {
+							display: none;
 						}
 					}
 
-					.modal-body {
-						flex-shrink: 3;
-						overflow: auto;
-						-webkit-overflow-scrolling: touch;
+					.material-icons {
+						vertical-align: middle;
 					}
+
+					.fa {
+						vertical-align: middle;
+						font-size: 1.25em;
+					}
+				}
+
+				.modal-body {
+					flex-shrink: 3;
+					overflow: auto;
+					-webkit-overflow-scrolling: touch;
 				}
 			}
 		}
+	}
 
-		&.modal-fullscreen-bottom-footer, .modal-fullscreen-bottom-footer & {
-			.modal-dialog {
-				.modal-content {
-					.modal-footer {
-						position: inherit;
-						top: inherit;
-						right: inherit;
-						padding: 15px;
-						margin: 0;
+	&.modal-fullscreen-bottom-footer,
+	.modal-fullscreen-bottom-footer & {
+		.modal-dialog {
+			.modal-content {
+				.modal-footer {
+					position: inherit;
+					top: inherit;
+					right: inherit;
+					padding: 15px;
+					margin: 0;
 
-						.btn {
-							margin: 0 0 0 18px;
-						}
+					.btn {
+						margin: 0 0 0 18px;
 					}
 				}
 			}
 		}
 	}
-//}
+}
 
 @include media-breakpoint-up(md) {
 	.modal {
-		&.modal-fullscreen, .bootstrap-fs-modal & {
+		&.modal-fullscreen,
+		.bootstrap-fs-modal & {
 			.modal-dialog {
 				.modal-content {
 					max-height: 100vh;
 
-				   .modal-body {
+					.modal-body {
 						flex-shrink: 3;
 						overflow: auto;
-						-webkit-overflow-scrolling: touch
+						-webkit-overflow-scrolling: touch;
 					}
 				}
 			}

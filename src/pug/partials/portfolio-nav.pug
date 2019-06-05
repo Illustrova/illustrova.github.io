@@ -1,10 +1,10 @@
 mixin portfolio-nav
 	- var tags = getAllTags(locals.content.portfolio);
-		//- - tags.push("all");
-
-		li.nav-item.portfolio-tag
-			a.nav-link.tag.active(href="#", data-toggle="pill", data-tag="all")
-				| All
-		each tag in tags
-			li.nav-item.portfolio-tag
-				a.nav-link.tag(href="#", data-toggle="pill", data-tag=tag)= tag
+	.portfolio-nav
+		ul.nav.nav-pills.px-0.px-md-2
+			li.nav-item.portfolio-tag.pb-4
+				a.nav-link.tag.active.mxt-control(href="#", data-toggle="pill" data-filter="all")
+					| All
+			each tag in tags
+				li.nav-item.portfolio-tag.pb-4
+					a.nav-link.tag.mxt-control(href="#", data-toggle="pill" data-filter="[data-group*=\""+tag + "\"]")= tag

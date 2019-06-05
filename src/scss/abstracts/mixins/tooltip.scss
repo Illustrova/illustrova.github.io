@@ -1,0 +1,37 @@
+@mixin tooltip() {
+	font-family: inherit;
+	font-size: inherit;
+	font: inherit;
+	overflow: visible;
+	top: -8px;
+	border-radius: 5px;
+	color: $secondary;
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: map-get($map: $spacers, $key: 1) map-get($map: $spacers, $key: 2); // transform: translate3d(0, 30px, 0) rotate3d(0, 0, 1, -30deg);
+	transform-origin: 100% 100%;
+	opacity: 0;
+	transition: none;
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+	-webkit-font-smoothing: subpixel-antialiased;
+	transform: translate(15px, 10px) rotateZ(-45deg);
+	&:after {
+		content: '';
+		position: absolute;
+		z-index: -100;
+		display: block;
+		width: 0.5rem;
+		height: 0.5rem;
+		background: #fff;
+		top: 35%;
+		right: -0.5rem;
+		transform: translateX(-50%) rotate(45deg);
+		box-shadow: 2px -2px 3px rgba(0, 0, 0, 0.4);
+	}
+}
+
+@mixin tooltip-hover() {
+	opacity: 1;
+	transform: translate(0, 0) rotateZ(0deg);
+	transition: transform 300ms cubic-bezier(0.47, 0, 0.745, 0.715),
+		opacity 300ms linear;
+}

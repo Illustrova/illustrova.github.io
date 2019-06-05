@@ -1,52 +1,74 @@
-a {
-    color: blue;
-}
-
-//External sources and variables
+//-----------------
+// VARIABLES
+//-----------------
+// project settings and common variables
 @import '../data/variables.json';
-// @import '../data/images.json'
-// @import 'abstracts/variables.sass'
-// Bootstrap - required modules
+
+//Bootstrap functions
+// to be imported before theme
+@import 'vendor/bootstrap/scss/_functions';
+
 //Theme variables
-// Bootstrap - optional modules
-//@import 'node_modules/bootstrap/scss/reboot';
-// @import 'node_modules/bootstrap/scss/type';
-// @import 'node_modules/bootstrap/scss/grid';
-//@import 'vendor/bootstrap-4.0.0/scss/text-emphasis';
-//@import 'vendor/bootstrap-4.0.0/scss/type';
 @import 'abstracts/theme';
-// @debug $iconWidth;
-@import 'vendor/bootstrap-4.0.0/scss/functions';
-@import 'vendor/bootstrap-4.0.0/scss/variables';
-@import 'vendor/bootstrap-4.0.0/scss/mixins';
-@import 'vendor/bootstrap-4.0.0/scss/bootstrap';
-// @import 'node_modules/bootstrap/scss/grid';
-//Other libs
+@import 'abstracts/customvars.scss';
+
+//-----------------
+// LIBS
+//-----------------
+// BOOTSTRAP
+// Bootstrap - required modules
+@import 'vendor/bootstrap/scss/variables';
+@import 'vendor/bootstrap/scss/mixins';
+
+// Bootstrap - used modules only
+@import 'vendor/bootstrap/scss/alert';
+@import 'vendor/bootstrap/scss/buttons';
+@import 'vendor/bootstrap/scss/carousel';
+@import 'vendor/bootstrap/scss/close';
+@import 'vendor/bootstrap/scss/code';
+@import 'vendor/bootstrap/scss/forms';
+@import 'vendor/bootstrap/scss/grid';
+@import 'vendor/bootstrap/scss/images';
+@import 'vendor/bootstrap/scss/list-group';
+@import 'vendor/bootstrap/scss/modal';
+@import 'vendor/bootstrap/scss/nav';
+@import 'vendor/bootstrap/scss/navbar';
+@import 'vendor/bootstrap/scss/pagination';
+@import 'vendor/bootstrap/scss/reboot';
+@import 'vendor/bootstrap/scss/transitions';
+@import 'vendor/bootstrap/scss/type';
+@import 'vendor/bootstrap/scss/utilities';
+
+// OTHER LIBS
 @import 'vendor/fullscreen-modal';
-@import 'vendor/shuffle-styles';
+
 // Fullpage.js
 @import '../../node_modules/fullpage.js/dist/fullpage.min';
-@import '../../node_modules/simplebar/dist/simplebar';
-//Helpers
-//Mixins
-//Basic settings
-@import "base/base.scss";
-@import "base/elements.scss";
-@import "base/typography.scss";
-//Partials
-@import 'partials/layout';
-@import 'partials/navbar';
-@import 'partials/portfolio-item';
-@import 'partials/unordered-list';
-@import 'partials/carousel';
-@import 'partials/modal';
-// @import 'partials/section-works';
-.modal.fade {
-    opacity: 1;
-}
 
-.modal.fade .modal-dialog {
-    -webkit-transform: translate(0);
-    -moz-transform: translate(0);
-    transform: translate(0);
-}
+//-----------------
+// MIXINS
+//-----------------
+@import 'abstracts/mixins/tooltip.scss';
+@import 'abstracts/mixins/nav-elements.scss';
+@import 'abstracts/mixins/list-marker.scss';
+@import 'abstracts/mixins/scrollbars.scss';
+
+//-----------------
+// BASE
+//-----------------
+@import 'base/base.scss';
+@import 'base/typography.scss';
+
+//-----------------
+// PARTIALS
+//-----------------
+@import 'partials/alert.scss';
+@import 'partials/carousel';
+@import 'partials/dot-navigation';
+@import 'partials/inputs';
+@import 'partials/layout';
+@import 'partials/lists';
+@import 'partials/modal';
+@import 'partials/navbar';
+@import 'partials/pagination';
+@import 'partials/portfolio-item';

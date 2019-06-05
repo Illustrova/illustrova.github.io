@@ -23,13 +23,13 @@
 
 .text-hover-white {
 	&:not(:disabled):not(.disabled) {
-		&:hover, &:active {
-		color: $white;
-	}
+		&:hover,
+		&:active {
+			color: $white;
+		}
 	}
 }
 
-// @include media-breakpoint-down(xs) { ... }
-// @include media-breakpoint-down(sm) { ... }
-// @include media-breakpoint-down(md) { ... }
-// @include media-breakpoint-down(lg) { ... }
+.overflow-hidden {
+	overflow: hidden;
+}
