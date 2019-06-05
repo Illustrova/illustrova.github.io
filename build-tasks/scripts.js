@@ -5,6 +5,7 @@ import { rollup } from 'rollup'
 import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
 import uglify from 'rollup-plugin-uglify'
+import json from 'rollup-plugin-json';
 import pluginLoader from 'gulp-load-plugins'
 
 const opts = gConfig.pluginOpts
@@ -23,10 +24,11 @@ lintScripts.description = `lint script source(${src.scripts.all}) using eslint`
 
 const compileScripts = async function() {
 
-  const plugins = [
-    resolve(),
-    babel({ exclude: 'node_modules/**' }),
-  ]
+  const plugins = [json(), resolve(), babel({
+      exclude: ['node_modules/**', '*.json'],
+      // presets: [['env', { modules: false }]],
+      babelrc: false,
+    })]
 
   if (env.mapped || env.deploy) plugins.push(uglify())
 

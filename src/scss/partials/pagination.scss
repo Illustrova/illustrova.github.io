@@ -1,0 +1,26 @@
+.pagination-container {
+	height: map-get($spacers, 3);
+}
+
+.pagination {
+	li {
+		a {
+			border: solid 1px $primary;
+			height: map-get($spacers, 4);
+			width: map-get($spacers, 4);
+			padding: 0.25rem 0 0 0 !important;
+			font-size: 80%;
+			margin: 0 0.25rem;
+		}
+		a[data-page='prev'],
+		a[data-page='next'] {
+			border: none;
+		}
+		&:first-child {
+			margin-left: auto;
+		}
+		&:last-child {
+			margin-right: auto;
+		}
+	}
+}

@@ -1,0 +1,7 @@
+mixin section(id, title)
+	section.section.fp-auto-height-responsive.text-center(id=id)
+		.section-wrapper
+			h2.section-header.mb-0.pt-6=title
+			.section-content.p-1.p-md-4
+				.section-content-wrapper.container-fluid.h-100.mt-2&attributes(attributes)
+					block

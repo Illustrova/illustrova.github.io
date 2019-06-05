@@ -1,22 +1,52 @@
 {
 	"portfolio": [
 		{
+			"title": "Pet Alert",
+			"subtitle": "A static template for missing pets listing app",
+
+			"tags": ["Bootstrap", "Handlebars", "SASS", "Adaptive"],
+			"images": [
+				{
+					"url": "assets/img/portfolio/pet-alert.png",
+					"alt": "Main page view on a tablet"
+				}, 
+				{
+					"url": "assets/img/portfolio/pet-alert-2.png",
+					"alt": "Mobile view"
+				},
+				{
+					"url": "assets/img/portfolio/pet-alert-3.png",
+					"alt": "Create alert page view"
+				}
+			],
+			"spec": {
+				"date": "November 2018",
+				"github": "https://github.com/Illustrova/Pet-Alert",
+				"site": ["/Pet-Alert", "Live demo"]
+			},
+			"tech": ["Bootstrap 4", "SASS", "Handlebars (dev)", "NPM scripts"],
+			"description": "Front end for a missing pet listings app, part of a project made for CS50W course. Consists of 5 pages, including listing display pages and a form to create a new listing"
+		},
+		{
 			"title": "Tribute Page",
 			"subtitle": "A tribute page to Audrey Hepburn, famous American actress",
 
 			"tags": ["Gulp", "Pug", "SASS", "Adaptive"],
 			"images": [{
-				"url": "assets/img/portfolio/Tribute-page.png",
+				"url": "assets/img/portfolio/tribute-page.png",
 				"alt": "Desktop view of the page"
+			}, 
+			{
+				"url": "assets/img/portfolio/tribute-page-2.png",
+				"alt": "Tablet and mobile view"
 			}],
 			"spec": {
 				"date": "January 2018",
-				"time": "~60 hours",
 				"github": "https://github.com/Illustrova/Audrey-Tribute-Page",
-				"site": ["/Audrey-Hepburn-Tribute-Page", "Live demo"]
+				"site": ["/Audrey-Tribute-Page", "Live demo"]
 			},
 			"tech": ["Pug", "SASS", "Swipe.js", "Gulp", "Responsive images with srcset", "Lazy-loaded images with SVG placeholders"],
-			"description": "Made for fun and FreeCodeCamp Challenge. One of the best parts of this projet was introduction to Primitive library. which creates beautiful abstract svg placeholders for the image. Check the demo on low-speed to notice them!"
+			"description": "Made for fun and FreeCodeCamp Challenge. One of the best parts of this project was an introduction to the Primitive library, which creates beautiful abstract svg placeholders for the image. Check the demo on low-speed to notice them!"
 		},
 		{
 			"title": "Memory Game",
@@ -29,21 +59,27 @@
 			}],
 			"spec": {
 				"date": "June 2018",
-				"time": "~60 hours",
 				"github": "https://github.com/Illustrova/fend-project-memory-game",
-				"site": ["/Pop-Art-Memory_Game", "Live demo"]
+				"site": ["/Pop-Art-Memory-Game", "Live demo"]
 			},
 			"tech": ["Pug", "SASS", "SVG", "Gulp", "HTML5 Dialog polyfill"],
-			"description": "Had some fun research on the abilities of SVG and CSS animations, while preparing aproject for my FEND Nanodegree. Instead of using the provided layout, I built my own one and added some experimental effects. Although the result, particularly card \"breaking-apart\" is slow enough to be considered for production, I definitely learnt a lot about SVG."
-		}, {
+			"description": "Had some fun research on the abilities of SVG and CSS animations, while preparing a project for my FEND Nanodegree. Instead of using generic layout, I've built my own one and added some experimental effects. Although the result, particularly card \"explosion\" is too slow to be considered for production, it was a great research about the abilities of SVG."
+		}, 
+		{
 			"title": "Kindergarten Finder",
-			"subtitle": "A simple tool for converting merlin timetable to excel template",
+			"subtitle": "Kindergarten map and listing, built with React, Google maps API and Facebook API",
 			"tags": ["React", "SASS", "API"],
-			"images": [],
+			"images": [{
+				"url": "assets/img/portfolio/kindergarten-finder.png",
+				"alt": "Desktop view of the page"
+			}, 
+			{
+				"url": "assets/img/portfolio/kindergarten-finder-2.png",
+				"alt": "Tablet and mobile view"
+			}],
 			"spec": {
 				"date": "July-August 2018",
-				"time": "~100 hours",
-				"site": ["/Kindergarten-Finder", "Check result!"],
+				"site": ["/Kindergarten-Finder-React", "Live demo"],
 				"github": "https://github.com/Illustrova/Kindergarten-Finder-React"
 			},
 			"tech": ["React", "Sass", "Google Maps API", "Facebook API"],
@@ -73,125 +109,6 @@
 				"Excel4node"
 			],
 			"description": "A simple Node.js tool, created to avoid routine tasks at my office job. It's purpose is so specific, that it's probably useless for anyone else, although it can work with any type of data. The script parses xml file, exported from Merlin project, and creates a nice client-friendly Excel table. It also preserves the formatting (e.g. one task - one line), and applies colors to each type of activity, based on simple dictionary."
-		},
-		{
-			"title": "Tribute Page",
-			"subtitle": "A tribute page to Audrey Hepburn, famous American actress",
-			"tags": [
-				"Gulp",
-				"Pug",
-				"SASS",
-				"Adaptive"
-			],
-			"images": [
-				{
-					"url": "assets/img/portfolio/Tribute-page.png",
-					"alt": "Desktop view of the page"
-				}
-			],
-			"spec": {
-				"date": "January 2018",
-				"time": "~60 hours",
-				"github": "https://github.com/Illustrova/Audrey-Tribute-Page",
-				"site": [
-					"/Audrey-Hepburn-Tribute-Page",
-					"Live demo"
-				]
-			},
-			"tech": [
-				"Pug",
-				"SASS",
-				"Swipe.js",
-				"Gulp",
-				"Responsive images with srcset",
-				"Lazy-loaded images with SVG placeholders"
-			],
-			"description": "Made for fun and FreeCodeCamp Challenge. One of the best parts of this projet was introduction to Primitive library. which creates beautiful abstract svg placeholders for the image. Check the demo on low-speed to notice them!"
-		},
-		{
-			"title": "Memory Game",
-			"subtitle": "Memory game in Pop Art style, with tailored SVG and CSS animations",
-			"tags": [
-				"Gulp",
-				"Pug",
-				"SASS",
-				"SVG"
-			],
-			"images": [
-				{
-					"url": "assets/img/portfolio/memory-game.png",
-					"alt": "Memory game screenshot"
-				}
-			],
-			"spec": {
-				"date": "June 2018",
-				"time": "~60 hours",
-				"github": "https://github.com/Illustrova/fend-project-memory-game",
-				"site": [
-					"/Pop-Art-Memory_Game",
-					"Live demo"
-				]
-			},
-			"tech": [
-				"Pug",
-				"SASS",
-				"SVG",
-				"Gulp",
-				"HTML5 Dialog polyfill"
-			],
-			"description": "Had some fun research on the abilities of SVG and CSS animations, while preparing aproject for my FEND Nanodegree. Instead of using the provided layout, I built my own one and added some experimental effects. Although the result, particularly card \"breaking-apart\" is slow enough to be considered for production, I definitely learnt a lot about SVG."
-		},
-		{
-			"title": "Kindergarten Finder",
-			"subtitle": "A simple tool for converting merlin timetable to excel template",
-			"tags": [
-				"React",
-				"SASS",
-				"API"
-			],
-			"images": [],
-			"spec": {
-				"date": "July-August 2018",
-				"time": "~100 hours",
-				"site": [
-					"/Kindergarten-Finder",
-					"Check result!"
-				],
-				"github": "https://github.com/Illustrova/Kindergarten-Finder-React"
-			},
-			"tech": [
-				"React",
-				"Sass",
-				"Google Maps API",
-				"Facebook API"
-			],
-			"description": "Final project for FEND Degree aligned with the real needs, and hopefully the result can be useful for some people. \n ESPA is an European funding program which, among other, provides preschool sponsorship for parents with low income in Greece. Every year the catalogues of nurseries and kindergartens are published on the website as pdf, and as a parent you spend quite some time, googling every address in your area in order to find if it's located good for you. The backend script parses this PDF files and geocodes all the addresses, exporting a nice-formatted json with only useful information. This json is loaded on front end to Google Map, showing all the locations together with data on the ages of children, operation hours, etc. The ap also attempts to search for the page of kindergarten on Facebook, and if it exists, shows some useful information from it."
-		},
-		{
-			"title": "Merlin2Excel",
-			"subtitle": "A simple tool for converting Merlin Project timetable into nice Excel template",
-			"tags": [
-				"Node.js"
-			],
-			"images": [
-				{
-					"url": "assets/img/portfolio/merlin2excel.png",
-					"alt": "Screenshot of source file and result"
-				}
-			],
-			"spec": {
-				"date": "March 2018",
-				"time": "~20 hours",
-				"github": "https://github.com/Illustrova/Merlin2Excel-timing-creator"
-			},
-			"tech": [
-				"Node.js",
-				"Moment.js",
-				"xml2js",
-				"Excel4node"
-			],
-			"description": "A simple Node.js tool, created to avoid routine tasks at my office job. It's purpose is so specific, that it's probably useless for anyone else, although it can work with any type of data. The script parses xml file, exported from Merlin project, and creates a nice client-friendly Excel table. It also preserves the formatting (e.g. one task - one line), and applies colors to each type of activity, based on simple dictionary."
 		}
-
 	]
 }

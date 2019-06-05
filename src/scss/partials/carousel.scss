@@ -16,7 +16,6 @@
 	.carousel-indicators-dot .active {
 		@include circle-active(0.75em);
 	}
-
 }
 
 @include media-breakpoint-down(xs) {
@@ -28,5 +27,4 @@
 	.carousel-indicators-dot .active {
 		@include circle-active(0.5em);
 	}
-
 }

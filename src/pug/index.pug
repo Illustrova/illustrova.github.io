@@ -4,88 +4,110 @@ include abstracts/mixins.pug
 include partials/portfolio-nav.pug
 include partials/portfolio-item.pug
 include partials/form.pug
+include partials/section.pug
 
 doctype html
 html(lang='en')
 	head
 		meta(charset='UTF-8')
 		title Irina Illustrova - Front End Developer
-		meta(name='description', content='A tribute page for the famous actress Audrey  Hepburn')
+		meta(name='description', content='Front End developer Irina Illustrova -  portfolio and personal page')
 		meta(http-equiv='X-UA-Compatible', content='IE=edge')
 		meta(name='viewport', content='width=device-width, initial-scale=1')
-		meta(property='og:image', content='path/to/image.jpg')
 		base(href="/")
 		//-Fonts
-		link(href="https://fonts.googleapis.com/css?family=Lato:400,400i|Raleway:600,900", rel="stylesheet")
+		link(href="https://fonts.googleapis.com/css?family=Lato:400,400i,700|Raleway:600,900", rel="stylesheet")
 		//-Stylesheets
-
-		//-DEV
-		//- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-		//- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 		link(rel='stylesheet', href=`/css/${styleName}.css`)
 		link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css")
-		//- link(rel='stylesheet', href='libs/animate/animate.css')
-		//- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-		//- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		//- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	body
 		div.wrapper.container-fluid.px-0
 			header
 				nav(class="navbar fixed-top top-menu navbar-light bg-light align-items-baseline")
-					//- .justify-content-start.align-items-center.d-flex.flex-nowrap
 					.container-fluid.align-items-baseline
 						h1.text-primary.text-nowrap.mb-0 Irina Illustrova
-						p.h2.mb-0.d-none.d-sm-block Front End Developer
-			main.main-content.px-3.pt-2
-				//- .deco-corner-top.d-none.d-lg-block
-				//- .deco-corner-bottom.d-none.d-lg-block
-				//- .inner-wrapper.px-6.pr-7.py-5#fullpage
-				//- .inner-wrapper
-
-				section.section.portfolio.text-center#portfolio
-					.wrapper
-						h2.section-header.mb-0.pt-5.h-15 Works
-						.section-content.p-4.h-85
-							.section-content-wrapper.container-fluid.h-100
-								.row
-									ul.nav.nav-pills.pb-4.px-2
-										+portfolio-nav
-								.row.portfolio-shuffle
-									each project in locals.content.portfolio
-										+portfolio-item(project)
-								.col-1.portfolio-shuffle-sizer
-								
-					+modal-base()
-								//- each project in locals.content.portfolio
-								//- 	+portfolio-modal(project)
-					//- section.section.portfolio.text-center#portfolio
-					//- 	h2.section-header Works
-					//- 	ul.nav.nav-pills.pb-4.px-2
-					//- 		+portfolio-nav(["SASS", "Pug", "Gulp", "Node.js", "React" ])
-					//- 	.container-fluid
-					//- 		.row.portfolio-shuffle
-					//- 			each project in locals.content.portfolio
-					//- 				+portfolio-item(project)
-					//- 		.col-1.portfolio-shuffle-sizer
-					//- 	each project in locals.content.portfolio
-					//- 		+portfolio-modal(project)
-				section.section.contacts#contacts
-					.container-fluid
-						.col-12.col-md-6
-							h2.section-header Get in touch
-							h3.text-main Drop me a line!
-							p.text-secondary Got a cool project? Want to request full CV? Send me a message and I'll get back to you shortly!
-							form
-								+input("name", "Your name", "text") Name
-								+input("email", "Your email", "email") Email
-								+textarea("message", 5, "Your message") Message
+						p.h2.mb-0.d-none.d-sm-block Front-End Developer
+			main.main-content.px-2.mr-1.mr-md-4
+				+section("portfolio", "Works")(class="d-flex flex-column flex-grow-1")
+					+portfolio-nav
+					.row.portfolio-container.flex-grow-1.align-content-start
+						each project in locals.content.portfolio
+							+portfolio-item(project)
+					nav.pagination-container.mb-0.mt-2(aria-label="Page navigation")
+						ul.pagination.mixitup-page-list
+				+modal-base()
+				+section("about", "In short")
+					.row.h-90.align-items-center
+						.col-12.col-sm-4
+							h4 Studies
+							ul.list-unstyled.list-centered
+								li
+									strong.d-block Udacity Front-End Developer Nanodegree
+									a.d-block(href="https://confirm.udacity.com/QCDEVZ6Y" target="_blank" rel="noopener") Certificate
+									em.d-block.small.text-secondary Sponsored by Google Developer Scholarship Program
+								li
+									strong.d-block Harvard CS50x - Introduction to computer science.
+									a.d-block(href="assets/img/docs/cs50x_gradebook.png" target="_blank") Academic records
+									p.mb-0 Final project: 
+										+a("https://www.youtube.com/watch?v=cMsidcfVKwk&feature=youtu.be") Video
+										| &nbsp;
+										+a("https://github.com/Illustrova/Renamer50") Github
+						.col-12.col-sm-4.mt-3.mt-md-0
+							h4 Tools and Skills
+							ul.list-unstyled.list-centered
+								li Modern HTML and CSS
+								li JavaScript, incl. ES6 syntax
+								li Build tools&nbsp;
+									em.small.text-secondary Gulp, NPM scripts
+								li React&nbsp;
+									em.small.text-secondary still lots to learn
+								li Python&Flask&nbsp;
+									em.small.text-secondary some basics so far
+						.col-12.col-sm-4.mt-3.mt-md-0
+							h4 Background
+							ul.list-unstyled.list-centered
+								li 3+ years front-end hobbyist
+								li 5+ years in project management of TV Ad production and post-production
+								li Spoken languages: English, Greek, Russian
+				+section("contacts", "Get in touch")
+					.row
+						.col-12.col-md-8.overflow-hidden.py-2
+							h3.text-main.mb-4.text-left Drop me a line!
+							form#contact-form.needs-validation(novalidate method="post" action=locals.config.contactFormAPI)
+								+input("name", "text", "Your name", "", "Enter your name")(required) Name
+								+input("email", "email", "Your email", " ", "Enter your email")(required) Email
+								+textarea("message", 5, "Your message", "", "Enter your message")(required) Message
 								+submit Send!
-				//- nav#dot-nav
-		//-at the End
+							div.alert.collapse#contact-form-response
+								button(type="button" class="close" data-hide="alert" aria-label="Close")
+									span(aria-hidden="true") &times;
+								.row.h-100
+									.col-12.align-self-center
+										div#contact-form-response-text
+										button#contact-form-response-link(type="button" class="btn btn-link" data-hide="alert" aria-label="Close" class="alert-link")
+						.col-12.col-md-auto.ml-auto.py-2
+							h3.text-main.mb-4.text-left ...or find me here:
+							ul.list-unstyled.text-left.contacts-list
+								li.mb-3
+									a(href="malto:illustrova@gmail.com")
+										i(class=locals.config.icons.email).mr-2
+										| Illustrova@gmail.com
+								li.mb-3
+									+a("https://github.com/Illustrova")
+										i(class=locals.config.icons.github).mr-2
+										| Github
+								li.mb-3
+									+a("https://codepen.io/Illustrova/")
+										i(class=locals.config.icons.codepen).mr-2
+										| Codepen
+								li.mb-3
+									+a("www.linkedin.com/in/illustrova")
+										i(class=locals.config.icons.linkedin).mr-2
+										| Linkedin
+								li.mb-3
+									i(class=locals.config.icons.location).mr-2.text-primary
+									span.text-secondary Athens, Greece
+		script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" defer)
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" defer)
 		script(src=`js/${scriptName}.js` defer)
 		script(defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous")

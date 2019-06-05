@@ -8,6 +8,13 @@
 		"xl": 1240,
 		"xxl": 1600
 	},
+	"columns": {
+		"xxs": 1,
+		"s": 2,
+		"m": 3,
+		"l": 4,
+		"xl": 6
+	},
 	"defaultImageWidth": 1000,
 	"defaultAspectRatio": {
 		"width": 3,
@@ -15,5 +22,6 @@
 	},
 	"iconWidth": 32,
 	"iconHeight": 32,
-	"iconHoverColor": "#d1d1d1"
+	"iconHoverColor": "#d1d1d1",
+	"dotNavTransitionDuration": 300
 }

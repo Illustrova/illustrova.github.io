@@ -1,8 +1,17 @@
 {
-  "trailingComma": "es5",
-  "singleQuote": true,
-  "printWidth": 80,
-  "semi": false,
-  "parser": "flow",
-  "jsxBracketSameLine": true
+	"trailingComma": "es5",
+	"singleQuote": true,
+	"printWidth": 80,
+	"semi": true,
+	"parser": "flow",
+	"useTabs": true,
+	"jsxBracketSameLine": true,
+	"overrides": [
+		{
+			"files": "*.scss",
+			"options": {
+				"parser": "scss"
+			}
+		}
+	]
 }
