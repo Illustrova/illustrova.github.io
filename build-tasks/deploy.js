@@ -7,7 +7,8 @@ const src = gConfig.paths.sources;
 const opts = gConfig.pluginOpts;
 const plugins = pluginLoader(opts.load);
 
-const deploySource = () => gulp.src(src.overwatch).pipe(plugins.deploy());
+const deploySource = () =>
+	gulp.src(src.overwatch).pipe(plugins.deploy({ branch: 'master' }));
 
 // NOTE:: This is necessary in order to get more verbose metadata when running gulp -T
 const compile = cb => compileAllSource(cb);
