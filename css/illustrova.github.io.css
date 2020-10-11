@@ -8259,52 +8259,52 @@ body.modal-open {
     transition: all 0.3s ease-in; }
 
 .start-animation .string1 .l1 span {
-  -webkit-animation: intro-bounce 2s -0.2s both;
-          animation: intro-bounce 2s -0.2s both; }
+  -webkit-animation: intro-bounce 2s -0.6s both;
+          animation: intro-bounce 2s -0.6s both; }
 
 .start-animation .string1 .l1:after {
-  -webkit-animation: 2s -0.2s intro-bounce-shadow both;
-          animation: 2s -0.2s intro-bounce-shadow both; }
+  -webkit-animation: 2s -0.6s intro-bounce-shadow both;
+          animation: 2s -0.6s intro-bounce-shadow both; }
 
 .start-animation .string1 .l2 span {
-  -webkit-animation: intro-bounce 2s -0.1s both;
-          animation: intro-bounce 2s -0.1s both; }
+  -webkit-animation: intro-bounce 2s -0.3s both;
+          animation: intro-bounce 2s -0.3s both; }
 
 .start-animation .string1 .l2:after {
-  -webkit-animation: 2s -0.1s intro-bounce-shadow both;
-          animation: 2s -0.1s intro-bounce-shadow both; }
+  -webkit-animation: 2s -0.3s intro-bounce-shadow both;
+          animation: 2s -0.3s intro-bounce-shadow both; }
 
 .start-animation .string1 .l3 span {
-  -webkit-animation: intro-bounce 2s -0.4s both;
-          animation: intro-bounce 2s -0.4s both; }
+  -webkit-animation: intro-bounce 2s -0.6s both;
+          animation: intro-bounce 2s -0.6s both; }
 
 .start-animation .string1 .l3:after {
-  -webkit-animation: 2s -0.4s intro-bounce-shadow both;
-          animation: 2s -0.4s intro-bounce-shadow both; }
+  -webkit-animation: 2s -0.6s intro-bounce-shadow both;
+          animation: 2s -0.6s intro-bounce-shadow both; }
 
 .start-animation .string1 .l4 span {
-  -webkit-animation: intro-bounce 2s -0.1s both;
-          animation: intro-bounce 2s -0.1s both; }
+  -webkit-animation: intro-bounce 2s -0.6s both;
+          animation: intro-bounce 2s -0.6s both; }
 
 .start-animation .string1 .l4:after {
-  -webkit-animation: 2s -0.1s intro-bounce-shadow both;
-          animation: 2s -0.1s intro-bounce-shadow both; }
+  -webkit-animation: 2s -0.6s intro-bounce-shadow both;
+          animation: 2s -0.6s intro-bounce-shadow both; }
 
 .start-animation .string1 .l5 span {
-  -webkit-animation: intro-bounce 2s -0.3s both;
-          animation: intro-bounce 2s -0.3s both; }
+  -webkit-animation: intro-bounce 2s -0.5s both;
+          animation: intro-bounce 2s -0.5s both; }
 
 .start-animation .string1 .l5:after {
-  -webkit-animation: 2s -0.3s intro-bounce-shadow both;
-          animation: 2s -0.3s intro-bounce-shadow both; }
+  -webkit-animation: 2s -0.5s intro-bounce-shadow both;
+          animation: 2s -0.5s intro-bounce-shadow both; }
 
 .start-animation .string1 .l6 span {
-  -webkit-animation: intro-bounce 2s -0.3s both;
-          animation: intro-bounce 2s -0.3s both; }
+  -webkit-animation: intro-bounce 2s -0.7s both;
+          animation: intro-bounce 2s -0.7s both; }
 
 .start-animation .string1 .l6:after {
-  -webkit-animation: 2s -0.3s intro-bounce-shadow both;
-          animation: 2s -0.3s intro-bounce-shadow both; }
+  -webkit-animation: 2s -0.7s intro-bounce-shadow both;
+          animation: 2s -0.7s intro-bounce-shadow both; }
 
 .start-animation .string1 .dot span {
   -webkit-animation: intro-bounce 2s 1s both;
