@@ -2,7 +2,7 @@
 'use strict';
 
 /*!
- * fullPage 3.0.5
+ * fullPage 3.0.8
  * https://github.com/alvarotrigo/fullPage.js
  *
  * @license GPLv3 for open source use only
@@ -48,6 +48,9 @@
     var TABLE_CELL =            'fp-tableCell';
     var TABLE_CELL_SEL =        '.' + TABLE_CELL;
     var AUTO_HEIGHT =           'fp-auto-height';
+    var AUTO_HEIGHT_SEL =       '.' + AUTO_HEIGHT;
+    var AUTO_HEIGHT_RESPONSIVE = 'fp-auto-height-responsive';
+    var AUTO_HEIGHT_RESPONSIVE_SEL = '.' + AUTO_HEIGHT_RESPONSIVE;
     var NORMAL_SCROLL =         'fp-normal-scroll';
     var SECTION_NAV =           'fp-nav';
     var SECTION_NAV_SEL =       '#' + SECTION_NAV;
@@ -84,12 +87,13 @@
     function initialise(containerSelector, options) {
         var isOK = options && new RegExp('([\\d\\w]{8}-){3}[\\d\\w]{8}|^(?=.*?[A-Y])(?=.*?[a-y])(?=.*?[0-8])(?=.*?[#?!@$%^&*-]).{8,}$').test(options['li'+'cen'+'seK' + 'e' + 'y']) || document.domain.indexOf('al'+'varotri' +'go' + '.' + 'com') > -1;
 
-        //only once my friend!
-        if(hasClass($('html'), ENABLED)){ displayWarnings(); return; }
-
-        // common jQuery objects
+        // cache common elements
         var $htmlBody = $('html, body');
+        var $html = $('html')[0];
         var $body = $('body')[0];
+
+        //only once my friend!
+        if(hasClass($html, ENABLED)){ displayWarnings(); return; }
 
         var FP = {};
 
@@ -134,7 +138,6 @@
             scrollOverflowOptions: null,
             touchSensitivity: 5,
             touchWrapper: typeof containerSelector === 'string' ? $(containerSelector)[0] : containerSelector,
-            normalScrollElementTouchThreshold: 5,
             bigSectionsDestination: null,
 
             //Accessibility
@@ -192,6 +195,7 @@
         var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
         var container = typeof containerSelector === 'string' ? $(containerSelector)[0] : containerSelector;
         var windowsHeight = getWindowHeight();
+        var windowsWidth = getWindowWidth();
         var isResizing = false;
         var isWindowFocused = true;
         var lastScrolledDestiny;
@@ -227,15 +231,31 @@
 
         //timeouts
         var resizeId;
+        var resizeHandlerId;
         var afterSectionLoadsId;
         var afterSlideLoadsId;
         var scrollId;
         var scrollId2;
         var keydownId;
+        var g_doubleCheckHeightId;
         var originals = deepExtend({}, options); //deep copy
         var activeAnimation;
         var g_initialAnchorsInDom = false;
         var g_canFireMouseEnterNormalScroll = true;
+        var g_mediaLoadedId;
+        var extensions = [
+            'parallax',
+            'scrollOverflowReset',
+            'dragAndMove',
+            'offsetSections',
+            'fadingEffect',
+            'responsiveSlides',
+            'continuousHorizontal',
+            'interlockedSlides',
+            'scrollHorizontally',
+            'resetSliders',
+            'cards'
+        ];
 
         displayWarnings();
 
@@ -278,7 +298,6 @@
                     //moving the container up
                     silentScroll(element.offsetTop);
                 }
-
             }else{
                 css($htmlBody, {
                     'overflow' : 'visible',
@@ -472,7 +491,9 @@
 
             isResizing = true;
 
-            windowsHeight = getWindowHeight();  //updating global var
+            //updating global vars
+            windowsHeight = getWindowHeight();
+            windowsWidth = getWindowWidth();
 
             var sections = $(SECTION_SEL);
             for (var i = 0; i < sections.length; ++i) {
@@ -516,11 +537,18 @@
         }
 
         /**
+        * Determines whether fullpage.js is in responsive mode or not.
+        */
+        function isResponsiveMode(){
+           return hasClass($body, RESPONSIVE);
+        }
+
+        /**
         * Turns fullPage.js to normal scrolling mode when the viewport `width` or `height`
         * are smaller than the set limit values.
         */
         function setResponsive(active){
-            var isResponsive = hasClass($body, RESPONSIVE);
+            var isResponsive = isResponsiveMode();
 
             if(active){
                 if(!isResponsive){
@@ -551,7 +579,7 @@
 
         if(container){
             //public functions
-            FP.version = '3.0.5';
+            FP.version = '3.0.8';
             FP.setAutoScrolling = setAutoScrolling;
             FP.setRecordHistory = setRecordHistory;
             FP.setScrollingSpeed = setScrollingSpeed;
@@ -569,7 +597,7 @@
             FP.fitToSection = fitToSection;
             FP.reBuild = reBuild;
             FP.setResponsive = setResponsive;
-            FP.getFullpageData = function(){ return options };
+            FP.getFullpageData = function(){ return options; };
             FP.destroy = destroy;
             FP.getActiveSection = getActiveSection;
             FP.getActiveSlide = getActiveSlide;
@@ -598,14 +626,17 @@
             //functions we want to share across files but which are not
             //mean to be used on their own by developers
             FP.shared = {
-                afterRenderActions: afterRenderActions
+                afterRenderActions: afterRenderActions,
+                isNormalScrollElement: false
             };
 
             window.fullpage_api = FP;
 
             //using jQuery initialization? Creating the $.fn.fullpage object
             if(options.$){
-                options.$.fn.fullpage = FP;
+                Object.keys(FP).forEach(function (key) {    
+                    options.$.fn.fullpage[key] = FP[key];   
+                });
             }
 
             init();
@@ -640,6 +671,8 @@
             if(!options.scrollOverflow){
                 afterRenderActions();
             }
+
+            doubleCheckHeight();
         }
 
         function bindEvents(){
@@ -711,11 +744,24 @@
         }
 
         function onMouseEnterOrLeave(e) {
-            if(e.target == document){
+            var type = e.type;
+            var isInsideOneNormalScroll = false;
+            var isUsingScrollOverflow = options.scrollOverflow;
+
+            //onMouseLeave will use the destination target, not the one we are moving away from
+            var target = type === 'mouseleave' ? e.toElement || e.relatedTarget : e.target;
+
+            //coming from closing a normalScrollElements modal or moving outside viewport?
+            if(target == document || !target){
+                setMouseHijack(true);
+
+                if(isUsingScrollOverflow){
+                    options.scrollOverflowHandler.setIscroll(target, true);
+                }
                 return;
             }
 
-            if(e.type === 'touchend'){
+            if(type === 'touchend'){
                 g_canFireMouseEnterNormalScroll = false;
                 setTimeout(function(){
                     g_canFireMouseEnterNormalScroll = true;
@@ -724,16 +770,67 @@
 
             //preventing mouseenter event to do anything when coming from a touchEnd event
             //fixing issue #3576
-            if(e.type === 'mouseenter' && !g_canFireMouseEnterNormalScroll){
+            if(type === 'mouseenter' && !g_canFireMouseEnterNormalScroll){
                 return;
             }
 
             var normalSelectors = options.normalScrollElements.split(',');
+
             normalSelectors.forEach(function(normalSelector){
-                if(closest(e.target, normalSelector) != null){
-                    setMouseHijack(document['fp_' + e.type]); //e.type = eventName
+                if(!isInsideOneNormalScroll){
+                    var isNormalScrollTarget = matches(target, normalSelector);
+
+                    //leaving a child inside the normalScoll element is not leaving the normalScroll #3661
+                    var isNormalScrollChildFocused = closest(target, normalSelector);
+
+                    if(isNormalScrollTarget || isNormalScrollChildFocused){
+                        if(!FP.shared.isNormalScrollElement){
+                            setMouseHijack(false);
+
+                            if(isUsingScrollOverflow){
+                                options.scrollOverflowHandler.setIscroll(target, false);
+                            }
+                        }
+                        FP.shared.isNormalScrollElement = true;
+                        isInsideOneNormalScroll = true;
+                    }
                 }
             });
+
+            //not inside a single normal scroll element anymore?
+            if(!isInsideOneNormalScroll && FP.shared.isNormalScrollElement){
+                setMouseHijack(true);
+                
+                if(isUsingScrollOverflow){
+                    options.scrollOverflowHandler.setIscroll(target, true);
+                }
+
+                FP.shared.isNormalScrollElement = false;
+            }
+        }
+
+        /**
+        * Checks the viewport a few times on a define interval of time to 
+        * see if it has changed in any of those. If that's the case, it resizes.
+        */
+        function doubleCheckHeight(){
+            for(var i = 1; i < 4; i++){
+                g_doubleCheckHeightId = setTimeout(adjustToNewViewport, 350 * i);
+            }
+        }
+
+        /**
+        * Adjusts a section to the viewport if it has changed.
+        */
+        function adjustToNewViewport(){
+            var newWindowHeight = getWindowHeight();
+            var newWindowWidth = getWindowWidth();
+
+            if(windowsHeight !== newWindowHeight || windowsWidth !== newWindowWidth){
+                windowsHeight = newWindowHeight;
+                windowsWidth = newWindowWidth;
+                reBuild(true);
+            }
         }
 
         /**
@@ -743,8 +840,8 @@
 
             //no anchors option? Checking for them in the DOM attributes
             if(!options.anchors.length){
-                var attrName = '[data-anchor]';
-                var anchors = $(options.sectionSelector.split(',').join(attrName + ',') + attrName, container);
+                var anchorsAttribute = '[data-anchor]';
+                var anchors = $(options.sectionSelector.split(',').join(anchorsAttribute + ',') + anchorsAttribute, container);
                 if(anchors.length){
                     g_initialAnchorsInDom = true;
                     anchors.forEach(function(item){
@@ -755,8 +852,8 @@
 
             //no tooltips option? Checking for them in the DOM attributes
             if(!options.navigationTooltips.length){
-                var attrName = '[data-tooltip]';
-                var tooltips = $(options.sectionSelector.split(',').join(attrName + ',') + attrName, container);
+                var tooltipsAttribute = '[data-tooltip]';
+                var tooltips = $(options.sectionSelector.split(',').join(tooltipsAttribute + ',') + tooltipsAttribute, container);
                 if(tooltips.length){
                     tooltips.forEach(function(item){
                         options.navigationTooltips.push(item.getAttribute('data-tooltip').toString());
@@ -776,7 +873,7 @@
 
             //adding a class to recognize the container internally in the code
             addClass(container, WRAPPER);
-            addClass($('html'), ENABLED);
+            addClass($html, ENABLED);
 
             //due to https://github.com/alvarotrigo/fullPage.js/issues/1502
             windowsHeight = getWindowHeight();
@@ -1004,7 +1101,7 @@
         function getBulletLinkName(i, defaultName){
             return options.navigationTooltips[i]
                 || options.anchors[i]
-                || defaultName + ' ' + (i+1)
+                || defaultName + ' ' + (i+1);
         }
 
         /*
@@ -1042,6 +1139,7 @@
             addClass(section, COMPLETELY);
 
             lazyLoad(section);
+            lazyLoadOthers();
             playMedia(section);
 
             if(options.scrollOverflow){
@@ -1050,7 +1148,7 @@
 
             if(isDestinyTheStartingSection() && isFunction(options.afterLoad) ){
                 fireCallback('afterLoad', {
-                    activeSection: null,
+                    activeSection: section,
                     element: section,
                     direction: null,
 
@@ -1069,8 +1167,9 @@
         * Determines if the URL anchor destiny is the starting section (the one using 'active' class before initialization)
         */
         function isDestinyTheStartingSection(){
-            var destinationSection = getSectionByAnchor(getAnchorsURL().section);
-            return !destinationSection || typeof destinationSection !=='undefined' && index(destinationSection) === index(startingSection);
+            var anchor = getAnchorsURL();
+            var destinationSection = getSectionByAnchor(anchor.section);
+            return !anchor.section || !destinationSection || typeof destinationSection !=='undefined' && index(destinationSection) === index(startingSection);
         }
 
         var isScrolling = false;
@@ -1224,6 +1323,26 @@
         }
 
         /**
+        * Determines whether a section is in the viewport or not.
+        */
+        function isSectionInViewport (el) {
+            var rect = el.getBoundingClientRect();
+            var top = rect.top;
+            var bottom = rect.bottom;
+
+            //sometimes there's a 1px offset on the bottom of the screen even when the 
+            //section's height is the window.innerHeight one. I guess because pixels won't allow decimals.
+            //using this prevents from lazyLoading the section that is not yet visible 
+            //(only 1 pixel offset is)
+            var pixelOffset = 2;
+            
+            var isTopInView = top + pixelOffset < windowsHeight && top > 0;
+            var isBottomInView = bottom > pixelOffset && bottom < windowsHeight;
+
+            return isTopInView || isBottomInView;
+        }
+
+        /**
         * Gets the directon of the the scrolling fired by the scroll event.
         */
         function getScrollDirection(currentScroll){
@@ -1293,7 +1412,6 @@
         function touchMoveHandler(e){
             var activeSection = closest(e.target, SECTION_SEL) || $(SECTION_ACTIVE_SEL)[0];
 
-            // additional: if one of the normalScrollElements isn't within options.normalScrollElementTouchThreshold hops up the DOM chain
             if (isReallyTouch(e) ) {
 
                 if(options.autoScrolling){
@@ -1310,7 +1428,7 @@
                 if ($(SLIDES_WRAPPER_SEL, activeSection).length && Math.abs(touchStartX - touchEndX) > (Math.abs(touchStartY - touchEndY))) {
 
                     //is the movement greater than the minimum resistance to scroll?
-                    if (!slideMoving && Math.abs(touchStartX - touchEndX) > (window.innerWidth / 100 * options.touchSensitivity)) {
+                    if (!slideMoving && Math.abs(touchStartX - touchEndX) > (getWindowWidth() / 100 * options.touchSensitivity)) {
                         if (touchStartX > touchEndX) {
                             if(isScrollAllowed.m.right){
                                 moveSlideRight(activeSection); //next
@@ -1418,7 +1536,7 @@
 
                 //preventing to scroll the site on mouse wheel when scrollbar is present
                 if(options.scrollBar){
-                   preventDefault(e);
+                    preventDefault(e);
                 }
 
                 //time difference between the last scroll and the current one
@@ -1829,11 +1947,6 @@
             v.dtop = v.element.offsetTop;
             v.yMovement = getYmovement(v.element);
 
-            //sections will temporally have another position in the DOM
-            //updating this values in case we need them
-            v.leavingSection = index(v.activeSection, SECTION_SEL) + 1;
-            v.sectionIndex = index(v.element, SECTION_SEL);
-
             return v;
         }
 
@@ -1881,6 +1994,7 @@
 
             addClass(v.element, COMPLETELY);
             removeClass(siblings(v.element), COMPLETELY);
+            lazyLoadOthers();
 
             canScroll = true;
 
@@ -1899,6 +2013,26 @@
         }
 
         /**
+        * Makes sure lazyload is done for other sections in the viewport that are not the
+        * active one. 
+        */
+        function lazyLoadOthers(){
+            var hasAutoHeightSections = $(AUTO_HEIGHT_SEL)[0] || isResponsiveMode() && $(AUTO_HEIGHT_RESPONSIVE_SEL)[0];
+
+            //quitting when it doesn't apply
+            if (!options.lazyLoading || !hasAutoHeightSections){
+                return;
+            }
+
+            //making sure to lazy load auto-height sections that are in the viewport
+            $(SECTION_SEL + ':not(' + ACTIVE_SEL + ')').forEach(function(section){
+                if(isSectionInViewport(section)){
+                    lazyLoad(section);
+                }
+            });
+        }
+
+        /**
         * Lazy loads image, video and audio elements.
         */
         function lazyLoad(destiny){
@@ -1913,6 +2047,9 @@
                     var attribute = element.getAttribute('data-' + type);
                     if(attribute != null && attribute){
                         setSrc(element, type);
+                        element.addEventListener('load', function(){
+                            onMediaLoad(destiny);
+                        });
                     }
                 });
 
@@ -1920,9 +2057,25 @@
                     var elementToPlay =  closest(element, 'video, audio');
                     if(elementToPlay){
                         elementToPlay.load();
+                        elementToPlay.onloadeddata = function(){
+                            onMediaLoad(destiny);
+                        };
                     }
                 }
             });
+        }
+
+        /**
+        * Callback firing when a lazy load media element has loaded.
+        * Making sure it only fires one per section in normal conditions (if load time is not huge)
+        */
+        function onMediaLoad(section){
+            if(options.scrollOverflow){
+                clearTimeout(g_mediaLoadedId);
+                g_mediaLoadedId = setTimeout(function(){
+                    scrollBarHandler.createScrollBar(section);
+                }, 200);
+            }
         }
 
         /**
@@ -2238,6 +2391,7 @@
         function menuItemsHandler(e){
             if($(options.menu)[0] && (options.lockAnchors || !options.anchors.length)){
                 preventDefault(e);
+                /*jshint validthis:true */
                 moveTo(this.getAttribute('data-menuanchor'));
             }
         }
@@ -2247,6 +2401,8 @@
         */
         function onkeydown(e){
             var shiftPressed = e.shiftKey;
+            var activeElement = document.activeElement;
+            var isMediaFocused = matches(activeElement, 'video') || matches(activeElement, 'audio');
 
             //do nothing if we can not scroll or we are not using horizotnal key arrows.
             if(!canScroll && [37,39].indexOf(e.keyCode) < 0){
@@ -2264,7 +2420,8 @@
 
                 //down
                 case 32: //spacebar
-                    if(shiftPressed && isScrollAllowed.k.up){
+
+                    if(shiftPressed && isScrollAllowed.k.up && !isMediaFocused){
                         moveSectionUp();
                         break;
                     }
@@ -2272,7 +2429,10 @@
                 case 40:
                 case 34:
                     if(isScrollAllowed.k.down){
-                        moveSectionDown();
+                        // space bar?
+                        if(e.keyCode !== 32 || !isMediaFocused){
+                            moveSectionDown();
+                        }
                     }
                     break;
 
@@ -2315,6 +2475,9 @@
         */
         var oldPageY = 0;
         function mouseMoveHandler(e){
+            if(!options.autoScrolling){
+                return;
+            }
             if(canScroll){
                 // moving up
                 if (e.pageY < oldPageY && isScrollAllowed.m.up){
@@ -2461,8 +2624,30 @@
 
         var previousHeight = windowsHeight;
 
-        //when resizing the site, we adjust the heights of the sections, slimScroll...
+        /*
+        * Resize event handler.
+        */        
         function resizeHandler(){
+            clearTimeout(resizeId);
+
+            //in order to call the functions only when the resize is finished
+            //http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing    
+            resizeId = setTimeout(function(){
+
+                //issue #3336 
+                //(some apps or browsers, like Chrome/Firefox for Mobile take time to report the real height)
+                //so we check it 3 times with intervals in that case
+                for(var i = 0; i< 4; i++){
+                    resizeHandlerId = setTimeout(resizeActions, 200 * i);
+                }
+            }, 200);
+        }
+
+        /**
+        * When resizing the site, we adjust the heights of the sections, slimScroll...
+        */
+        function resizeActions(){
+
             //checking if it needs to get responsive
             responsive();
 
@@ -2476,25 +2661,13 @@
 
                     //making sure the change in the viewport size is enough to force a rebuild. (20 % of the window to avoid problems when hidding scroll bars)
                     if( Math.abs(currentHeight - previousHeight) > (20 * Math.max(previousHeight, currentHeight) / 100) ){
-                        resizeId = setTimeout(function(){
-                            reBuild(true);
-                            previousHeight = currentHeight;
-
-                            //issue #3336
-                            //when using Chrome we add a small timeout to get the right window height 
-                            //https://stackoverflow.com/a/12556928/1081396
-                            //https://stackoverflow.com/questions/13807810/ios-chrome-detection
-                        }, navigator.userAgent.match('CriOS') ? 50 : 0);
+                        reBuild(true);
+                        previousHeight = currentHeight;
                     }
                 }
-            }else{
-                //in order to call the functions only when the resize is finished
-                //http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-                clearTimeout(resizeId);
-
-                resizeId = setTimeout(function(){
-                    reBuild(true);
-                }, 350);
+            }
+            else{
+                adjustToNewViewport();
             }
         }
 
@@ -3085,11 +3258,17 @@
             setKeyboardScrolling(false);
             addClass(container, DESTROYED);
 
-            clearTimeout(afterSlideLoadsId);
-            clearTimeout(afterSectionLoadsId);
-            clearTimeout(resizeId);
-            clearTimeout(scrollId);
-            clearTimeout(scrollId2);
+            [
+                afterSlideLoadsId, 
+                afterSectionLoadsId,
+                resizeId,
+                scrollId,
+                scrollId2,
+                g_doubleCheckHeightId,
+                resizeHandlerId
+            ].forEach(function(timeoutId){
+                clearTimeout(timeoutId);
+            });
 
             window.removeEventListener('scroll', scrollHandler);
             window.removeEventListener('hashchange', hashChangeHandler);
@@ -3105,9 +3284,6 @@
             ['mouseenter', 'touchstart', 'mouseleave', 'touchend'].forEach(function(eventName){
                 document.removeEventListener(eventName, onMouseEnterOrLeave, true); //true is required!
             });
-
-            clearTimeout(afterSlideLoadsId);
-            clearTimeout(afterSectionLoadsId);
 
             //lets make a mess!
             if(all){
@@ -3157,7 +3333,7 @@
             });
 
             // remove .fp-enabled class
-            removeClass($('html'), ENABLED);
+            removeClass($html, ENABLED);
 
             // remove .fp-responsive class
             removeClass($body, RESPONSIVE);
@@ -3232,6 +3408,7 @@
         function displayWarnings(){
             var l = options['li' + 'c' + 'enseK' + 'e' + 'y'];
             var msgStyle = 'font-size: 15px;background:yellow;';
+
             if(!isOK){
                 showError('error', 'Fullpage.js version 3 has changed its license to GPLv3 and it requires a `licenseKey` option. Read about it here:');
                 showError('error', 'https://github.com/alvarotrigo/fullPage.js#options.');
@@ -3241,8 +3418,7 @@
                 console.warn('%c https://alvarotrigo.com/fullPage/', msgStyle);
             }
 
-            var extensions = ['fadingEffect', 'continuousHorizontal', 'scrollHorizontally', 'interlockedSlides', 'resetSliders', 'responsiveSlides', 'offsetSections', 'dragAndMove', 'scrollOverflowReset', 'parallax', 'cards'];
-            if(hasClass($('html'), ENABLED)){
+            if(hasClass($html, ENABLED)){
                 showError('error', 'Fullpage.js can only be initialized once and you are doing it multiple times!');
                 return;
             }
@@ -3291,11 +3467,10 @@
 
                 if(idAttr.length || nameAttr.length ){
                     showError('error', 'data-anchor tags can not have the same value as any `id` element on the site (or `name` element for IE).');
-                    if(idAttr.length){
-                        showError('error', '"' + name + '" is is being used by another element `id` property');
-                    }
-                    if(nameAttr.length){
-                        showError('error', '"' + name + '" is is being used by another element `name` property');
+                    var propertyName = idAttr.length ? 'id' : 'name';
+
+                    if(idAttr.length || nameAttr.length){
+                        showError('error', '"' + name + '" is is being used by another element `'+ propertyName +'` property');
                     }
                 }
             });
@@ -3421,7 +3596,6 @@
         return FP;
     } //end of $.fn.fullpage
 
-
     //utils
     /**
     * Shows a message in the console of the given type.
@@ -3484,7 +3658,14 @@
     * Gets the window height. Crossbrowser.
     */
     function getWindowHeight(){
-        return  'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
+        return 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
+    }
+
+    /**
+    * Gets the window width.
+    */
+    function getWindowWidth(){
+        return window.innerWidth;
     }
 
     /**
@@ -4003,8 +4184,8 @@ if(window.jQuery && window.fullpage){
         }
 
         $.fn.fullpage = function(options) {
-            options.$ = $;
-            new fullpage(this[0], options);
+            options = $.extend({}, options, {'$': $});
+            var instance = new fullpage(this[0], options);
         };
     })(window.jQuery, window.fullpage);
 }
@@ -4045,6 +4226,7 @@ var vars = {
 	dotNavTransitionDuration: dotNavTransitionDuration
 };
 
+// eslint-disable-next-line no-unused-vars
 function setupFullpage(element) {
 	$(element).fullpage({
 		autoScrolling: true,
@@ -4052,30 +4234,33 @@ function setupFullpage(element) {
 		fitToSection: true,
 		scrollOverflow: false,
 		verticalCentered: false,
-		normalScrollElements: '.modal-open .modal',
+		normalScrollElements: ".modal-open .modal",
 		navigation: true,
-		navigationPosition: 'right',
-		navigationTooltips: ['Portfolio', 'About', 'Contact'],
+		navigationPosition: "right",
+		navigationTooltips: ["Hello", "Portfolio", "About", "Contact"],
 		responsiveWidth: vars.breakpoints.m,
 		responsiveHeight: 550, //TODO: calculate maximum heighth of content dynamically
 		// Dot nav decorative classes
 		onLeave: function (origin, destination, direction) {
-			if (direction && direction == 'down') {
-				$('#fp-nav li a').slice(0, destination.index).each(function (i) {
+			if (direction && direction == "down") {
+				$("#fp-nav li a").slice(0, destination.index).each(function (i) {
 					let self = $(this);
 					setTimeout(function () {
-						self.addClass('before-active');
+						self.addClass("before-active");
 					}, i * vars.dotNavTransitionDuration);
 				});
-			} else if (direction && direction == 'up') {
-				$($('#fp-nav li a').get().slice(destination.index).reverse()).each(function (i) {
+			} else if (direction && direction == "up") {
+				$($("#fp-nav li a").get().slice(destination.index).reverse()).each(function (i) {
 					let self = $(this);
 					setTimeout(function () {
-						self.removeClass('before-active');
+						self.removeClass("before-active");
 					}, i * vars.dotNavTransitionDuration);
 				});
 			}
 		}
+		// afterRender: function() {
+		// 	$(this.item).addClass("start-animation");
+		// },
 	});
 }
 
@@ -14781,7 +14966,7 @@ function setupFullpage(element) {
 		var h = mixitup.h;
 
 		if (!mixitup.CORE_VERSION || !h.compareVersions(mixitupPagination.REQUIRE_CORE_VERSION, mixitup.CORE_VERSION)) {
-			throw new Error('[MixItUp Pagination] MixItUp Pagination ' + mixitupPagination.EXTENSION_VERSION + ' requires at least MixItUp ' + mixitupPagination.REQUIRE_CORE_VERSION);
+			throw new Error("[MixItUp Pagination] MixItUp Pagination " + mixitupPagination.EXTENSION_VERSION + " requires at least MixItUp " + mixitupPagination.REQUIRE_CORE_VERSION);
 		}
 
 		/**
@@ -14796,7 +14981,7 @@ function setupFullpage(element) {
    * @since       2.0.0
    */
 
-		mixitup.ConfigCallbacks.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.ConfigCallbacks.registerAction("afterConstruct", "pagination", function () {
 			/**
     * A callback function invoked whenever a pagination operation starts.
     *
@@ -14843,7 +15028,7 @@ function setupFullpage(element) {
    * @since       3.0.0
    */
 
-		mixitup.ConfigClassNames.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.ConfigClassNames.registerAction("afterConstruct", "pagination", function () {
 			/**
     * The "element" portion of the class name added to pager controls.
     *
@@ -14866,7 +15051,7 @@ function setupFullpage(element) {
     * @default     'control'
     */
 
-			this.elementPager = 'control';
+			this.elementPager = "control";
 
 			/**
     * The "element" portion of the class name added to the page list element, when it is
@@ -14893,7 +15078,7 @@ function setupFullpage(element) {
     * @default     'page-list'
     */
 
-			this.elementPageList = 'page-list';
+			this.elementPageList = "page-list";
 
 			/**
     * The "element" portion of the class name added to the page stats element, when it is
@@ -14921,7 +15106,7 @@ function setupFullpage(element) {
     * @default     'page-stats'
     */
 
-			this.elementPageStats = 'page-stats';
+			this.elementPageStats = "page-stats";
 
 			/**
     * The "modifier" portion of the class name added to the first pager in the list of pager controls.
@@ -14933,7 +15118,7 @@ function setupFullpage(element) {
     * @default     'first'
     */
 
-			this.modifierFirst = 'first';
+			this.modifierFirst = "first";
 
 			/**
     * The "modifier" portion of the class name added to the last pager in the list of pager controls.
@@ -14945,7 +15130,7 @@ function setupFullpage(element) {
     * @default     'last'
     */
 
-			this.modifierLast = 'last';
+			this.modifierLast = "last";
 
 			/**
     * The "modifier" portion of the class name added to the previous pager in the list of pager controls.
@@ -14957,7 +15142,7 @@ function setupFullpage(element) {
     * @default     'prev'
     */
 
-			this.modifierPrev = 'prev';
+			this.modifierPrev = "prev";
 
 			/**
     * The "modifier" portion of the class name added to the next pager in the list of pager controls.
@@ -14969,7 +15154,7 @@ function setupFullpage(element) {
     * @default     'next'
     */
 
-			this.modifierNext = 'next';
+			this.modifierNext = "next";
 
 			/**
     * The "modifier" portion of the class name added to truncation markers in the list of pager controls.
@@ -14981,7 +15166,7 @@ function setupFullpage(element) {
     * @default     'truncation-marker'
     */
 
-			this.modifierTruncationMarker = 'truncation-marker';
+			this.modifierTruncationMarker = "truncation-marker";
 		});
 
 		/**
@@ -14995,7 +15180,7 @@ function setupFullpage(element) {
    * @since       2.0.0
    */
 
-		mixitup.ConfigLoad.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.ConfigLoad.registerAction("afterConstruct", "pagination", function () {
 			/**
     * An integer defining the starting page on load, if a page limit is active.
     *
@@ -15248,7 +15433,7 @@ function setupFullpage(element) {
    * @since       3.0.0
    */
 
-		mixitup.ConfigRender.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.ConfigRender.registerAction("afterConstruct", "pagination", function () {
 			/**
     * A function returning an HTML string representing a single pager control element.
     *
@@ -15300,7 +15485,7 @@ function setupFullpage(element) {
    * @since       2.0.0
    */
 
-		mixitup.ConfigSelectors.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.ConfigSelectors.registerAction("afterConstruct", "pagination", function () {
 			/**
     * A selector string used to query the page list element.
     *
@@ -15314,7 +15499,7 @@ function setupFullpage(element) {
     * @default     '.mixitup-page-list'
     */
 
-			this.pageList = '.mixitup-page-list';
+			this.pageList = ".mixitup-page-list";
 
 			/**
     * A selector string used to query the page stats element.
@@ -15329,7 +15514,7 @@ function setupFullpage(element) {
     * @default     '.mixitup-page-stats'
     */
 
-			this.pageStats = '.mixitup-page-stats';
+			this.pageStats = ".mixitup-page-stats";
 		});
 
 		/**
@@ -15343,7 +15528,7 @@ function setupFullpage(element) {
    * @since       3.0.0
    */
 
-		mixitup.ConfigTemplates.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.ConfigTemplates.registerAction("afterConstruct", "pagination", function () {
 			/**
     * @name        pager
     * @memberof    mixitup.Config.templates
@@ -15392,7 +15577,7 @@ function setupFullpage(element) {
     * @default     '${startPageAt} to ${endPageAt} of ${totalTargets}'
     */
 
-			this.pageStats = '${startPageAt} to ${endPageAt} of ${totalTargets}';
+			this.pageStats = "${startPageAt} to ${endPageAt} of ${totalTargets}";
 
 			/**
     * @name        pageStatsSingle
@@ -15402,7 +15587,7 @@ function setupFullpage(element) {
     * @default     '${startPageAt} of ${totalTargets}'
     */
 
-			this.pageStatsSingle = '${startPageAt} of ${totalTargets}';
+			this.pageStatsSingle = "${startPageAt} of ${totalTargets}";
 
 			/**
     * @name        pageStatsFail
@@ -15412,7 +15597,7 @@ function setupFullpage(element) {
     * @default     'None found'
     */
 
-			this.pageStatsFail = 'None found';
+			this.pageStatsFail = "None found";
 		});
 
 		/**
@@ -15430,13 +15615,13 @@ function setupFullpage(element) {
    * @since       2.0.0
    */
 
-		mixitup.Config.registerAction('beforeConstruct', 'pagination', function () {
+		mixitup.Config.registerAction("beforeConstruct", "pagination", function () {
 			this.pagination = new mixitup.ConfigPagination();
 		});
 
 		mixitup.ModelPager = function () {
 			this.pageNumber = -1;
-			this.classNames = '';
+			this.classNames = "";
 			this.classList = [];
 			this.isDisabled = false;
 			this.isPrev = false;
@@ -15455,18 +15640,18 @@ function setupFullpage(element) {
 			h.seal(this);
 		};
 
-		mixitup.UiClassNames.registerAction('afterConstruct', 'pagination', function () {
-			this.first = '';
-			this.last = '';
-			this.prev = '';
-			this.next = '';
-			this.first = '';
-			this.last = '';
-			this.truncated = '';
-			this.truncationMarker = '';
+		mixitup.UiClassNames.registerAction("afterConstruct", "pagination", function () {
+			this.first = "";
+			this.last = "";
+			this.prev = "";
+			this.next = "";
+			this.first = "";
+			this.last = "";
+			this.truncated = "";
+			this.truncationMarker = "";
 		});
 
-		mixitup.controlDefinitions.push(new mixitup.ControlDefinition('pager', '[data-page]', true, 'pageListEls'));
+		mixitup.controlDefinitions.push(new mixitup.ControlDefinition("pager", "[data-page]", true, "pageListEls"));
 
 		/**
    * @param   {mixitup.MultimixCommand[]} commands
@@ -15474,16 +15659,16 @@ function setupFullpage(element) {
    * @return  {object|null}
    */
 
-		mixitup.Control.registerFilter('commandsHandleClick', 'pagination', function (commands, e) {
+		mixitup.Control.registerFilter("commandsHandleClick", "pagination", function (commands, e) {
 			var self = this,
 			    command = {},
-			    page = '',
+			    page = "",
 			    pageNumber = -1,
 			    mixer = null,
 			    button = null,
 			    i = -1;
 
-			if (!self.selector || self.selector !== '[data-page]') {
+			if (!self.selector || self.selector !== "[data-page]") {
 				// Static control or non-pager live control
 
 				return commands;
@@ -15510,12 +15695,12 @@ function setupFullpage(element) {
 					continue;
 				}
 
-				page = button.getAttribute('data-page');
+				page = button.getAttribute("data-page");
 
-				if (page === 'prev') {
-					command.paginate = 'prev';
-				} else if (page === 'next') {
-					command.paginate = 'next';
+				if (page === "prev") {
+					command.paginate = "prev";
+				} else if (page === "next") {
+					command.paginate = "next";
 				} else if (pageNumber) {
 					command.paginate = parseInt(page);
 				}
@@ -15528,7 +15713,7 @@ function setupFullpage(element) {
 			return commands;
 		});
 
-		mixitup.CommandMultimix.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.CommandMultimix.registerAction("afterConstruct", "pagination", function () {
 			this.paginate = null;
 		});
 
@@ -15542,13 +15727,13 @@ function setupFullpage(element) {
 		mixitup.CommandPaginate = function () {
 			this.page = -1;
 			this.limit = -1;
-			this.action = ''; // enum: ['prev', 'next']
+			this.action = ""; // enum: ['prev', 'next']
 			this.anchor = null;
 
 			h.seal(this);
 		};
 
-		mixitup.Events.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.Events.registerAction("afterConstruct", "pagination", function () {
 			/**
     * A custom event triggered whenever a pagination operation starts.
     *
@@ -15574,7 +15759,7 @@ function setupFullpage(element) {
 
 		mixitup.events = new mixitup.Events();
 
-		mixitup.Operation.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.Operation.registerAction("afterConstruct", "pagination", function () {
 			this.startPagination = null;
 			this.newPagination = null;
 			this.startTotalPages = -1;
@@ -15595,7 +15780,7 @@ function setupFullpage(element) {
    * @since       3.0.0
    */
 
-		mixitup.State.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.State.registerAction("afterConstruct", "pagination", function () {
 			/**
     * The currently active pagination command as set by a control click or API call.
     *
@@ -15622,7 +15807,7 @@ function setupFullpage(element) {
 			this.totalPages = -1;
 		});
 
-		mixitup.MixerDom.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.MixerDom.registerAction("afterConstruct", "pagination", function () {
 			this.pageListEls = [];
 			this.pageStatsEls = [];
 		});
@@ -15641,7 +15826,7 @@ function setupFullpage(element) {
    * @since       3.0.0
    */
 
-		mixitup.Mixer.registerAction('afterConstruct', 'pagination', function () {
+		mixitup.Mixer.registerAction("afterConstruct", "pagination", function () {
 			this.classNamesPager = new mixitup.UiClassNames();
 			this.classNamesPageList = new mixitup.UiClassNames();
 			this.classNamesPageStats = new mixitup.UiClassNames();
@@ -15652,7 +15837,7 @@ function setupFullpage(element) {
    * @return  {void}
    */
 
-		mixitup.Mixer.registerAction('afterAttach', 'pagination', function () {
+		mixitup.Mixer.registerAction("afterAttach", "pagination", function () {
 			var self = this,
 			    el = null,
 			    i = -1;
@@ -15662,20 +15847,20 @@ function setupFullpage(element) {
 			// Map pagination ui classNames
 
 			// jscs:disable
-			self.classNamesPager.base = h.getClassname(self.config.classNames, 'pager');
-			self.classNamesPager.active = h.getClassname(self.config.classNames, 'pager', self.config.classNames.modifierActive);
-			self.classNamesPager.disabled = h.getClassname(self.config.classNames, 'pager', self.config.classNames.modifierDisabled);
-			self.classNamesPager.first = h.getClassname(self.config.classNames, 'pager', self.config.classNames.modifierFirst);
-			self.classNamesPager.last = h.getClassname(self.config.classNames, 'pager', self.config.classNames.modifierLast);
-			self.classNamesPager.prev = h.getClassname(self.config.classNames, 'pager', self.config.classNames.modifierPrev);
-			self.classNamesPager.next = h.getClassname(self.config.classNames, 'pager', self.config.classNames.modifierNext);
-			self.classNamesPager.truncationMarker = h.getClassname(self.config.classNames, 'pager', self.config.classNames.modifierTruncationMarker);
+			self.classNamesPager.base = h.getClassname(self.config.classNames, "pager");
+			self.classNamesPager.active = h.getClassname(self.config.classNames, "pager", self.config.classNames.modifierActive);
+			self.classNamesPager.disabled = h.getClassname(self.config.classNames, "pager", self.config.classNames.modifierDisabled);
+			self.classNamesPager.first = h.getClassname(self.config.classNames, "pager", self.config.classNames.modifierFirst);
+			self.classNamesPager.last = h.getClassname(self.config.classNames, "pager", self.config.classNames.modifierLast);
+			self.classNamesPager.prev = h.getClassname(self.config.classNames, "pager", self.config.classNames.modifierPrev);
+			self.classNamesPager.next = h.getClassname(self.config.classNames, "pager", self.config.classNames.modifierNext);
+			self.classNamesPager.truncationMarker = h.getClassname(self.config.classNames, "pager", self.config.classNames.modifierTruncationMarker);
 
-			self.classNamesPageList.base = h.getClassname(self.config.classNames, 'page-list');
-			self.classNamesPageList.disabled = h.getClassname(self.config.classNames, 'page-list', self.config.classNames.modifierDisabled);
+			self.classNamesPageList.base = h.getClassname(self.config.classNames, "page-list");
+			self.classNamesPageList.disabled = h.getClassname(self.config.classNames, "page-list", self.config.classNames.modifierDisabled);
 
-			self.classNamesPageStats.base = h.getClassname(self.config.classNames, 'page-stats');
-			self.classNamesPageStats.disabled = h.getClassname(self.config.classNames, 'page-stats', self.config.classNames.modifierDisabled);
+			self.classNamesPageStats.base = h.getClassname(self.config.classNames, "page-stats");
+			self.classNamesPageStats.disabled = h.getClassname(self.config.classNames, "page-stats", self.config.classNames.modifierDisabled);
 			// jscs:enable
 
 			if (self.config.pagination.generatePageList && self.dom.pageListEls.length > 0) {
@@ -15691,7 +15876,7 @@ function setupFullpage(element) {
 			}
 		});
 
-		mixitup.Mixer.registerAction('afterSanitizeConfig', 'pagination', function () {
+		mixitup.Mixer.registerAction("afterSanitizeConfig", "pagination", function () {
 			var self = this,
 			    onMixStart = self.config.callbacks.onMixStart,
 			    onMixEnd = self.config.callbacks.onMixEnd,
@@ -15710,32 +15895,32 @@ function setupFullpage(element) {
 					didPaginate = true;
 				}
 
-				if (typeof onMixStart === 'function') onMixStart.apply(self.dom.container, arguments);
+				if (typeof onMixStart === "function") onMixStart.apply(self.dom.container, arguments);
 
 				if (!didPaginate) return;
 
-				mixitup.events.fire('paginateStart', self.dom.container, {
+				mixitup.events.fire("paginateStart", self.dom.container, {
 					state: prevState,
 					futureState: nextState,
 					instance: self
 				}, self.dom.document);
 
-				if (typeof onPaginateStart === 'function') onPaginateStart.apply(self.dom.container, arguments);
+				if (typeof onPaginateStart === "function") onPaginateStart.apply(self.dom.container, arguments);
 			};
 
 			self.config.callbacks.onMixEnd = function (state) {
-				if (typeof onMixEnd === 'function') onMixEnd.apply(self.dom.container, arguments);
+				if (typeof onMixEnd === "function") onMixEnd.apply(self.dom.container, arguments);
 
 				if (!didPaginate) return;
 
 				didPaginate = false;
 
-				mixitup.events.fire('paginateEnd', self.dom.container, {
+				mixitup.events.fire("paginateEnd", self.dom.container, {
 					state: state,
 					instance: self
 				}, self.dom.document);
 
-				if (typeof onPaginateEnd === 'function') onPaginateEnd.apply(self.dom.container, arguments);
+				if (typeof onPaginateEnd === "function") onPaginateEnd.apply(self.dom.container, arguments);
 			};
 		});
 
@@ -15746,7 +15931,7 @@ function setupFullpage(element) {
    * @return  {mixitup.Operation}
    */
 
-		mixitup.Mixer.registerFilter('operationGetInitialState', 'pagination', function (operation, state) {
+		mixitup.Mixer.registerFilter("operationGetInitialState", "pagination", function (operation, state) {
 			var self = this;
 
 			if (self.config.pagination.limit < 0) return operation;
@@ -15762,7 +15947,7 @@ function setupFullpage(element) {
    * @return  {mixitup.State}
    */
 
-		mixitup.Mixer.registerFilter('stateGetInitialState', 'pagination', function (state) {
+		mixitup.Mixer.registerFilter("stateGetInitialState", "pagination", function (state) {
 			var self = this;
 
 			if (self.config.pagination.limit < 0) return state;
@@ -15780,12 +15965,12 @@ function setupFullpage(element) {
    * @return  {void}
    */
 
-		mixitup.Mixer.registerAction('afterGetFinalMixData', 'pagination', function () {
+		mixitup.Mixer.registerAction("afterGetFinalMixData", "pagination", function () {
 			var self = this;
 
 			if (self.config.pagination.limit < 0) return;
 
-			if (typeof self.config.pagination.maxPagers === 'number') {
+			if (typeof self.config.pagination.maxPagers === "number") {
 				// Restrict max pagers to a minimum of 5. There must always
 				// be a first, last, and one on either side of the active pager.
 				// e.g. « 1 ... 4 5 6 ... 10 »
@@ -15799,7 +15984,7 @@ function setupFullpage(element) {
    * @return  {void}
    */
 
-		mixitup.Mixer.registerAction('afterCacheDom', 'pagination', function () {
+		mixitup.Mixer.registerAction("afterCacheDom", "pagination", function () {
 			var self = this,
 			    parent = null;
 
@@ -15808,11 +15993,11 @@ function setupFullpage(element) {
 			if (!self.config.pagination.generatePageList) return;
 
 			switch (self.config.controls.scope) {
-				case 'local':
+				case "local":
 					parent = self.dom.container;
 
 					break;
-				case 'global':
+				case "global":
 					parent = self.dom.document;
 
 					break;
@@ -15831,7 +16016,7 @@ function setupFullpage(element) {
    * @return  {mixitup.State}
    */
 
-		mixitup.Mixer.registerFilter('stateBuildState', 'pagination', function (state, operation) {
+		mixitup.Mixer.registerFilter("stateBuildState", "pagination", function (state, operation) {
 			var self = this;
 
 			if (self.config.pagination.limit < 0) return state;
@@ -15850,7 +16035,7 @@ function setupFullpage(element) {
    * @return  {mixitup.UserInstruction}
    */
 
-		mixitup.Mixer.registerFilter('instructionParseMultimixArgs', 'pagination', function (instruction) {
+		mixitup.Mixer.registerFilter("instructionParseMultimixArgs", "pagination", function (instruction) {
 			var self = this;
 
 			if (self.config.pagination.limit < 0) return instruction;
@@ -15868,7 +16053,7 @@ function setupFullpage(element) {
    * @return  {void}
    */
 
-		mixitup.Mixer.registerAction('afterFilterOperation', 'pagination', function (operation) {
+		mixitup.Mixer.registerAction("afterFilterOperation", "pagination", function (operation) {
 			var self = this,
 			    startPageAt = -1,
 			    endPageAt = -1,
@@ -15974,7 +16159,7 @@ function setupFullpage(element) {
    * @return  {mixitup.Operation}
    */
 
-		mixitup.Mixer.registerFilter('operationUnmappedGetOperation', 'pagination', function (operation, command) {
+		mixitup.Mixer.registerFilter("operationUnmappedGetOperation", "pagination", function (operation, command) {
 			var self = this;
 
 			if (self.config.pagination.limit < 0) return operation;
@@ -16013,7 +16198,7 @@ function setupFullpage(element) {
    * @return  {mixitup.Operation}
    */
 
-		mixitup.Mixer.registerFilter('operationMappedGetOperation', 'pagination', function (operation, command, isPreFetch) {
+		mixitup.Mixer.registerFilter("operationMappedGetOperation", "pagination", function (operation, command, isPreFetch) {
 			var self = this,
 			    el = null,
 			    i = -1;
@@ -16064,9 +16249,9 @@ function setupFullpage(element) {
 					// TODO: replace Infinity with the highest possible page index
 
 					operation.newPagination.page = Math.max(1, Math.min(Infinity, command.page));
-				} else if (command.action === 'next') {
+				} else if (command.action === "next") {
 					operation.newPagination.page = self.getNextPage();
-				} else if (command.action === 'prev') {
+				} else if (command.action === "prev") {
 					operation.newPagination.page = self.getPrevPage();
 				} else if (command.anchor) {
 					operation.newPagination.anchor = command.anchor;
@@ -16133,7 +16318,7 @@ function setupFullpage(element) {
 			renderPageListEl: function (pageListEl, operation) {
 				var self = this,
 				    activeIndex = -1,
-				    pagerHtml = '',
+				    pagerHtml = "",
 				    buttonList = [],
 				    model = null,
 				    renderer = null,
@@ -16142,13 +16327,13 @@ function setupFullpage(element) {
 				    truncatedAfter = false,
 				    disabled = null,
 				    el = null,
-				    html = '',
+				    html = "",
 				    i = -1;
 
 				if (operation.newPagination.limit < 0 || operation.newPagination.limit === Infinity || operation.newTotalPages < 2 && self.config.pagination.hidePageListIfSinglePage) {
 					// Empty the pager list, and add disabled class
 
-					pageListEl.innerHTML = '';
+					pageListEl.innerHTML = "";
 
 					h.addClass(pageListEl, self.classNamesPageList.disabled);
 
@@ -16157,7 +16342,7 @@ function setupFullpage(element) {
 
 				activeIndex = operation.newPagination.page - 1;
 
-				renderer = typeof (renderer = self.config.render.pager) === 'function' ? renderer : null;
+				renderer = typeof (renderer = self.config.render.pager) === "function" ? renderer : null;
 
 				if (self.config.pagination.maxPagers < Infinity && operation.newTotalPages > self.config.pagination.maxPagers) {
 					allowedIndices = self.getAllowedIndices(operation);
@@ -16178,7 +16363,7 @@ function setupFullpage(element) {
 					model.isDisabled = true;
 				}
 
-				model.classNames = model.classList.join(' ');
+				model.classNames = model.classList.join(" ");
 
 				if (renderer) {
 					pagerHtml = renderer(model);
@@ -16208,7 +16393,7 @@ function setupFullpage(element) {
 					model.isTruncationMarker = true;
 
 					model.classList.push(self.classNamesPager.base, self.classNamesPager.truncationMarker);
-					model.classNames = model.classList.join(' ');
+					model.classNames = model.classList.join(" ");
 
 					if (renderer) {
 						pagerHtml = renderer(model);
@@ -16242,7 +16427,7 @@ function setupFullpage(element) {
 					model.classList.push(self.classNamesPager.disabled);
 				}
 
-				model.classNames = model.classList.join(' ');
+				model.classNames = model.classList.join(" ");
 
 				if (renderer) {
 					pagerHtml = renderer(model);
@@ -16254,16 +16439,16 @@ function setupFullpage(element) {
 
 				// Replace markup
 
-				html = buttonList.join(' ');
+				html = buttonList.join(" ");
 
 				pageListEl.innerHTML = html;
 
 				// Add disabled attribute to disabled buttons
 
-				disabled = pageListEl.querySelectorAll('.' + self.classNamesPager.disabled);
+				disabled = pageListEl.querySelectorAll("." + self.classNamesPager.disabled);
 
 				for (i = 0; el = disabled[i]; i++) {
-					if (typeof el.disabled === 'boolean') {
+					if (typeof el.disabled === "boolean") {
 						el.disabled = true;
 					}
 				}
@@ -16387,15 +16572,15 @@ function setupFullpage(element) {
 				    renderer = null,
 				    activePage = operation.newPagination.page - 1,
 				    model = new mixitup.ModelPager(),
-				    output = '';
+				    output = "";
 
 				if (self.config.pagination.maxPagers < Infinity && allowedIndices.length && allowedIndices.indexOf(i) < 0) {
 					// maxPagers is set, and this pager is not in the allowed range
 
-					return '';
+					return "";
 				}
 
-				renderer = typeof (renderer = self.config.render.pager) === 'function' ? renderer : null;
+				renderer = typeof (renderer = self.config.render.pager) === "function" ? renderer : null;
 
 				model.isPageLink = true;
 
@@ -16413,7 +16598,7 @@ function setupFullpage(element) {
 					model.classList.push(self.classNamesPager.active);
 				}
 
-				model.classNames = model.classList.join(' ');
+				model.classNames = model.classList.join(" ");
 				model.pageNumber = i + 1;
 
 				if (renderer) {
@@ -16436,20 +16621,20 @@ function setupFullpage(element) {
 				var self = this,
 				    model = new mixitup.ModelPageStats(),
 				    renderer = null,
-				    output = '',
-				    template = '';
+				    output = "",
+				    template = "";
 
 				if (operation.newPagination.limit < 0 || operation.newPagination.limit === Infinity || operation.newTotalPages < 2 && self.config.pagination.hidePageStatsIfSinglePage) {
 					// Empty the pager list, and add disabled class
 
-					pageStatsEl.innerHTML = '';
+					pageStatsEl.innerHTML = "";
 
 					h.addClass(pageStatsEl, self.classNamesPageStats.disabled);
 
 					return;
 				}
 
-				renderer = typeof (renderer = self.config.render.pageStats) === 'function' ? renderer : null;
+				renderer = typeof (renderer = self.config.render.pageStats) === "function" ? renderer : null;
 
 				model.totalTargets = operation.matching.length;
 
@@ -16501,21 +16686,21 @@ function setupFullpage(element) {
 
 					if (arg === null) continue;
 
-					if (typeof arg === 'object' && h.isElement(arg, self.dom.document)) {
+					if (typeof arg === "object" && h.isElement(arg, self.dom.document)) {
 						instruction.command.anchor = arg;
-					} else if (arg instanceof mixitup.CommandPaginate || typeof arg === 'object') {
+					} else if (arg instanceof mixitup.CommandPaginate || typeof arg === "object") {
 						h.extend(instruction.command, arg);
-					} else if (typeof arg === 'number') {
+					} else if (typeof arg === "number") {
 						instruction.command.page = arg;
-					} else if (typeof arg === 'string' && !isNaN(parseInt(arg))) {
+					} else if (typeof arg === "string" && !isNaN(parseInt(arg))) {
 						// e.g. "4"
 
 						instruction.command.page = parseInt(arg);
-					} else if (typeof arg === 'string') {
+					} else if (typeof arg === "string") {
 						instruction.command.action = arg;
-					} else if (typeof arg === 'boolean') {
+					} else if (typeof arg === "boolean") {
 						instruction.animate = arg;
-					} else if (typeof arg === 'function') {
+					} else if (typeof arg === "function") {
 						instruction.callback = arg;
 					}
 				}
@@ -16635,7 +16820,7 @@ function setupFullpage(element) {
 
 				return self.multimix({
 					paginate: {
-						action: 'next'
+						action: "next"
 					}
 				}, instruction.animate, instruction.callback);
 			},
@@ -16668,34 +16853,34 @@ function setupFullpage(element) {
 
 				return self.multimix({
 					paginate: {
-						action: 'prev'
+						action: "prev"
 					}
 				}, instruction.animate, instruction.callback);
 			}
 		});
 
-		mixitup.Facade.registerAction('afterConstruct', 'pagination', function (mixer) {
+		mixitup.Facade.registerAction("afterConstruct", "pagination", function (mixer) {
 			this.paginate = mixer.paginate.bind(mixer);
 			this.nextPage = mixer.nextPage.bind(mixer);
 			this.prevPage = mixer.prevPage.bind(mixer);
 		});
 	};
 
-	mixitupPagination.TYPE = 'mixitup-extension';
-	mixitupPagination.NAME = 'mixitup-pagination';
-	mixitupPagination.EXTENSION_VERSION = '3.3.0';
-	mixitupPagination.REQUIRE_CORE_VERSION = '^3.1.8';
+	mixitupPagination.TYPE = "mixitup-extension";
+	mixitupPagination.NAME = "mixitup-pagination";
+	mixitupPagination.EXTENSION_VERSION = "3.3.0";
+	mixitupPagination.REQUIRE_CORE_VERSION = "^3.1.8";
 
-	if (typeof exports === 'object' && typeof module === 'object') {
+	if (typeof exports === "object" && typeof module === "object") {
 		module.exports = mixitupPagination;
-	} else if (typeof define === 'function' && define.amd) {
+	} else if (typeof define === "function" && define.amd) {
 		define(function () {
 			return mixitupPagination;
 		});
-	} else if (window.mixitup && typeof window.mixitup === 'function') {
+	} else if (window.mixitup && typeof window.mixitup === "function") {
 		mixitupPagination(window.mixitup);
 	} else {
-		throw new Error('[MixItUp Pagination] MixItUp core not found');
+		throw new Error("[MixItUp Pagination] MixItUp core not found");
 	}
 })(window);
 
@@ -16708,13 +16893,13 @@ function setupFullpage(element) {
  * @returns {number} number of columns for layout
  */
 function getColumns(breakpoints$$1, columns$$1, windowWidth) {
-	var prev = '';
+	var prev = "";
 	for (var i in breakpoints$$1) {
 		if (!columns$$1[i]) {
 			continue;
 		}
 		var n = parseInt(breakpoints$$1[i]);
-		if (prev != '' && windowWidth < n) {
+		if (prev != "" && windowWidth < n) {
 			return columns$$1[prev];
 		} else {
 			prev = i;
@@ -16730,8 +16915,8 @@ function getColumns(breakpoints$$1, columns$$1, windowWidth) {
  * @returns {number} items per page
  */
 function getItemsPerPage() {
-	let containerH = document.querySelector('.portfolio-container').offsetHeight;
-	let itemH = document.querySelector('.portfolio-item').offsetHeight;
+	let containerH = document.querySelector(".portfolio-container").offsetHeight;
+	let itemH = document.querySelector(".portfolio-item").offsetHeight;
 
 	let rows = Math.floor(containerH / itemH);
 	let columns$$1 = getColumns(vars.breakpoints, vars.columns, window.innerWidth);
@@ -16759,11 +16944,11 @@ Portfolio.prototype.setupMixer = function () {
 			animateResizeContainer: false // required to prevent column algorithm bug
 		},
 		classNames: {
-			block: '',
-			elementPager: '' // keep it empty to match bootstrap naming
+			block: "",
+			elementPager: "" // keep it empty to match bootstrap naming
 		},
 		selectors: {
-			control: '.mxt-control'
+			control: ".mxt-control"
 		},
 		callbacks: {
 			// On each change of filters write current set to global variable,
@@ -16774,8 +16959,8 @@ Portfolio.prototype.setupMixer = function () {
 		},
 		templates: {
 			pager: '<li class="page-item ${classNames}"><a class="page-link rounded-circle  mxt-control" href="#" data-page="${pageNumber}">${pageNumber}</a></li>',
-			pagerPrev: '<li class="page-item ${classNames}"><a class="page-link rounded-circle  mxt-control" href="#" data-page="prev" aria-label="Previous">' + '<span aria-hidden="true">&#10229;</span>' + '<span class="sr-only">Previous</span>' + '</a></li>',
-			pagerNext: '<li class="page-item ${classNames}"><a class="page-link rounded-circle mxt-control" href="#" aria-label="Next" data-page="next">' + '<span aria-hidden="true">&#10230;</span>' + '<span class="sr-only">Next</span>' + '</a></li>'
+			pagerPrev: '<li class="page-item ${classNames}"><a class="page-link rounded-circle  mxt-control" href="#" data-page="prev" aria-label="Previous">' + '<span aria-hidden="true">&#10229;</span>' + '<span class="sr-only">Previous</span>' + "</a></li>",
+			pagerNext: '<li class="page-item ${classNames}"><a class="page-link rounded-circle mxt-control" href="#" aria-label="Next" data-page="next">' + '<span aria-hidden="true">&#10230;</span>' + '<span class="sr-only">Next</span>' + "</a></li>"
 		}
 	});
 };
@@ -16797,48 +16982,52 @@ Resets standard alert behavior in Bootstrap.
 The alert with data-hide attribute will be hidden, instead of being removed from  DOM
 */
 $(function () {
-	$('[data-hide]').on('click', function () {
-		$('.' + $(this).attr('data-hide')).hide();
+	$("[data-hide]").on("click", function () {
+		$("." + $(this).attr("data-hide")).hide();
 	});
 });
 
 var CustomModal = function (element) {
 	this.element = $(element);
 
-	this.relatedItem = '';
+	this.relatedItem = "";
 	this.modalAnimations = {
 		base: {
-			in: 'rotateInDownLeft animated',
-			out: 'rotateOutUpRight animated'
+			in: "slideInLeft animated",
+			out: "slideOutRight animated"
 		},
+		// base: {
+		// 	in: 'rotateInDownLeft animated',
+		// 	out: 'rotateOutUpRight animated',
+		// },
 		prev: {
-			in: 'slideInLeft animated',
-			out: 'slideOutRight animated'
+			in: "slideInLeft animated",
+			out: "slideOutRight animated"
 		},
 		next: {
-			in: 'slideInRight animated',
-			out: 'slideOutLeft animated'
+			in: "slideInRight animated",
+			out: "slideOutLeft animated"
 		}
 	};
-	this.btnPrev = $(this.element.find('.modal-nav-previous'));
-	this.btnNext = $(this.element.find('.modal-nav-next'));
+	this.btnPrev = $(this.element.find(".modal-nav-previous"));
+	this.btnNext = $(this.element.find(".modal-nav-next"));
 	this.setupListeners();
 };
 
 CustomModal.prototype.setupListeners = function () {
 	var self = this;
-
+	$(".modal .modal-dialog").css("--animate-duration", "50s");
 	//In order to work properly, animations should be applied to .modal-dialog, while the .modal has to have class "fade"
-	this.element.on('show.bs.modal', function (event) {
-		$('.modal .modal-dialog').attr('class', 'modal-dialog  ' + self.modalAnimations.base.in);
+	this.element.on("show.bs.modal", function (event) {
+		$(".modal .modal-dialog").attr("class", "modal-dialog  " + self.modalAnimations.base.in);
 		self.setModalSet();
 		self.setCurrentIndex(event.relatedTarget);
 		self.displayModal(self.currentIndex);
 		self.setupButtons();
 	});
 
-	this.element.on('hide.bs.modal', function () {
-		$('.modal .modal-dialog').attr('class', 'modal-dialog  ' + self.modalAnimations.base.out);
+	this.element.on("hide.bs.modal", function () {
+		$(".modal .modal-dialog").attr("class", "modal-dialog  " + self.modalAnimations.base.out);
 	});
 };
 
@@ -16848,10 +17037,10 @@ CustomModal.prototype.setModalSet = function () {
 
 CustomModal.prototype.setupButtons = function () {
 	var self = this;
-	self.btnPrev.off().on('click', function () {
+	self.btnPrev.off().on("click", function () {
 		self.displayModal(--self.currentIndex);
 	});
-	self.btnNext.off().on('click', function () {
+	self.btnNext.off().on("click", function () {
 		self.displayModal(++self.currentIndex);
 	});
 };
@@ -16859,8 +17048,8 @@ CustomModal.prototype.setupButtons = function () {
 CustomModal.prototype.setCurrentIndex = function (currentItem) {
 	this.currItem = $(currentItem);
 	this.currentIndex = this.currentSet.index(this.currItem.parent());
-	this.prevItem = $(this.currItem).parent().prevAll(':visible:first').find('.portfolio-item-link');
-	this.nextItem = $(this.currItem).parent().nextAll(':visible:first').find('.portfolio-item-link');
+	this.prevItem = $(this.currItem).parent().prevAll(":visible:first").find(".portfolio-item-link");
+	this.nextItem = $(this.currItem).parent().nextAll(":visible:first").find(".portfolio-item-link");
 };
 
 CustomModal.prototype.setBtnState = function () {
@@ -16870,11 +17059,11 @@ CustomModal.prototype.setBtnState = function () {
 };
 
 CustomModal.prototype.disableBtn = function (btn) {
-	btn.addClass('disabled');
+	btn.addClass("disabled");
 };
 
 CustomModal.prototype.enableBtn = function (btn) {
-	btn.removeClass('disabled');
+	btn.removeClass("disabled");
 };
 
 CustomModal.prototype.displayModal = function (itemIndex) {
@@ -16883,107 +17072,41 @@ CustomModal.prototype.displayModal = function (itemIndex) {
 };
 
 CustomModal.prototype.loadContent = function (itemIndex) {
-	var item = $(this.currentSet[itemIndex]).children('a');
+	var item = $(this.currentSet[itemIndex]).children("a");
 
 	//Add modal title
-	let name = item.data('name');
-	$(this.element).find('.modal-title').text(name);
+	let name = item.data("name");
+	$(this.element).find(".modal-title").text(name);
 
 	//Set aria label
-	$(this).attr('aria-labelledby', item.attr('id'));
+	$(this).attr("aria-labelledby", item.attr("id"));
 
 	//Load data
-	let url = `${item.data('ajax')}/${item.attr('href')}`;
+	let url = `${item.data("ajax")}/${item.attr("href")}`;
 	$.get(url, function (data) {
-		$('#portfolio-item .modal-body .container-fluid').empty(); //Cleanup modal contents
-		$('#portfolio-item .modal-body .container-fluid').append(data);
+		$("#portfolio-item .modal-body .container-fluid").empty(); //Cleanup modal contents
+		$("#portfolio-item .modal-body .container-fluid").append(data);
 	});
 };
 
-let Form = function (element) {
-	this.element = $(element);
-	this.formResponse = $('#contact-form-response');
-	this.formResponseText = $('#contact-form-response-text');
-	this.formResponseLink = $('#contact-form-response-link');
-	this.valid = false;
-	this.setupListeners();
-};
+// import Form from "./components/Form";
 
-Form.prototype.setupListeners = function () {
-	const self = this;
-	//Validate and send message on submit
-	document.getElementById('contact-form').onsubmit = e => {
-		e.preventDefault();
-		this.validate();
-		if (this.valid) {
-			this.sendMessage();
-		} else {
-			e.stopPropagation();
-			this.element.addClass('was-validated');
-		}
-	};
-
-	// Listen to all blur events and validate on the go
-	document.getElementById('contact-form').addEventListener('blur', function (e) {
-		// Only run if the field is in a form to be validated
-		if (!e.target.form.classList.contains('needs-validation')) return;
-		// Prevent validation of cleared form
-		if (e.target.type == 'submit') return;
-		self.validate();
-		self.element.addClass('was-validated');
-	}, true);
-};
-
-Form.prototype.validate = function () {
-	this.element[0].checkValidity() ? this.valid = true : this.valid = false;
-};
-
-Form.prototype.sendMessage = function () {
-	// Prepare data to send
-	const formElements = this.element.find('.form-control').toArray();
-	let data = formElements.reduce((obj, field) => {
-		obj[field.name] = field.value;
-		return obj;
-	}, {});
-
-	var xhr = new XMLHttpRequest();
-
-	xhr.open(this.element.attr('method'), this.element.attr('action'), true);
-	xhr.setRequestHeader('Accept', 'application/json; charset=utf-8');
-	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-	// Send the collected data as JSON
-	xhr.send(JSON.stringify(data));
-	xhr.onloadend = response => this.displayAlert(response);
-};
-
-Form.prototype.displayAlert = function (response) {
-	this.formResponse.removeClass('alert-danger');
-	this.formResponse.removeClass('alert-primary');
-
-	if (response.target.status === 200) {
-		// The form submission was successful
-		this.formResponse.addClass('alert-primary');
-		this.formResponseText.text('Thanks for the message. I’ll get back to you shortly.');
-		this.formResponseLink.text('Send another?');
-		this.formResponse.show();
-		this.element[0].reset();
-		this.element.removeClass('was-validated');
-	} else {
-		// The form submission failed
-		this.formResponse.addClass('alert-danger');
-		this.formResponseText.text('Something went wrong');
-		this.formResponseLink.text('Try again?');
-		this.formResponse.show();
-	}
-};
-
-document.addEventListener('DOMContentLoaded', function () {
-	setupFullpage('.main-content');
-	const portfolio = new Portfolio('.portfolio-container');
+document.addEventListener("DOMContentLoaded", function () {
+	setupFullpage(".main-content");
+	const portfolio = new Portfolio(".portfolio-container");
 	window.portfolioShown = portfolio.mixer.getState().matching;
-	const contactForm = new Form('#contact-form');
-	const portfolioModal = new CustomModal(document.getElementById('portfolio-item'), window.portfolioShown);
+	const portfolioModal = new CustomModal(document.getElementById("portfolio-item"), window.portfolioShown);
+	console.log("loaded");
+	document.body.classList.remove("loader-open");
+	document.getElementById("intro").classList.add("start-animation");
+
+	document.getElementById("intro").addEventListener("animationend", e => {
+		console.log("Animation ended", e);
+		// check if it's the latest animated element
+		if (e.target.classList.contains("intro-menu")) {
+			document.querySelector(".btn-skip").classList.add("d-none");
+		}
+	});
 });
 
 }());

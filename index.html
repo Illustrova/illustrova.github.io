@@ -20,47 +20,89 @@
 <meta name="msapplication-TileImage" content="assets/favicon/mstile-144x144.png">
 <meta name="msapplication-config" content="assets/favicon/browserconfig.xml">
 <meta name="theme-color" content="#ffffff"></head>
-  <body>
+  <body class="loader-open">
+    <div class="loader h-100 w-100 position-absolute d-flex flex-column justify-content-around"><span class="sr-only">Loading...</span>
+      <div class="loader-top h-50 w-100 d-flex justify-content-center bg-primary">
+        <div class="loader-spinner-container">
+          <div class="loader-spinner"></div>
+        </div>
+      </div>
+      <div class="loader-bottom h-50 w-100 d-flex justify-content-center bg-primary">
+        <div class="loader-spinner-container">
+          <div class="loader-spinner"></div>
+        </div>
+      </div>
+    </div>
     <div class="wrapper container-fluid px-0">
       <header>
         <nav class="navbar fixed-top top-menu navbar-light bg-light align-items-baseline">
           <div class="container-fluid align-items-baseline">
             <h1 class="text-primary text-nowrap mb-0">Irina Illustrova</h1>
-            <p class="h2 mb-0 d-none d-sm-block">Front-End Developer</p>
+            <p class="h2 mb-0 d-none d-sm-block">Frontend Developer</p>
           </div>
         </nav>
       </header>
       <main class="main-content px-2 mr-1 mr-md-4">
+        <section class="section fp-auto-height-responsive text-center" id="intro">
+          <div class="section-wrapper mx-4">
+            <div class="section-content-wrapper container-fluid h-100 .my-auto d-flex flex-column align-items-center justify-content-space-between overflow-hidden">
+              <div class="string string1">
+                <div class="letter l5"><span>H</span></div>
+                <div class="letter l4"><span>e</span></div>
+                <div class="letter l3"><span>l</span></div>
+                <div class="letter l2"><span>l</span></div>
+                <div class="letter l1"><span>o</span></div>
+                <div class="letter dot dot-outer"><span class="dot"></span></div>
+              </div>
+              <div class="string string2">I'm Irina Illustrova,</div>
+              <div class="string string3">Frontend Developer from Athens, Greece&nbsp;🏛				</div>
+              <ul class="intro-menu d-flex align-items-center justify-content-around">
+                <li><a href="#portfolio">Works</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contacts">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
         <section class="section fp-auto-height-responsive text-center" id="portfolio">
-          <div class="section-wrapper">
-            <h2 class="section-header mb-0 pt-6">Works</h2>
-            <div class="section-content p-1 p-md-4">
-              <div class="section-content-wrapper container-fluid h-100 mt-2 d-flex flex-column flex-grow-1">
-                <div class="portfolio-nav">
-                  <ul class="nav nav-pills px-0 px-md-2">
+          <div class="section-wrapper mx-4">
+            <h2 class="section-header mb-3 pt-6">Works</h2>
+            <div class="section-content p-1 -md-3">
+              <div class="section-content-wrapper container-fluid h-100 d-flex flex-column">
+                <div class="portfolio-nav mb-auto">
+                  <ul class="nav nav-pills justify-content-center px-0 px-md-2">
                     <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag active mxt-control" href="#" data-toggle="pill" data-filter="all">All</a></li>
-                    <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Bootstrap&quot;]">Bootstrap</a></li>
-                    <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Handlebars&quot;]">Handlebars</a></li>
+                    <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Components&quot;]">Components</a></li>
                     <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;SASS&quot;]">SASS</a></li>
                     <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Adaptive&quot;]">Adaptive</a></li>
-                    <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Gulp&quot;]">Gulp</a></li>
-                    <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Pug&quot;]">Pug</a></li>
                     <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;SVG&quot;]">SVG</a></li>
+                    <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Pixel-perfect&quot;]">Pixel-perfect</a></li>
+                    <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Python&quot;]">Python</a></li>
+                    <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Bootstrap&quot;]">Bootstrap</a></li>
+                    <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Gulp&quot;]">Gulp</a></li>
                     <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;React&quot;]">React</a></li>
                     <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;API&quot;]">API</a></li>
                     <li class="nav-item portfolio-tag pb-4"><a class="nav-link tag mxt-control" href="#" data-toggle="pill" data-filter="[data-group*=&quot;Node.js&quot;]">Node.js</a></li>
                   </ul>
                 </div>
-                <div class="row portfolio-container flex-grow-1 align-content-start">
-                  <figure class="mb-2 portfolio-item mix col-sm-6 col-md-4 col-lg-3 col-xl-2" data-group="Bootstrap Handlebars SASS Adaptive"><a class="portfolio-item-link d-block position-relative" href="pet-alert.html" data-target="#portfolio-item" data-name="Pet Alert" data-toggle="modal" data-ajax="projects" id="pet-alert"><img class="img-fluid" src="assets/img/portfolio/pet-alert.png" alt="Main page view on a tablet" srcset="assets/img/portfolio/pet-alert_1600.png 1600w, assets/img/portfolio/pet-alert_1240.png 1240w, assets/img/portfolio/pet-alert_990.png 990w, assets/img/portfolio/pet-alert_720.png 720w, assets/img/portfolio/pet-alert_540.png 540w, assets/img/portfolio/pet-alert_450.png 450w, assets/img/portfolio/pet-alert_320.png 320w" sizes="(min-width: 540px) 50vw,(min-width: 720px) 33vw,(min-width: 990px) 25vw,(min-width: 1240px) 17vw, 100vw">
+                <div class="row portfolio-container mb-auto">
+                  <figure class="mb-2 portfolio-item mix col-sm-6 col-md-4 col-lg-3 col-xl-2" data-group="Components SASS Adaptive SVG"><a class="portfolio-item-link d-block position-relative" href="palette-builder.html" data-target="#portfolio-item" data-name="Palette builder" data-toggle="modal" data-ajax="projects" id="palette-builder"><img class="img-fluid" src="assets/img/portfolio/palette-builder.png" alt="Main app view" srcset="assets/img/portfolio/palette-builder_1600.png 1600w, assets/img/portfolio/palette-builder_1240.png 1240w, assets/img/portfolio/palette-builder_990.png 990w, assets/img/portfolio/palette-builder_720.png 720w, assets/img/portfolio/palette-builder_540.png 540w, assets/img/portfolio/palette-builder_450.png 450w, assets/img/portfolio/palette-builder_320.png 320w" sizes="(min-width: 540px) 50vw,(min-width: 720px) 33vw,(min-width: 990px) 25vw,(min-width: 1240px) 17vw, 100vw">
+                      <div class="overlay p-3">
+                        <h3 class="text-primary">Palette builder</h3><small class="desc text-secondary text-truncate"></small>
+                      </div></a></figure>
+                  <figure class="mb-2 portfolio-item mix col-sm-6 col-md-4 col-lg-3 col-xl-2" data-group="Components Pixel-perfect SASS Adaptive Python"><a class="portfolio-item-link d-block position-relative" href="chat-app.html" data-target="#portfolio-item" data-name="Chat App" data-toggle="modal" data-ajax="projects" id="chat-app"><img class="img-fluid" src="assets/img/portfolio/chat-app.png" alt="Desktop view with open sidebar" srcset="assets/img/portfolio/chat-app_1600.png 1600w, assets/img/portfolio/chat-app_1240.png 1240w, assets/img/portfolio/chat-app_990.png 990w, assets/img/portfolio/chat-app_720.png 720w, assets/img/portfolio/chat-app_540.png 540w, assets/img/portfolio/chat-app_450.png 450w, assets/img/portfolio/chat-app_320.png 320w" sizes="(min-width: 540px) 50vw,(min-width: 720px) 33vw,(min-width: 990px) 25vw,(min-width: 1240px) 17vw, 100vw">
+                      <div class="overlay p-3">
+                        <h3 class="text-primary">Chat App</h3><small class="desc text-secondary text-truncate"></small>
+                      </div></a></figure>
+                  <figure class="mb-2 portfolio-item mix col-sm-6 col-md-4 col-lg-3 col-xl-2" data-group="Bootstrap SASS Adaptive"><a class="portfolio-item-link d-block position-relative" href="pet-alert.html" data-target="#portfolio-item" data-name="Pet Alert" data-toggle="modal" data-ajax="projects" id="pet-alert"><img class="img-fluid" src="assets/img/portfolio/pet-alert.png" alt="Main page view on a tablet" srcset="assets/img/portfolio/pet-alert_1600.png 1600w, assets/img/portfolio/pet-alert_1240.png 1240w, assets/img/portfolio/pet-alert_990.png 990w, assets/img/portfolio/pet-alert_720.png 720w, assets/img/portfolio/pet-alert_540.png 540w, assets/img/portfolio/pet-alert_450.png 450w, assets/img/portfolio/pet-alert_320.png 320w" sizes="(min-width: 540px) 50vw,(min-width: 720px) 33vw,(min-width: 990px) 25vw,(min-width: 1240px) 17vw, 100vw">
                       <div class="overlay p-3">
                         <h3 class="text-primary">Pet Alert</h3><small class="desc text-secondary text-truncate"></small>
                       </div></a></figure>
-                  <figure class="mb-2 portfolio-item mix col-sm-6 col-md-4 col-lg-3 col-xl-2" data-group="Gulp Pug SASS Adaptive"><a class="portfolio-item-link d-block position-relative" href="tribute-page.html" data-target="#portfolio-item" data-name="Tribute Page" data-toggle="modal" data-ajax="projects" id="tribute-page"><img class="img-fluid" src="assets/img/portfolio/tribute-page.png" alt="Desktop view of the page" srcset="assets/img/portfolio/tribute-page_1600.png 1600w, assets/img/portfolio/tribute-page_1240.png 1240w, assets/img/portfolio/tribute-page_990.png 990w, assets/img/portfolio/tribute-page_720.png 720w, assets/img/portfolio/tribute-page_540.png 540w, assets/img/portfolio/tribute-page_450.png 450w, assets/img/portfolio/tribute-page_320.png 320w" sizes="(min-width: 540px) 50vw,(min-width: 720px) 33vw,(min-width: 990px) 25vw,(min-width: 1240px) 17vw, 100vw">
+                  <figure class="mb-2 portfolio-item mix col-sm-6 col-md-4 col-lg-3 col-xl-2" data-group="Gulp SASS Adaptive"><a class="portfolio-item-link d-block position-relative" href="tribute-page.html" data-target="#portfolio-item" data-name="Tribute Page" data-toggle="modal" data-ajax="projects" id="tribute-page"><img class="img-fluid" src="assets/img/portfolio/tribute-page.png" alt="Desktop view of the page" srcset="assets/img/portfolio/tribute-page_1600.png 1600w, assets/img/portfolio/tribute-page_1240.png 1240w, assets/img/portfolio/tribute-page_990.png 990w, assets/img/portfolio/tribute-page_720.png 720w, assets/img/portfolio/tribute-page_540.png 540w, assets/img/portfolio/tribute-page_450.png 450w, assets/img/portfolio/tribute-page_320.png 320w" sizes="(min-width: 540px) 50vw,(min-width: 720px) 33vw,(min-width: 990px) 25vw,(min-width: 1240px) 17vw, 100vw">
                       <div class="overlay p-3">
                         <h3 class="text-primary">Tribute Page</h3><small class="desc text-secondary text-truncate"></small>
                       </div></a></figure>
-                  <figure class="mb-2 portfolio-item mix col-sm-6 col-md-4 col-lg-3 col-xl-2" data-group="Gulp Pug SASS SVG"><a class="portfolio-item-link d-block position-relative" href="memory-game.html" data-target="#portfolio-item" data-name="Memory Game" data-toggle="modal" data-ajax="projects" id="memory-game"><img class="img-fluid" src="assets/img/portfolio/memory-game.png" alt="Memory game screenshot" srcset="assets/img/portfolio/memory-game_1600.png 1600w, assets/img/portfolio/memory-game_1240.png 1240w, assets/img/portfolio/memory-game_990.png 990w, assets/img/portfolio/memory-game_720.png 720w, assets/img/portfolio/memory-game_540.png 540w, assets/img/portfolio/memory-game_450.png 450w, assets/img/portfolio/memory-game_320.png 320w" sizes="(min-width: 540px) 50vw,(min-width: 720px) 33vw,(min-width: 990px) 25vw,(min-width: 1240px) 17vw, 100vw">
+                  <figure class="mb-2 portfolio-item mix col-sm-6 col-md-4 col-lg-3 col-xl-2" data-group="Gulp SASS SVG"><a class="portfolio-item-link d-block position-relative" href="memory-game.html" data-target="#portfolio-item" data-name="Memory Game" data-toggle="modal" data-ajax="projects" id="memory-game"><img class="img-fluid" src="assets/img/portfolio/memory-game.png" alt="Memory game screenshot" srcset="assets/img/portfolio/memory-game_1600.png 1600w, assets/img/portfolio/memory-game_1240.png 1240w, assets/img/portfolio/memory-game_990.png 990w, assets/img/portfolio/memory-game_720.png 720w, assets/img/portfolio/memory-game_540.png 540w, assets/img/portfolio/memory-game_450.png 450w, assets/img/portfolio/memory-game_320.png 320w" sizes="(min-width: 540px) 50vw,(min-width: 720px) 33vw,(min-width: 990px) 25vw,(min-width: 1240px) 17vw, 100vw">
                       <div class="overlay p-3">
                         <h3 class="text-primary">Memory Game</h3><small class="desc text-secondary text-truncate"></small>
                       </div></a></figure>
@@ -98,10 +140,10 @@
           </div>
         </div>
         <section class="section fp-auto-height-responsive text-center" id="about">
-          <div class="section-wrapper">
-            <h2 class="section-header mb-0 pt-6">In short</h2>
-            <div class="section-content p-1 p-md-4">
-              <div class="section-content-wrapper container-fluid h-100 mt-2">
+          <div class="section-wrapper mx-4">
+            <h2 class="section-header mb-3 pt-6">In short</h2>
+            <div class="section-content p-1 -md-3">
+              <div class="section-content-wrapper container-fluid h-100">
                 <div class="row h-90 align-items-center">
                   <div class="col-12 col-sm-4">
                     <h4>Studies</h4>
@@ -137,56 +179,28 @@
           </div>
         </section>
         <section class="section fp-auto-height-responsive text-center" id="contacts">
-          <div class="section-wrapper">
-            <h2 class="section-header mb-0 pt-6">Get in touch</h2>
-            <div class="section-content p-1 p-md-4">
-              <div class="section-content-wrapper container-fluid h-100 mt-2">
+          <div class="section-wrapper mx-4">
+            <h2 class="section-header mb-3 pt-6">Get in touch</h2>
+            <div class="section-content p-1 -md-3">
+              <div class="section-content-wrapper container-fluid h-100 d-flex flex-column align-items-center justify-content-around">
                 <div class="row">
-                  <div class="col-12 col-md-8 overflow-hidden py-2">
-                    <h3 class="text-main mb-4 text-left">Drop me a line!</h3>
-                    <form class="needs-validation" id="contact-form" novalidate="" method="post" action="https://uaqjbw4bu4.execute-api.us-east-1.amazonaws.com/prod/contact">
-                      <div class="form-group">
-                        <label class="sr-only" for="name">Name
-                        </label>
-                        <input class="form-control" type="text" id="name" name="name" placeholder="Your name" onfocus="this.placeholder=''" onblur="this.placeholder='Your name'" required="required">
-                        <div class="invalid-feedback">Enter your name</div>
-                      </div>
-                      <div class="form-group">
-                        <label class="sr-only" for="email">Email
-                        </label>
-                        <input class="form-control" type="email" id="email" name="email" placeholder="Your email" aria-describedby="email-desc" onfocus="this.placeholder=''" onblur="this.placeholder='Your email'" required="required"><small class="form-text text-muted text-left" id="email-desc"> </small>
-                        <div class="invalid-feedback">Enter your email</div>
-                      </div>
-                      <div class="form-group">
-                        <label class="sr-only" for="message">Message
-                        </label>
-                        <textarea class="form-control" id="message" name="message" rows="5" placeholder="Your message" onfocus="this.placeholder=''" onblur="this.placeholder='Your message'" required="required"></textarea>
-                        <div class="invalid-feedback">Enter your message</div>
-                      </div>
-                      <button class="btn btn-outline-primary text-hover-white" type="submit">Send!
-                      </button>
-                    </form>
-                    <div class="alert collapse" id="contact-form-response">
-                      <button class="close" type="button" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <div class="row h-100">
-                        <div class="col-12 align-self-center">
-                          <div id="contact-form-response-text"></div>
-                          <button class="btn btn-link alert-link" id="contact-form-response-link" type="button" data-hide="alert" aria-label="Close"></button>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="col-12">
+                    <h3 class="text-main mb-4 w-100">Drop me a line if you want to talk!</h3>
                   </div>
-                  <div class="col-12 col-md-auto ml-auto py-2">
-                    <h3 class="text-main mb-4 text-left">...or find me here:</h3>
-                    <ul class="list-unstyled text-left contacts-list">
-                      <li class="mb-3"><a href="malto:illustrova@gmail.com"><i class="fas fa-envelope mr-2"></i>Illustrova@gmail.com</a></li>
-                      <li class="mb-3"><a href="https://github.com/Illustrova" target="_blank" rel="noopener"><i class="fab fa-github mr-2"></i>Github</a>
+                  <div class="col-12"><a class="lead" href="malto:illustrova@gmail.com"><i class="fas fa-envelope mr-2"></i>Illustrova@gmail.com</a></div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <h3 class="text-main mb-4 w-100">More links:</h3>
+                  </div>
+                  <div class="col-12">
+                    <ul class="list-unstyled contacts-list d-flex justify-content-center">
+                      <li class="mx-3"><a href="https://github.com/Illustrova" target="_blank" rel="noopener"><i class="fab fa-github mr-2"></i>Github</a>
                       </li>
-                      <li class="mb-3"><a href="https://codepen.io/Illustrova/" target="_blank" rel="noopener"><i class="fab fa-codepen mr-2"></i>Codepen</a>
+                      <li class="mx-3"><a href="https://codepen.io/Illustrova/" target="_blank" rel="noopener"><i class="fab fa-codepen mr-2"></i>Codepen</a>
                       </li>
-                      <li class="mb-3"><a href="http://www.linkedin.com/in/illustrova" target="_blank" rel="noopener"><i class="fab fa-linkedin mr-2"></i>Linkedin</a>
+                      <li class="mx-3"><a href="http://www.linkedin.com/in/illustrova" target="_blank" rel="noopener"><i class="fab fa-linkedin mr-2"></i>Linkedin</a>
                       </li>
-                      <li class="mb-3"><i class="fas fa-map-marker mr-2 text-primary"></i><span class="text-secondary">Athens, Greece</span></li>
                     </ul>
                   </div>
                 </div>
