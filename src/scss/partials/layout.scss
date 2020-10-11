@@ -11,6 +11,7 @@
 
 .section-header {
 	font-size: 3em;
+	line-height: 2;
 	color: $secondary-light;
 	font-weight: 900;
 	text-transform: uppercase;
@@ -22,37 +23,37 @@
 	height: calc(100% - #{$section-heading-height});
 }
 
-.section-content:before {
-	content: '';
-	position: absolute;
-	z-index: 0;
-	top: map-get($spacers, 2);
-	left: 0;
-	border-top: solid $corner-thickness $primary;
-	border-left: solid $corner-thickness $primary;
-	height: $corner-length;
-	width: $corner-length;
-	display: none;
-	@include media-breakpoint-up(md) {
-		display: block;
-	}
-}
+// .section-content:before {
+// 	content: '';
+// 	position: absolute;
+// 	z-index: 0;
+// 	top: map-get($spacers, 2);
+// 	left: 0;
+// 	border-top: solid $corner-thickness $primary;
+// 	border-left: solid $corner-thickness $primary;
+// 	height: $corner-length;
+// 	width: $corner-length;
+// 	display: none;
+// 	@include media-breakpoint-up(md) {
+// 		display: block;
+// 	}
+// }
 
-.section-content:after {
-	content: '';
-	position: absolute;
-	z-index: 0;
-	bottom: map-get($spacers, 2);
-	right: 0;
-	border-bottom: solid $corner-thickness $primary;
-	border-right: solid $corner-thickness $primary;
-	height: $corner-length;
-	width: $corner-length;
-	display: none;
-	@include media-breakpoint-up(md) {
-		display: block;
-	}
-}
+// .section-content:after {
+// 	content: '';
+// 	position: absolute;
+// 	z-index: 0;
+// 	bottom: map-get($spacers, 2);
+// 	right: 0;
+// 	border-bottom: solid $corner-thickness $primary;
+// 	border-right: solid $corner-thickness $primary;
+// 	height: $corner-length;
+// 	width: $corner-length;
+// 	display: none;
+// 	@include media-breakpoint-up(md) {
+// 		display: block;
+// 	}
+// }
 
 .section-content-wrapper {
 	z-index: 1;

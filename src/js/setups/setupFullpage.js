@@ -1,5 +1,6 @@
-import fullpage from 'fullpage.js';
-import vars from '../../data/variables.json';
+// eslint-disable-next-line no-unused-vars
+import fullpage from "fullpage.js";
+import vars from "../../data/variables.json";
 
 export function setupFullpage(element) {
 	$(element).fullpage({
@@ -8,36 +9,39 @@ export function setupFullpage(element) {
 		fitToSection: true,
 		scrollOverflow: false,
 		verticalCentered: false,
-		normalScrollElements: '.modal-open .modal',
+		normalScrollElements: ".modal-open .modal",
 		navigation: true,
-		navigationPosition: 'right',
-		navigationTooltips: ['Portfolio', 'About', 'Contact'],
+		navigationPosition: "right",
+		navigationTooltips: ["Hello", "Portfolio", "About", "Contact"],
 		responsiveWidth: vars.breakpoints.m,
 		responsiveHeight: 550, //TODO: calculate maximum heighth of content dynamically
 		// Dot nav decorative classes
 		onLeave: function(origin, destination, direction) {
-			if (direction && direction == 'down') {
-				$('#fp-nav li a')
+			if (direction && direction == "down") {
+				$("#fp-nav li a")
 					.slice(0, destination.index)
 					.each(function(i) {
 						let self = $(this);
 						setTimeout(function() {
-							self.addClass('before-active');
+							self.addClass("before-active");
 						}, i * vars.dotNavTransitionDuration);
 					});
-			} else if (direction && direction == 'up') {
+			} else if (direction && direction == "up") {
 				$(
-					$('#fp-nav li a')
+					$("#fp-nav li a")
 						.get()
 						.slice(destination.index)
 						.reverse()
 				).each(function(i) {
 					let self = $(this);
 					setTimeout(function() {
-						self.removeClass('before-active');
+						self.removeClass("before-active");
 					}, i * vars.dotNavTransitionDuration);
 				});
 			}
 		},
+		// afterRender: function() {
+		// 	$(this.item).addClass("start-animation");
+		// },
 	});
 }

@@ -4,9 +4,13 @@ var CustomModal = function(element) {
 	this.relatedItem = '';
 	this.modalAnimations = {
 		base: {
-			in: 'rotateInDownLeft animated',
-			out: 'rotateOutUpRight animated',
+			in: 'slideInLeft animated',
+			out: 'slideOutRight animated',
 		},
+		// base: {
+		// 	in: 'rotateInDownLeft animated',
+		// 	out: 'rotateOutUpRight animated',
+		// },
 		prev: {
 			in: 'slideInLeft animated',
 			out: 'slideOutRight animated',
@@ -23,7 +27,7 @@ var CustomModal = function(element) {
 
 CustomModal.prototype.setupListeners = function() {
 	var self = this;
-
+	$('.modal .modal-dialog').css('--animate-duration', '50s');
 	//In order to work properly, animations should be applied to .modal-dialog, while the .modal has to have class "fade"
 	this.element.on('show.bs.modal', function(event) {
 		$('.modal .modal-dialog').attr(

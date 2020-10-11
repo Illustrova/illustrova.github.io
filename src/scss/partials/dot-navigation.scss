@@ -1,59 +1,82 @@
+/* stylelint-disable selector-max-id selector-max-type */
 #fp-nav {
 	&.fp-right {
-		transform: translateY(-50%);
 		height: 25%;
 		margin-top: 0 !important; //override fullpage.js forced margin-top
+
+		transform: translateY(-50%);
 	}
+
 	ul {
-		height: 100%;
 		display: flex;
 		flex-direction: column;
+		height: 100%;
+
 		li {
-			margin: 0;
 			flex-grow: 1;
+			margin: 0;
+
 			&:last-child {
 				flex-grow: 0;
+
 				a:after {
 					display: none;
 				}
 			}
+
 			a {
 				height: 100%;
 			}
+
 			a span:last-of-type {
-				background: none;
-				left: auto;
 				top: auto;
+				left: auto;
+
 				margin: 0;
+
+				background: none;
+
 				@include circle($color: $primary);
 			}
+
 			a.before-active span:last-of-type {
 				border-color: $primary;
 			}
+
 			&:active a span:last-of-type,
 			a.active span:last-of-type {
 				margin: 0;
-				@include circle-active;
+
+				@include circle-active();
 			}
+
 			a:after {
-				content: '';
-				@include line;
 				height: 0;
+
 				transition: height $dotNavTransitionDuration + ms ease-in;
+				content: "";
+
+				@include line();
 			}
+
 			a.before-active:after {
-				background-color: $primary;
 				height: calc(
 					100% - #{$dotsize} - #{$dot-margin-y * 2} - #{$dot-border-width * 2}
 				);
+
+				background-color: $primary;
+
 				transition: height $dotNavTransitionDuration + ms ease-in;
 			}
+
 			.fp-tooltip.fp-right {
-				@include tooltip;
+				@include tooltip();
 			}
+
 			&:hover .fp-tooltip.fp-right {
-				@include tooltip-hover;
+				@include tooltip-hover();
 			}
 		}
 	}
 }
+/* stylelint-enable selector-max-id selector-max-type */

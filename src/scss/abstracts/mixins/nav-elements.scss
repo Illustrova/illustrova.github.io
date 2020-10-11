@@ -1,36 +1,38 @@
-@mixin circle(
-	$size: $dotsize,
-	$color: $primary,
-	$dot-thickness: $dot-border-width
-) {
-	height: $size;
+@mixin circle($size: $dotsize, $color: $primary, $dot-thickness: $size * 0.2) {
+	position: relative;
+
+	display: block;
+	box-sizing: content-box;
 	width: $size;
+	height: $size;
+
 	border: solid $dot-thickness $color;
 	border-radius: 50%;
-	display: block;
-	position: relative;
-	box-sizing: content-box;
 }
 
-@mixin circle-active($size: $dotsize) {
-	@include circle($size);
+@mixin circle-active($size: $dotsize, $color: $primary) {
+	@include circle($size, $color);
+
 	&:before {
-		content: '';
 		position: absolute;
 		top: 0;
 		bottom: 0;
 		left: 0;
-		background-color: $primary;
-		border-radius: 50%;
-		height: $size;
+
 		width: $size;
+		height: $size;
+
+		background-color: $color;
+		border-radius: 50%;
 		transform: scale(0.8);
+		content: "";
 	}
 }
 
 @mixin line($color: $primary, $margin-y: $dot-margin-y) {
 	display: block;
-	background-color: $color;
 	width: $margin-y;
 	margin: 2px auto;
+
+	background-color: $color;
 }

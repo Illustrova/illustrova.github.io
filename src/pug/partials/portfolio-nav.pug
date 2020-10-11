@@ -1,7 +1,7 @@
 mixin portfolio-nav
 	- var tags = getAllTags(locals.content.portfolio);
-	.portfolio-nav
-		ul.nav.nav-pills.px-0.px-md-2
+	.portfolio-nav&attributes(attributes)
+		ul.nav.nav-pills.justify-content-center.px-0.px-md-2
 			li.nav-item.portfolio-tag.pb-4
 				a.nav-link.tag.active.mxt-control(href="#", data-toggle="pill" data-filter="all")
 					| All

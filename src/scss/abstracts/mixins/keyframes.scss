@@ -1,0 +1,164 @@
+@keyframes intro-bounce {
+	0% {
+		transform: translateY(-1000px) scale(1.5, 0.25);
+		visibility: visible;
+
+		animation-timing-function: ease-in;
+	}
+
+	80% {
+		transform: translateY(0) scale(1, 1);
+
+		animation-timing-function: ease-out;
+	}
+
+	85% {
+		transform: translateY(-30%);
+
+		animation-timing-function: ease-in;
+	}
+
+	90% {
+		transform: translateY(0);
+
+		animation-timing-function: ease-out;
+	}
+
+	100% {
+		transform: scale(1, 1) translateY(0);
+	}
+}
+
+@keyframes intro-bounce-shadow {
+	0% {
+		width: 80%;
+		height: 0.1em;
+		margin: 0 10%;
+
+		box-shadow: 0 1em 11px 0 rgba(0, 0, 0, 0);
+
+		animation-timing-function: ease-out;
+	}
+
+	50% {
+		width: 110%;
+		height: 0.3em;
+
+		box-shadow: 0 1em 25px 10px rgba(0, 0, 0, 0.3);
+
+		animation-timing-function: ease-in;
+	}
+
+	80% {
+		width: 80%;
+		height: 0.1em;
+		margin: 0 10%;
+
+		box-shadow: 0 1em 11px 0 rgba(0, 0, 0, 0.6);
+
+		animation-timing-function: ease-out;
+	}
+
+	85% {
+		box-shadow: 0 1em 14px 5px rgba(0, 0, 0, 0.6);
+
+		animation-timing-function: ease-in;
+	}
+
+	90% {
+		box-shadow: 0 1em 11px 0 rgba(0, 0, 0, 0.6);
+
+		animation-timing-function: ease-out;
+	}
+
+	100% {
+		box-shadow: 0 1em 14px 3px rgba(0, 0, 0, 0.3);
+	}
+}
+
+@keyframes intro-dot-expand {
+	0% {
+		transform: translateY(0) scale(1);
+		visibility: visible;
+	}
+
+	15% {
+		transform: translateY(0) scale(1);
+		visibility: visible;
+	}
+
+	35% {
+		width: 100%;
+	}
+
+	70% {
+		width: 100%;
+		margin-right: 0;
+		margin-left: auto;
+	}
+
+	90% {
+		width: 0.265em;
+		margin-right: 0;
+		margin-left: auto;
+	}
+
+	95% {
+		width: 0.265em;
+		margin-right: 0;
+		margin-left: auto;
+
+		animation-timing-function: ease-in;
+	}
+
+	100% {
+		width: 50px;
+		margin-right: -150px;
+		margin-left: auto;
+
+		animation-timing-function: ease-out;
+	}
+}
+
+@keyframes move-left-top {
+	0% {
+		background: transparent;
+	}
+
+	100% {
+		margin-right: 0;
+		margin-bottom: 3.5rem;
+
+		font-size: 3em;
+
+		background: transparent;
+		transform: translateY(-4em); //fallback
+		transform: translateY(-30vh);
+	}
+}
+
+@keyframes fade-in-top {
+	0% {
+		transform: translateY(-3em); //fallback
+		transform: translateY(-20vh);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateY(-3.5em); //fallback
+		transform: translateY(-25vh);
+
+		opacity: 1;
+	}
+}
+
+@keyframes reveal-text {
+	0% {
+		color: white;
+		// visibility: visible;
+	}
+
+	100% {
+		color: black;
+	}
+}

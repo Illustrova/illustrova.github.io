@@ -1,0 +1,226 @@
+
+.string {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-content: center;
+	width: 100%;
+
+	font-size: 4.5em;
+	font-family: "Montserrat", sans-serif;
+	line-height: 1;
+
+	perspective: 600px;
+}
+
+.string1 {
+	z-index: -1;
+
+	align-items: baseline;
+	margin-top: 30vh;
+	padding-top: 2em;
+
+	line-height: 0.8;
+
+	background: white;
+
+	.letter {
+		position: relative;
+
+		display: flex;
+
+		span {
+			display: block;
+		}
+
+		&:after {
+			position: absolute;
+			bottom: 1.2em;
+			left: 0;
+
+			width: 80%;
+			height: 0.1em;
+			margin: 0 10%;
+
+			border-radius: 50%;
+			box-shadow: 0 1em 11px 0 rgba(0, 0, 0, 0.2);
+			content: "";
+		}
+	}
+}
+
+.dot {
+	display: block;
+	width: 0.265em;
+	height: 0.26em;
+	margin-left: 2px;
+
+	background: $primary;
+	border-radius: 30px;
+	visibility: hidden;
+}
+
+.dot-outer:after {
+	bottom: 1.05em;
+}
+
+.string2,
+.string3,
+.string4 {
+	justify-content: start;
+	margin-bottom: 1rem;
+
+	font-size: 2em;
+	text-align: left;
+
+	opacity: 0;
+}
+
+.intro-menu {
+	width: 100%;
+	margin-top: auto;
+	margin-bottom: 20vh;
+	padding: 1em 0;
+
+	color: darken($primary, 15%);
+	font-size: 3em;
+	font-family: "Montserrat";
+
+	list-style: none;
+	transform: scale(0.01);
+
+	visibility: hidden;
+
+	li {
+		position: relative;
+	}
+
+	a {
+		padding: 0.2em;
+	}
+
+	a:hover {
+		color: white;
+		text-decoration: none;
+	}
+
+	a:before {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: -1;
+
+		display: block;
+		width: 0.01em;
+
+		height: 0.01em;
+
+		background: $primary;
+		border-radius: 50%;
+		transform: translate(-50%, -50%);
+
+		transition: all 0.3s ease-in;
+		content: "";
+	}
+
+	a:hover:before {
+		width: 100%;
+		padding-top: 100%;
+
+		transition: all 0.3s ease-in;
+	}
+}
+// --------------------------
+// ------- ANIMATIONS -------
+// --------------------------
+
+$animate-sel: ".start-animation";
+$timecode: $timecode + 2s;
+
+// ------- String 1 appearance with bounce
+
+$start-bouncein: 0s;
+
+@mixin intro-bounce-in($start) {
+	$num: 6; //Number of elements (letters)
+	$duration: 2s; //diration of animaton of 1 element
+	$delay: $start; //starting delay value for the whole animation
+
+	@for $i from 1 through $num {
+		$el-delay: -(random(7) / 10) + 0s + $delay; // set delay to random value
+
+		#{$animate-sel} .string1 .l#{$i} span {
+			@include add-animation(intro-bounce $duration $el-delay);
+		}
+
+		#{$animate-sel} .string1 .l#{$i}:after {
+			@include add-animation($duration $el-delay intro-bounce-shadow);
+		}
+	}
+	// Animate dot the latest
+	$delay: $delay + 1s;
+	#{$animate-sel} .string1 .dot span {
+		@include add-animation(intro-bounce $duration $delay);
+	}
+
+	#{$animate-sel} .string1 .dot:after {
+		@include add-animation($duration $delay intro-bounce-shadow);
+	}
+}
+
+@include intro-bounce-in($start-bouncein);
+
+// ------ 2. Dot expansion to a line
+
+$start-dotexp: $timecode - 0.3s; //small fix to make sure dot always visible
+$duration-dotexp: 1.5s;
+
+#{$animate-sel} .dot-outer {
+	@include add-animation(
+		intro-dot-expand $duration-dotexp $start-dotexp forwards
+	);
+}
+
+// ------ String 1 move uper left and scale
+$start-moveup: $timecode;
+
+#{$animate-sel} .string1 {
+	@include add-animation(move-left-top 2s $start-moveup forwards);
+}
+
+// --- Text reveal
+$duration-reveal: 2s;
+
+#{$animate-sel} .string2 {
+	@include add-animation(fade-in-top $duration-reveal $timecode forwards);
+}
+#{$animate-sel} .string3 {
+	@include add-animation(fade-in-top $duration-reveal $timecode forwards);
+}
+
+// ------ Scale-in menu
+
+$start-menu: $timecode;
+
+@keyframes display-menu {
+	0% {
+		visibility: visible;
+	}
+
+	100% {
+		transform: scale(1);
+		visibility: visible;
+	}
+}
+
+.intro-menu {
+	@include add-animation(display-menu 2s $start-menu);
+}
+
+// Debugger
+
+// #intro * {
+// 	animation-play-state: paused !important;
+// 	animation-fill-mode: none;
+// }
+/* stylelint-enable no-duplicate-selectors */

@@ -5,6 +5,7 @@ include partials/portfolio-nav.pug
 include partials/portfolio-item.pug
 include partials/form.pug
 include partials/section.pug
+include partials/intro.pug
 
 doctype html
 html(lang='en')
@@ -20,17 +21,29 @@ html(lang='en')
 		//-Stylesheets
 		link(rel='stylesheet', href=`/css/${styleName}.css`)
 		link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css")
-	body
+		
+	body.loader-open
+		.loader.h-100.w-100.position-absolute.d-flex.flex-column.justify-content-around
+			span.sr-only Loading...
+			.loader-top.h-50.w-100.d-flex.justify-content-center.bg-primary
+				.loader-spinner-container
+					.loader-spinner
+			.loader-bottom.h-50.w-100.d-flex.justify-content-center.bg-primary
+				.loader-spinner-container
+					.loader-spinner
 		div.wrapper.container-fluid.px-0
 			header
 				nav(class="navbar fixed-top top-menu navbar-light bg-light align-items-baseline")
 					.container-fluid.align-items-baseline
 						h1.text-primary.text-nowrap.mb-0 Irina Illustrova
-						p.h2.mb-0.d-none.d-sm-block Front-End Developer
+						p.h2.mb-0.d-none.d-sm-block Frontend Developer
 			main.main-content.px-2.mr-1.mr-md-4
-				+section("portfolio", "Works")(class="d-flex flex-column flex-grow-1")
-					+portfolio-nav
-					.row.portfolio-container.flex-grow-1.align-content-start
+				+section("intro", null)(class=".my-auto d-flex flex-column align-items-center justify-content-space-between overflow-hidden")
+					//- button.btn-skip.btn.btn-outline-primary.btn-lg.mb-3.mr-3 Skip intro >>
+					+intro()
+				+section("portfolio", "Works")(class="d-flex flex-column")
+					+portfolio-nav(class="mb-auto")
+					.row.portfolio-container.mb-auto
 						each project in locals.content.portfolio
 							+portfolio-item(project)
 					nav.pagination-container.mb-0.mt-2(aria-label="Page navigation")

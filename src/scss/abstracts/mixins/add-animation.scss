@@ -1,0 +1,96 @@
+// ----------------
+// Set global variables
+$timecode: 0s;
+$all-animations: ();
+
+@function get-duration($string) {
+	@each $val in $string {
+		//duration is always first numeric value
+		@if type-of($val) == number {
+			@return $val;
+		}
+	}
+
+	@return 0s;
+}
+
+@function get-delay($string) {
+	$num: 0;
+
+	@each $val in $string {
+		@if type-of($val) == number {
+			$num: $num + 1;
+			// second nimber is delay value
+			@if $num == 2 {
+				@return $val;
+			}
+		}
+	}
+
+	@return 0s;
+}
+
+@function has-fill-mode($string) {
+	@each $val in $string {
+		@if ($val == "backwards") or
+			($val == "forwards") or
+			($val == "both") or
+			($val == "none") {
+			@return true;
+		}
+	}
+
+	@return false;
+}
+
+@function set-fill-mode($animation-string, $value) {
+	@if not has-fill-mode($animation-string) {
+		@return append($animation-string, $value);
+	}
+
+	@return $animation-string;
+}
+
+@mixin add-animation($string) {
+	$selector: quote(&);
+
+	$animation: "";
+
+	@if not map-has-key($all-animations, $selector) {
+		// If fill-mode is not set, preset first animation fill-mode as both
+
+		$animation: set-fill-mode($string, both);
+
+		$all-animations: map-merge(
+			$all-animations,
+			(
+				"#{$selector}": (
+					$animation,
+				),
+			)
+		) !global;
+	}
+
+	@else {
+		// Add new value to existing animations
+		// Set fill-mode value "forwards" to match natural behavior
+		$animation: append(
+			map-get($all-animations, $selector),
+			set-fill-mode($string, forwards)
+		);
+
+		$all-animations: map-merge(
+			$all-animations,
+			(
+				"#{$selector}": $animation,
+			)
+		) !global;
+	}
+
+	//update timecode
+	$duration: get-duration($string);
+	$delay: get-delay($string);
+	$timecode: $duration + $delay !global;
+
+	animation: $animation;
+}

@@ -151,7 +151,7 @@ module.exports = {
 				all: ['src/pug/**/*.pug', '!src/pug/ajax/**/*.pug'],
 				ajax: 'src/pug/ajax/**/*.pug',
 			},
-			overwatch: env + '**/*.{html,js,css}',
+			overwatch: env + '**/*',
 			scripts: {
 				root: 'src/js/scripts.js',
 				all: 'src/js/**/*.js',
