@@ -5,6 +5,166 @@
 			"width": 986,
 			"height": 1500
 		},
+		"chat-app_1240": {
+			"path": "'public/assets/img/portfolio/chat-app_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"chat-app_1600": {
+			"path": "'public/assets/img/portfolio/chat-app_1600.png'",
+			"width": 1600,
+			"height": 1066
+		},
+		"chat-app_320": {
+			"path": "'public/assets/img/portfolio/chat-app_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"chat-app_450": {
+			"path": "'public/assets/img/portfolio/chat-app_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"chat-app_540": {
+			"path": "'public/assets/img/portfolio/chat-app_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"chat-app_720": {
+			"path": "'public/assets/img/portfolio/chat-app_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"chat-app_990": {
+			"path": "'public/assets/img/portfolio/chat-app_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"chat-app-1_1240": {
+			"path": "'public/assets/img/portfolio/chat-app-1_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"chat-app-1_1600": {
+			"path": "'public/assets/img/portfolio/chat-app-1_1600.png'",
+			"width": 1600,
+			"height": 1066
+		},
+		"chat-app-1_320": {
+			"path": "'public/assets/img/portfolio/chat-app-1_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"chat-app-1_450": {
+			"path": "'public/assets/img/portfolio/chat-app-1_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"chat-app-1_540": {
+			"path": "'public/assets/img/portfolio/chat-app-1_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"chat-app-1_720": {
+			"path": "'public/assets/img/portfolio/chat-app-1_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"chat-app-1_990": {
+			"path": "'public/assets/img/portfolio/chat-app-1_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"chat-app-1": {
+			"path": "'public/assets/img/portfolio/chat-app-1.png'",
+			"width": 1000,
+			"height": 666
+		},
+		"chat-app-2_1240": {
+			"path": "'public/assets/img/portfolio/chat-app-2_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"chat-app-2_1600": {
+			"path": "'public/assets/img/portfolio/chat-app-2_1600.png'",
+			"width": 1600,
+			"height": 1066
+		},
+		"chat-app-2_320": {
+			"path": "'public/assets/img/portfolio/chat-app-2_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"chat-app-2_450": {
+			"path": "'public/assets/img/portfolio/chat-app-2_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"chat-app-2_540": {
+			"path": "'public/assets/img/portfolio/chat-app-2_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"chat-app-2_720": {
+			"path": "'public/assets/img/portfolio/chat-app-2_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"chat-app-2_990": {
+			"path": "'public/assets/img/portfolio/chat-app-2_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"chat-app-2": {
+			"path": "'public/assets/img/portfolio/chat-app-2.png'",
+			"width": 1000,
+			"height": 666
+		},
+		"chat-app-3_1240": {
+			"path": "'public/assets/img/portfolio/chat-app-3_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"chat-app-3_1600": {
+			"path": "'public/assets/img/portfolio/chat-app-3_1600.png'",
+			"width": 1242,
+			"height": 2208
+		},
+		"chat-app-3_320": {
+			"path": "'public/assets/img/portfolio/chat-app-3_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"chat-app-3_450": {
+			"path": "'public/assets/img/portfolio/chat-app-3_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"chat-app-3_540": {
+			"path": "'public/assets/img/portfolio/chat-app-3_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"chat-app-3_720": {
+			"path": "'public/assets/img/portfolio/chat-app-3_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"chat-app-3_990": {
+			"path": "'public/assets/img/portfolio/chat-app-3_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"chat-app-3": {
+			"path": "'public/assets/img/portfolio/chat-app-3.png'",
+			"width": 1000,
+			"height": 666
+		},
+		"chat-app": {
+			"path": "'public/assets/img/portfolio/chat-app.png'",
+			"width": 1000,
+			"height": 666
+		},
 		"kindergarten-finder_1240": {
 			"path": "'public/assets/img/portfolio/kindergarten-finder_1240.png'",
 			"width": 1240,
@@ -162,6 +322,86 @@
 		},
 		"merlin2excel": {
 			"path": "'public/assets/img/portfolio/merlin2excel.png'",
+			"width": 1000,
+			"height": 666
+		},
+		"palette-builder_1240": {
+			"path": "'public/assets/img/portfolio/palette-builder_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"palette-builder_1600": {
+			"path": "'public/assets/img/portfolio/palette-builder_1600.png'",
+			"width": 1600,
+			"height": 1066
+		},
+		"palette-builder_320": {
+			"path": "'public/assets/img/portfolio/palette-builder_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"palette-builder_450": {
+			"path": "'public/assets/img/portfolio/palette-builder_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"palette-builder_540": {
+			"path": "'public/assets/img/portfolio/palette-builder_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"palette-builder_720": {
+			"path": "'public/assets/img/portfolio/palette-builder_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"palette-builder_990": {
+			"path": "'public/assets/img/portfolio/palette-builder_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"palette-builder-1_1240": {
+			"path": "'public/assets/img/portfolio/palette-builder-1_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"palette-builder-1_1600": {
+			"path": "'public/assets/img/portfolio/palette-builder-1_1600.png'",
+			"width": 1600,
+			"height": 1066
+		},
+		"palette-builder-1_320": {
+			"path": "'public/assets/img/portfolio/palette-builder-1_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"palette-builder-1_450": {
+			"path": "'public/assets/img/portfolio/palette-builder-1_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"palette-builder-1_540": {
+			"path": "'public/assets/img/portfolio/palette-builder-1_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"palette-builder-1_720": {
+			"path": "'public/assets/img/portfolio/palette-builder-1_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"palette-builder-1_990": {
+			"path": "'public/assets/img/portfolio/palette-builder-1_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"palette-builder-1": {
+			"path": "'public/assets/img/portfolio/palette-builder-1.png'",
+			"width": 1000,
+			"height": 666
+		},
+		"palette-builder": {
+			"path": "'public/assets/img/portfolio/palette-builder.png'",
 			"width": 1000,
 			"height": 666
 		},

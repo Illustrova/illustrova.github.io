@@ -1,10 +1,60 @@
 {
 	"portfolio": [
 		{
+			"title": "Palette builder",
+			"subtitle": "A palette building tool, based on the Opium.Fill concept.",
+
+			"tags": ["Components", "SASS", "Adaptive", "SVG"],
+			"images": [
+				{
+					"url": "assets/img/portfolio/palette-builder.png",
+					"alt": "Main app view"
+				},
+				{
+					"url": "assets/img/portfolio/palette-builder-1.png",
+					"alt": "Export modal"
+				}
+			],
+			"spec": {
+				"date": "October 2020",
+				"github": "https://github.com/Illustrova/Palette-builder",
+				"site": ["/Palette-builder", "Live demo"]
+			},
+			"tech": ["Pug", "SASS", "Parcel"],
+			"description": "This is a quick tool I wrote for myself to create, import and export palette following Opium.Fill naming convention. It currently supports JSON, CSS, SASS and Stylus syntax. You can read about Opium.Fill concept here: https://medium.com/@opium.pro/standardisation-of-color-schemes-through-the-eyes-of-a-programmer-53cc25148470"
+		},
+		{
+			"title": "Chat App",
+			"subtitle": "A chat app on socket.io, vanilla JS components and Python",
+
+			"tags": ["Components", "Pixel-perfect", "SASS", "Adaptive", "Python"],
+			"images": [
+				{
+					"url": "assets/img/portfolio/chat-app.png",
+					"alt": "Desktop view with open sidebar"
+				}, 
+				{
+					"url": "assets/img/portfolio/chat-app-1.png",
+					"alt": "Desktop view with closed sidebar"
+				},
+				{
+					"url": "assets/img/portfolio/chat-app-2.png",
+					"alt": "Create channel modal"
+				}
+			],
+			"spec": {
+				"date": "May 2020",
+				"github": "https://github.com/Illustrova/Chat-App-Socketio",
+				"site": ["https://chat-app-flask-socketio.herokuapp.com/", "Live demo"]
+			},
+			"tech": ["Flask", "Redis", "Pug", "SASS", "Socket.io", "NPM scripts"],
+			"description": "Sample messaging app, built with Flask, Socket.io and Redis. This project was originally started for \"CS50 Web Programming with Python and JavaScript\" course, and built according course requirements. However the final app functionality was significantly expanded."
+		},
+		{
 			"title": "Pet Alert",
 			"subtitle": "A static template for missing pets listing app",
 
-			"tags": ["Bootstrap", "Handlebars", "SASS", "Adaptive"],
+			"tags": ["Bootstrap", "SASS", "Adaptive"],
 			"images": [
 				{
 					"url": "assets/img/portfolio/pet-alert.png",
@@ -31,7 +81,7 @@
 			"title": "Tribute Page",
 			"subtitle": "A tribute page to Audrey Hepburn, famous American actress",
 
-			"tags": ["Gulp", "Pug", "SASS", "Adaptive"],
+			"tags": ["Gulp", "SASS", "Adaptive"],
 			"images": [{
 				"url": "assets/img/portfolio/tribute-page.png",
 				"alt": "Desktop view of the page"
@@ -52,7 +102,7 @@
 			"title": "Memory Game",
 			"subtitle": "Memory game in Pop Art style, with tailored SVG and CSS animations",
 
-			"tags": ["Gulp", "Pug", "SASS", "SVG"],
+			"tags": ["Gulp", "SASS", "SVG"],
 			"images": [{
 				"url": "assets/img/portfolio/memory-game.png",
 				"alt": "Memory game screenshot"
