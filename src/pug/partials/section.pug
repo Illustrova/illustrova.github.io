@@ -1,8 +1,8 @@
 mixin section(id, title)
 	section.section.fp-auto-height-responsive.text-center(id=id)
-		.section-wrapper.mx-4
+		.section-wrapper.mx-md-4.mx-2
 			if title
-				h2.section-header.mb-0.pt-6=title
+				h2.section-header.mb-5.mb-sm-3.pt-6=title
 				.section-content.p-1.-md-3
 					.section-content-wrapper.container-fluid.h-100&attributes(attributes)
 						block

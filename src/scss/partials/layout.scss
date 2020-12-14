@@ -15,7 +15,11 @@
 	color: $secondary-light;
 	font-weight: 900;
 	text-transform: uppercase;
-	height: $section-heading-height;
+  height: $section-heading-height;
+  @include media-breakpoint-down(sm) {
+    	font-size: 2em;
+
+  }
 }
 
 .section-content {

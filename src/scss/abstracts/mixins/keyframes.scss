@@ -123,17 +123,18 @@
 @keyframes move-left-top {
 	0% {
 		background: transparent;
+		transform-origin: 0 0;
 	}
 
 	100% {
 		margin-right: 0;
-		margin-bottom: 3.5rem;
-
-		font-size: 3em;
+		margin-bottom: 15%;
+		// margin-bottom: 3.5rem;
 
 		background: transparent;
-		transform: translateY(-4em); //fallback
-		transform: translateY(-30vh);
+		transform-origin: 0 0;
+		transform: scale(0.75) translateY(-4em); //fallback
+		transform: scale(0.75) translateY(-30vh);
 	}
 }
 

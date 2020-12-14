@@ -14,7 +14,7 @@ export function setupFullpage(element) {
 		navigationPosition: "right",
 		navigationTooltips: ["Hello", "Portfolio", "About", "Contact"],
 		responsiveWidth: vars.breakpoints.m,
-		responsiveHeight: 550, //TODO: calculate maximum heighth of content dynamically
+		responsiveHeight: 600, //TODO: calculate maximum heighth of content dynamically
 		// Dot nav decorative classes
 		onLeave: function(origin, destination, direction) {
 			if (direction && direction == "down") {
