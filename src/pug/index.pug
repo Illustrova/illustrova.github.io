@@ -10,6 +10,16 @@ include partials/intro.pug
 doctype html
 html(lang='en')
 	head
+		.
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=G-PZF9YVF7GR"></script>
+			<script>
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+
+				gtag('config', 'G-PZF9YVF7GR');
+			</script>
 		meta(charset='UTF-8')
 		title Irina Illustrova - Front End Developer
 		meta(name='description', content='Front End developer Irina Illustrova -  portfolio and personal page')
@@ -38,7 +48,7 @@ html(lang='en')
 						h1.text-primary.text-nowrap.mb-0 Irina Illustrova
 						p.h2.mb-0.d-none.d-sm-block Frontend Developer
 			main.main-content.px-2.mr-1.mr-md-4
-				+section("intro", null)(class=".my-auto d-flex flex-column align-items-center justify-content-space-between overflow-hidden")
+				+section("intro", null)(class="intro my-auto d-flex flex-column align-items-center justify-content-space-between overflow-hidden")
 					//- button.btn-skip.btn.btn-outline-primary.btn-lg.mb-3.mr-3 Skip intro >>
 					+intro()
 				+section("portfolio", "Works")(class="d-flex flex-column")
@@ -82,44 +92,31 @@ html(lang='en')
 								li 3+ years front-end hobbyist
 								li 5+ years in project management of TV Ad production and post-production
 								li Spoken languages: English, Greek, Russian
-				+section("contacts", "Get in touch")
-					.row
-						.col-12.col-md-8.overflow-hidden.py-2
-							h3.text-main.mb-4.text-left Drop me a line!
-							form#contact-form.needs-validation(novalidate method="post" action=locals.config.contactFormAPI)
-								+input("name", "text", "Your name", "", "Enter your name")(required) Name
-								+input("email", "email", "Your email", " ", "Enter your email")(required) Email
-								+textarea("message", 5, "Your message", "", "Enter your message")(required) Message
-								+submit Send!
-							div.alert.collapse#contact-form-response
-								button(type="button" class="close" data-hide="alert" aria-label="Close")
-									span(aria-hidden="true") &times;
-								.row.h-100
-									.col-12.align-self-center
-										div#contact-form-response-text
-										button#contact-form-response-link(type="button" class="btn btn-link" data-hide="alert" aria-label="Close" class="alert-link")
-						.col-12.col-md-auto.ml-auto.py-2
-							h3.text-main.mb-4.text-left ...or find me here:
-							ul.list-unstyled.text-left.contacts-list
-								li.mb-3
-									a(href="malto:illustrova@gmail.com")
-										i(class=locals.config.icons.email).mr-2
-										| Illustrova@gmail.com
-								li.mb-3
+				+section("contacts", "Get in touch").d-flex.flex-column.align-items-center.justify-content-around
+					.row.mt-3
+						.col-12
+							h3.text-main.mb-4.w-100 Drop me a line if you want to talk!
+						.col-12
+								a(href="malto:illustrova@gmail.com").lead
+											i(class=locals.config.icons.email).mr-2
+											| Illustrova@gmail.com
+					.row.mt-5
+						.col-12
+							h3.text-main.mb-4.w-100 More links:
+						.col-12
+							ul.list-unstyled.contacts-list.d-flex.justify-content-center
+								li.mx-3
 									+a("https://github.com/Illustrova")
 										i(class=locals.config.icons.github).mr-2
 										| Github
-								li.mb-3
+								li.mx-3
 									+a("https://codepen.io/Illustrova/")
 										i(class=locals.config.icons.codepen).mr-2
 										| Codepen
-								li.mb-3
+								li.mx-3
 									+a("www.linkedin.com/in/illustrova")
 										i(class=locals.config.icons.linkedin).mr-2
 										| Linkedin
-								li.mb-3
-									i(class=locals.config.icons.location).mr-2.text-primary
-									span.text-secondary Athens, Greece
 		script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" defer)
 		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" defer)
 		script(src=`js/${scriptName}.js` defer)
