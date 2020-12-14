@@ -27,7 +27,7 @@
 			"title": "Chat App",
 			"subtitle": "A chat app on socket.io, vanilla JS components and Python",
 
-			"tags": ["Components", "Pixel-perfect", "SASS", "Adaptive", "Python"],
+			"tags": ["Components", "SASS", "Adaptive", "Python"],
 			"images": [
 				{
 					"url": "assets/img/portfolio/chat-app.png",
@@ -54,7 +54,7 @@
 			"title": "Pet Alert",
 			"subtitle": "A static template for missing pets listing app",
 
-			"tags": ["Bootstrap", "SASS", "Adaptive"],
+			"tags": ["SASS", "Adaptive"],
 			"images": [
 				{
 					"url": "assets/img/portfolio/pet-alert.png",
@@ -76,6 +76,24 @@
 			},
 			"tech": ["Bootstrap 4", "SASS", "Handlebars (dev)", "NPM scripts"],
 			"description": "Front end for a missing pet listings app, part of a project made for CS50W course. Consists of 5 pages, including listing display pages and a form to create a new listing"
+		},
+		{
+			"title": "Would You Rather..?",
+			"subtitle": "Simple game on React and Redux",
+			"tags": ["React", "Components"],
+			"images": [
+				{
+        "url": "assets/img/portfolio/would-you-rather.png",
+        "alt": "Answered questions view "
+				}
+			],
+			"spec": {
+				"date": "June 2020",
+				"github": "https://github.com/Illustrova/would-you-rather-game-react",
+				"site": ["/would-you-rather-game-react", "Live demo"]
+			},
+			"tech": ["React", "Redux", "Bulma CSS Framework" ],
+			"description": "A polling game, where user has to answer questions, choosing one of two provided options. Made with React and Redux"
 		},
 		{
 			"title": "Tribute Page",

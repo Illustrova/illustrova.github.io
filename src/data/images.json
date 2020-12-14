@@ -604,6 +604,46 @@
 			"path": "'public/assets/img/portfolio/tribute-page.png'",
 			"width": 1000,
 			"height": 666
+		},
+		"would-you-rather_1240": {
+			"path": "'public/assets/img/portfolio/would-you-rather_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"would-you-rather_1600": {
+			"path": "'public/assets/img/portfolio/would-you-rather_1600.png'",
+			"width": 1600,
+			"height": 1000
+		},
+		"would-you-rather_320": {
+			"path": "'public/assets/img/portfolio/would-you-rather_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"would-you-rather_450": {
+			"path": "'public/assets/img/portfolio/would-you-rather_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"would-you-rather_540": {
+			"path": "'public/assets/img/portfolio/would-you-rather_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"would-you-rather_720": {
+			"path": "'public/assets/img/portfolio/would-you-rather_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"would-you-rather_990": {
+			"path": "'public/assets/img/portfolio/would-you-rather_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"would-you-rather": {
+			"path": "'public/assets/img/portfolio/would-you-rather.png'",
+			"width": 1000,
+			"height": 666
 		}
 	}
 }
