@@ -1,6 +1,6 @@
 # Illustrova
 
-A personal page
+A personal page and portfolio showcase. **[Open in new tab](https://illustrova.github.io)**
 
 ## Built with
 
@@ -13,4 +13,4 @@ A personal page
 
 ## Authors
 
-* **[Irina Illustrova]**(https://github.com/Illustrova)
+* **[Irina Illustrova](https://github.com/Illustrova)**
