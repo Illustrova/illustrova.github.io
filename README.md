@@ -1,6 +1,6 @@
 # Illustrova
 
-A personal page and portfolio showcase. **[Open](https://illustrova.github.io)**
+A personal page and portfolio showcase. **[Open site](https://illustrova.github.io)**
 
 ## Built with
 
