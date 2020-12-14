@@ -4239,7 +4239,7 @@ function setupFullpage(element) {
 		navigationPosition: "right",
 		navigationTooltips: ["Hello", "Portfolio", "About", "Contact"],
 		responsiveWidth: vars.breakpoints.m,
-		responsiveHeight: 550, //TODO: calculate maximum heighth of content dynamically
+		responsiveHeight: 600, //TODO: calculate maximum heighth of content dynamically
 		// Dot nav decorative classes
 		onLeave: function (origin, destination, direction) {
 			if (direction && direction == "down") {
@@ -17096,15 +17096,13 @@ document.addEventListener("DOMContentLoaded", function () {
 	const portfolio = new Portfolio(".portfolio-container");
 	window.portfolioShown = portfolio.mixer.getState().matching;
 	const portfolioModal = new CustomModal(document.getElementById("portfolio-item"), window.portfolioShown);
-	console.log("loaded");
 	document.body.classList.remove("loader-open");
 	document.getElementById("intro").classList.add("start-animation");
 
 	document.getElementById("intro").addEventListener("animationend", e => {
-		console.log("Animation ended", e);
 		// check if it's the latest animated element
 		if (e.target.classList.contains("intro-menu")) {
-			document.querySelector(".btn-skip").classList.add("d-none");
+			document.querySelector(".btn-skip") && document.querySelector(".btn-skip").classList.add("d-none");
 		}
 	});
 });

@@ -7424,29 +7424,35 @@ a.text-main:hover, a.text-main:focus {
 
 @-webkit-keyframes move-left-top {
   0% {
-    background: transparent; }
+    background: transparent;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0; }
   100% {
     margin-right: 0;
-    margin-bottom: 3.5rem;
-    font-size: 3em;
+    margin-bottom: 15%;
     background: transparent;
-    -webkit-transform: translateY(-4em);
-            transform: translateY(-4em);
-    -webkit-transform: translateY(-30vh);
-            transform: translateY(-30vh); } }
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transform: scale(0.75) translateY(-4em);
+            transform: scale(0.75) translateY(-4em);
+    -webkit-transform: scale(0.75) translateY(-30vh);
+            transform: scale(0.75) translateY(-30vh); } }
 
 @keyframes move-left-top {
   0% {
-    background: transparent; }
+    background: transparent;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0; }
   100% {
     margin-right: 0;
-    margin-bottom: 3.5rem;
-    font-size: 3em;
+    margin-bottom: 15%;
     background: transparent;
-    -webkit-transform: translateY(-4em);
-            transform: translateY(-4em);
-    -webkit-transform: translateY(-30vh);
-            transform: translateY(-30vh); } }
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transform: scale(0.75) translateY(-4em);
+            transform: scale(0.75) translateY(-4em);
+    -webkit-transform: scale(0.75) translateY(-30vh);
+            transform: scale(0.75) translateY(-30vh); } }
 
 @-webkit-keyframes fade-in-top {
   0% {
@@ -7983,6 +7989,9 @@ body {
   font-weight: 900;
   text-transform: uppercase;
   height: 8rem; }
+  @media (max-width: 719.98px) {
+    .section-header {
+      font-size: 2em; } }
 
 .section-content {
   position: relative;
@@ -8143,7 +8152,7 @@ body.modal-open {
         -ms-transform: translateY(0);
             transform: translateY(0); }
 
-.string {
+.intro .string {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8162,8 +8171,11 @@ body.modal-open {
   line-height: 1;
   -webkit-perspective: 600px;
           perspective: 600px; }
+  @media (max-width: 719.98px) {
+    .intro .string {
+      font-size: 2em; } }
 
-.string1 {
+.intro .string1 {
   z-index: -1;
   -webkit-box-align: baseline;
       -ms-flex-align: baseline;
@@ -8172,14 +8184,14 @@ body.modal-open {
   padding-top: 2em;
   line-height: 0.8;
   background: white; }
-  .string1 .letter {
+  .intro .string1 .letter {
     position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex; }
-    .string1 .letter span {
+    .intro .string1 .letter span {
       display: block; }
-    .string1 .letter:after {
+    .intro .string1 .letter:after {
       position: absolute;
       bottom: 1.2em;
       left: 0;
@@ -8191,7 +8203,7 @@ body.modal-open {
               box-shadow: 0 1em 11px 0 rgba(0, 0, 0, 0.2);
       content: ""; }
 
-.dot {
+.intro .dot {
   display: block;
   width: 0.265em;
   height: 0.26em;
@@ -8200,12 +8212,12 @@ body.modal-open {
   border-radius: 30px;
   visibility: hidden; }
 
-.dot-outer:after {
+.intro .dot-outer:after {
   bottom: 1.05em; }
 
-.string2,
-.string3,
-.string4 {
+.intro .string2,
+.intro .string3,
+.intro .string4 {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: start;
@@ -8214,7 +8226,7 @@ body.modal-open {
   text-align: left;
   opacity: 0; }
 
-.intro-menu {
+.intro .intro-menu {
   width: 100%;
   margin-top: auto;
   margin-bottom: 20vh;
@@ -8227,14 +8239,25 @@ body.modal-open {
       -ms-transform: scale(0.01);
           transform: scale(0.01);
   visibility: hidden; }
-  .intro-menu li {
+  @media (max-width: 719.98px) {
+    .intro .intro-menu {
+      margin-bottom: 1em;
+      font-size: 2em;
+      margin-top: -20vh;
+      padding: 0; } }
+  .intro .intro-menu li {
     position: relative; }
-  .intro-menu a {
+  .intro .intro-menu a {
     padding: 0.2em; }
-  .intro-menu a:hover {
-    color: white;
-    text-decoration: none; }
-  .intro-menu a:before {
+  .intro .intro-menu a:hover,
+  .intro .intro-menu a:focus {
+    text-decoraton: underline; }
+    @media (min-width: 540px) {
+      .intro .intro-menu a:hover,
+      .intro .intro-menu a:focus {
+        color: white;
+        text-decoration: none; } }
+  .intro .intro-menu a:before {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -8251,60 +8274,63 @@ body.modal-open {
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
     content: ""; }
-  .intro-menu a:hover:before {
+  .intro .intro-menu a:hover:before {
     width: 100%;
     padding-top: 100%;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in; }
+    @media (max-width: 719.98px) {
+      .intro .intro-menu a:hover:before {
+        display: none; } }
 
 .start-animation .string1 .l1 span {
-  -webkit-animation: intro-bounce 2s -0.6s both;
-          animation: intro-bounce 2s -0.6s both; }
+  -webkit-animation: intro-bounce 2s -0.4s both;
+          animation: intro-bounce 2s -0.4s both; }
 
 .start-animation .string1 .l1:after {
-  -webkit-animation: 2s -0.6s intro-bounce-shadow both;
-          animation: 2s -0.6s intro-bounce-shadow both; }
+  -webkit-animation: 2s -0.4s intro-bounce-shadow both;
+          animation: 2s -0.4s intro-bounce-shadow both; }
 
 .start-animation .string1 .l2 span {
-  -webkit-animation: intro-bounce 2s -0.3s both;
-          animation: intro-bounce 2s -0.3s both; }
+  -webkit-animation: intro-bounce 2s -0.1s both;
+          animation: intro-bounce 2s -0.1s both; }
 
 .start-animation .string1 .l2:after {
-  -webkit-animation: 2s -0.3s intro-bounce-shadow both;
-          animation: 2s -0.3s intro-bounce-shadow both; }
+  -webkit-animation: 2s -0.1s intro-bounce-shadow both;
+          animation: 2s -0.1s intro-bounce-shadow both; }
 
 .start-animation .string1 .l3 span {
-  -webkit-animation: intro-bounce 2s -0.6s both;
-          animation: intro-bounce 2s -0.6s both; }
+  -webkit-animation: intro-bounce 2s -0.2s both;
+          animation: intro-bounce 2s -0.2s both; }
 
 .start-animation .string1 .l3:after {
-  -webkit-animation: 2s -0.6s intro-bounce-shadow both;
-          animation: 2s -0.6s intro-bounce-shadow both; }
+  -webkit-animation: 2s -0.2s intro-bounce-shadow both;
+          animation: 2s -0.2s intro-bounce-shadow both; }
 
 .start-animation .string1 .l4 span {
-  -webkit-animation: intro-bounce 2s -0.6s both;
-          animation: intro-bounce 2s -0.6s both; }
-
-.start-animation .string1 .l4:after {
-  -webkit-animation: 2s -0.6s intro-bounce-shadow both;
-          animation: 2s -0.6s intro-bounce-shadow both; }
-
-.start-animation .string1 .l5 span {
-  -webkit-animation: intro-bounce 2s -0.5s both;
-          animation: intro-bounce 2s -0.5s both; }
-
-.start-animation .string1 .l5:after {
-  -webkit-animation: 2s -0.5s intro-bounce-shadow both;
-          animation: 2s -0.5s intro-bounce-shadow both; }
-
-.start-animation .string1 .l6 span {
   -webkit-animation: intro-bounce 2s -0.7s both;
           animation: intro-bounce 2s -0.7s both; }
 
-.start-animation .string1 .l6:after {
+.start-animation .string1 .l4:after {
   -webkit-animation: 2s -0.7s intro-bounce-shadow both;
           animation: 2s -0.7s intro-bounce-shadow both; }
+
+.start-animation .string1 .l5 span {
+  -webkit-animation: intro-bounce 2s -0.6s both;
+          animation: intro-bounce 2s -0.6s both; }
+
+.start-animation .string1 .l5:after {
+  -webkit-animation: 2s -0.6s intro-bounce-shadow both;
+          animation: 2s -0.6s intro-bounce-shadow both; }
+
+.start-animation .string1 .l6 span {
+  -webkit-animation: intro-bounce 2s -0.4s both;
+          animation: intro-bounce 2s -0.4s both; }
+
+.start-animation .string1 .l6:after {
+  -webkit-animation: 2s -0.4s intro-bounce-shadow both;
+          animation: 2s -0.4s intro-bounce-shadow both; }
 
 .start-animation .string1 .dot span {
   -webkit-animation: intro-bounce 2s 1s both;
@@ -8315,20 +8341,20 @@ body.modal-open {
           animation: 2s 1s intro-bounce-shadow both; }
 
 .start-animation .dot-outer {
-  -webkit-animation: intro-dot-expand 1.5s 2.7s forwards;
-          animation: intro-dot-expand 1.5s 2.7s forwards; }
+  -webkit-animation: intro-dot-expand 1s 2.7s forwards;
+          animation: intro-dot-expand 1s 2.7s forwards; }
 
 .start-animation .string1 {
-  -webkit-animation: move-left-top 2s 4.2s forwards;
-          animation: move-left-top 2s 4.2s forwards; }
+  -webkit-animation: move-left-top 1.8s 3.7s forwards;
+          animation: move-left-top 1.8s 3.7s forwards; }
 
 .start-animation .string2 {
-  -webkit-animation: fade-in-top 2s 6.2s forwards;
-          animation: fade-in-top 2s 6.2s forwards; }
+  -webkit-animation: fade-in-top 1.5s 5.5s forwards;
+          animation: fade-in-top 1.5s 5.5s forwards; }
 
 .start-animation .string3 {
-  -webkit-animation: fade-in-top 2s 8.2s forwards;
-          animation: fade-in-top 2s 8.2s forwards; }
+  -webkit-animation: fade-in-top 1.5s 6.5s forwards;
+          animation: fade-in-top 1.5s 6.5s forwards; }
 
 @-webkit-keyframes display-menu {
   0% {
@@ -8347,7 +8373,7 @@ body.modal-open {
     visibility: visible; } }
 
 .intro-menu {
-  -webkit-animation: display-menu 2s 10.2s both;
-          animation: display-menu 2s 10.2s both; }
+  -webkit-animation: display-menu 2s 8s both;
+          animation: display-menu 2s 8s both; }
 
 /* stylelint-enable no-duplicate-selectors */
