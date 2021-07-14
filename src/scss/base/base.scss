@@ -1,35 +1,32 @@
-.wrapper {
-	background-color: $light;
+body {
+  font-family: "Montserrat";
+  color: $color-text;
+  background: $color-bg;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.no-image {
-	position: relative;
-	width: 100%;
-	background-color: $secondary-light;
-	box-shadow: 1px 1px 5px $secondary inset;
-	height: 0;
-	padding-bottom: 66.66%; //hack to achieve 2:3 aspect ratio
-	font-size: $display2-size;
-	color: $primary;
-
-	.placeholder {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		left: 0;
-		right: 0;
-	}
+:root {
+  box-sizing: border-box;
 }
 
-.text-hover-white {
-	&:not(:disabled):not(.disabled) {
-		&:hover,
-		&:active {
-			color: $white;
-		}
-	}
+*,
+*:after,
+*:before {
+  box-sizing: inherit;
 }
 
-.overflow-hidden {
-	overflow: hidden;
+.hidden {
+  visibility: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0 3rem;
+  height: 100%;
 }

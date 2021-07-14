@@ -1,36 +1,224 @@
-// Override body attributes inserted by fullpage plugin
-body.modal-open {
-	overflow: hidden !important;
-}
+$modal-open-duration: 800ms;
+$modal-close-duration: 400ms;
 
 .modal {
-	padding-right: 0 !important; //override bootstrap native size adjustment
+  position: fixed;
+  display: table;
+  height: 75%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  z-index: 1;
+  background: $color-primary;
+
+  @media screen and (max-width: $bp-tablet) {
+    font-size: 75%;
+  }
+
+  &[aria-hidden="true"] .modal__body {
+    animation: fadeOut $modal-close-duration ease-in;
+  }
+
+  &__body {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  &.is-open {
+    transform: scaleY(0.01) scaleX(0);
+    animation: unfoldIn $modal-open-duration cubic-bezier(0.165, 0.84, 0.44, 1)
+      forwards;
+
+    .modal__dialog {
+      animation: fadeOut $modal-close-duration $modal-open-duration reverse
+        forwards;
+    }
+  }
+  &__content {
+    display: flex;
+    height: 100%;
+    padding: 3em;
+    position: relative;
+    @media screen and (max-width: $bp-mobile) {
+      flex-direction: column;
+    }
+  }
+
+  &__dialog {
+    opacity: 0;
+    height: 100%;
+  }
+
+  &__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2rem;
+    background: transparent;
+    border: none;
+    color: $color-bg;
+    font-size: 3.5em;
+    font-family: inherit;
+    z-index: 2;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      text-shadow: 2px 8px 9px rgba(0, 0, 0, 0.4),
+        0px -5px 35px rgba(255, 255, 255, 0.5);
+      outline: none;
+    }
+  }
+
+  &__image-container {
+    flex-basis: 30%;
+    flex-shrink: 0;
+    padding: 0 2em;
+    overflow-y: auto;
+
+    @media screen and (max-width: $bp-mobile) {
+      flex-basis: 40%;
+      max-height: 50vw;
+
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 0;
+      margin-top: 4em;
+    }
+  }
+
+  &__image {
+    flex-shrink: 0;
+    padding: 0.25rem 0;
+    min-width: 9em;
+    @media screen and (max-width: $bp-mobile) {
+      height: 100%;
+      flex: 0 0 auto;
+      margin-right: 0.5em;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  &__text-container {
+    width: 100%;
+    padding-left: 4em;
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    @media screen and (max-width: $bp-desktop) {
+      font-size: 125%;
+    }
+    @media screen and (max-width: $bp-tablet) {
+      font-size: 200%;
+    }
+    @media screen and (max-width: $bp-mobile) {
+      font-size: 100%;
+      padding-left: 0;
+    }
+  }
+  &__text {
+    display: flex;
+    flex: 1 1 auto;
+    @media screen and (max-width: $bp-mobile) {
+      font-size: 200%;
+      flex-direction: column;
+    }
+  }
+  &__title {
+    font-size: 4em;
+    width: 100%;
+    text-align: left;
+    margin: 0;
+    padding: 0.5em 0;
+  }
+  &__description {
+    line-height: 1.2;
+    padding-right: 4em;
+    margin-bottom: 1rem;
+    @media screen and (max-width: $bp-desktop) {
+      padding-right: 3em;
+    }
+    @media screen and (max-width: $bp-tablet) {
+    }
+    @media screen and (max-width: $bp-mobile) {
+      padding-right: 0;
+    }
+  }
+  &__tech {
+    max-width: 4em;
+    font-size: 0.75em;
+    display: flex;
+    flex-direction: column;
+    color: $color-bg;
+    text-transform: lowercase;
+    flex-basis: 100%;
+    @media screen and (max-width: $bp-mobile) {
+      max-width: unset;
+    }
+
+    span {
+      line-height: 1;
+      padding: 0.25em 0;
+      @media screen and (max-width: $bp-mobile) {
+        white-space: nowrap;
+        margin-right: 1em;
+      }
+    }
+    @media screen and (max-width: $bp-mobile) {
+      width: 100%;
+      flex-direction: row;
+    }
+  }
+
+  &__links {
+    margin-top: auto;
+    margin-bottom: 2em;
+    padding-right: 4em;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    @media screen and (max-width: $bp-mobile) {
+      margin-top: 2em;
+      font-size: 125%;
+      justify-content: left;
+      & > * {
+        margin-right: 2em;
+      }
+    }
+  }
 }
 
-.modal.fade {
-	opacity: 1;
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
-.modal.fade .modal-dialog {
-	-webkit-transform: translate(0);
-	-moz-transform: translate(0);
-	transform: translate(0);
+@keyframes unfoldIn {
+  0% {
+    transform: scaleY(0.005) scaleX(0);
+  }
+  50% {
+    transform: scaleY(0.005) scaleX(1);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
 }
 
-.modal-title-wrapper {
-	text-align: center;
-	width: 50%;
-}
-
-.modal-title {
-	white-space: normal;
-}
-
-.project-subtitle {
-	font-size: 115%;
-	font-style: italic;
-}
-
-.project-spec {
-	font-size: $font-size-sm;
+@keyframes unfoldOut {
+  0% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(0.005) scaleX(1);
+  }
+  100% {
+    transform: scaleY(0.005) scaleX(0);
+  }
 }

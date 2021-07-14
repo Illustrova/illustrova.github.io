@@ -1,0 +1,75 @@
+.project {
+  position: relative;
+  margin: 1em;
+  max-height: 100%;
+
+  &__image {
+    max-height: 100%;
+    opacity: 0;
+  }
+
+  &__title {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-inner {
+      position: relative;
+      text-align: center;
+    }
+
+    &-deco {
+      position: absolute;
+      color: $color-primary;
+      top: 10px;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+      height: 100%;
+      & svg {
+        height: 100%;
+        width: 100%;
+      }
+      opacity: 0;
+      .project.is-active & {
+        opacity: 1;
+      }
+    }
+    &-text {
+      -webkit-text-stroke: 1px $color-text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      z-index: 2;
+      font-size: 2em;
+      margin: 0;
+      padding: 0 0.5em;
+      .project.is-active & {
+        -webkit-text-stroke: initial;
+        -webkit-text-fill-color: initial;
+        color: white;
+      }
+    }
+  }
+
+  &:hover,
+  &:focus-within {
+    .project__title-text {
+      -webkit-text-stroke: initial;
+      -webkit-text-fill-color: initial;
+      color: white;
+    }
+    .project__image {
+      opacity: 1;
+      filter: brightness(0.7);
+      @media screen and (max-width: $bp-mobile) {
+        display: none;
+      }
+    }
+  }
+}

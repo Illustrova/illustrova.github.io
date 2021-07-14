@@ -1,0 +1,32 @@
+.image {
+  height: auto;
+  max-width: 100%;
+  display: block;
+  @media screen and (max-width: $bp-mobile) {
+    height: 100%;
+    width: auto;
+  }
+
+  &--preview:hover + .image__popover {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 300ms ease;
+    @media screen and (max-width: $bp-mobile) {
+      display: none;
+    }
+  }
+
+  &__popover {
+    opacity: 0;
+    visibility: hidden;
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 33%;
+    margin: 2em;
+    border: solid $color-bg 4px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+    overflow: hidden;
+  }
+}

@@ -1,80 +1,22 @@
-//-----------------
-// VARIABLES
-//-----------------
-// project settings and common variables
+/* Variables
+ *
+ * project settings and common variables */
 @import "../data/variables.json";
 
-//Bootstrap functions
-// to be imported before theme
+/* Theme variables */
+@import "abstracts/variables";
 
-@import "vendor/bootstrap/scss/functions";
-
-//Theme variables
-@import "abstracts/theme";
-@import "abstracts/customvars.scss";
+/* Vendor assets */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap");
+@import "../../node_modules/glider-js/glider.min";
 
-//-----------------
-// LIBS
-//-----------------
-// BOOTSTRAP
-// Bootstrap - required modules
-@import "vendor/bootstrap/scss/variables";
-@import "vendor/bootstrap/scss/mixins";
+/* Base styles, reset, normalize etc. */
+@import "base/base";
 
-// Bootstrap - used modules only
-@import "vendor/bootstrap/scss/alert";
-@import "vendor/bootstrap/scss/buttons";
-@import "vendor/bootstrap/scss/carousel";
-@import "vendor/bootstrap/scss/close";
-@import "vendor/bootstrap/scss/code";
-@import "vendor/bootstrap/scss/forms";
-@import "vendor/bootstrap/scss/grid";
-@import "vendor/bootstrap/scss/images";
-@import "vendor/bootstrap/scss/list-group";
-@import "vendor/bootstrap/scss/modal";
-@import "vendor/bootstrap/scss/nav";
-@import "vendor/bootstrap/scss/navbar";
-@import "vendor/bootstrap/scss/pagination";
-@import "vendor/bootstrap/scss/reboot";
-@import "vendor/bootstrap/scss/transitions";
-@import "vendor/bootstrap/scss/type";
-@import "vendor/bootstrap/scss/utilities";
-
-// OTHER LIBS
-@import "vendor/fullscreen-modal";
-
-// Fullpage.js
-@import "../../node_modules/fullpage.js/dist/fullpage.min";
-
-//-----------------
-// MIXINS
-//-----------------
-@import "abstracts/mixins/tooltip.scss";
-@import "abstracts/mixins/nav-elements.scss";
-@import "abstracts/mixins/list-marker.scss";
-@import "abstracts/mixins/scrollbars.scss";
-@import "abstracts/mixins/add-animation.scss";
-@import "abstracts/mixins/keyframes.scss";
-
-//-----------------
-// BASE
-//-----------------
-@import "base/base.scss";
-@import "base/typography.scss";
-
-//-----------------
-// PARTIALS
-//-----------------
-@import "partials/loader.scss";
-@import "partials/alert.scss";
-@import "partials/carousel";
-@import "partials/dot-navigation";
-@import "partials/inputs";
-@import "partials/layout";
-@import "partials/lists";
+/* PARTIALS */
+@import "partials/heading";
+@import "partials/links";
+@import "partials/image";
 @import "partials/modal";
-@import "partials/navbar";
-@import "partials/pagination";
-@import "partials/portfolio-item";
-@import "partials/intro";
+@import "partials/works";
+@import "partials/project";

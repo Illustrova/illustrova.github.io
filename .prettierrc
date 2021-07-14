@@ -4,7 +4,6 @@
   "printWidth": 80,
   "semi": true,
   "parser": "flow",
-  "useTabs": true,
   "jsxBracketSameLine": true,
   "endOfLine": "lf",
   "overrides": [
