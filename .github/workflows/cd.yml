@@ -3,7 +3,7 @@ name: deploy
 on:
   push:
     branches:
-      - master
+      - dev
 jobs:
   deploy:
     runs-on: ubuntu-18.04
@@ -24,11 +24,11 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm install
-      - name: Build and export static files
-        run: REPO_NAME=${{github.event.repository.name}} yarn export
+      - name: Build and deploy
+        run: gulp deploy
       
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.0
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: build # The folder the action should deploy.
+      # - name: Deploy 🚀
+      #   uses: JamesIves/github-pages-deploy-action@4.1.0
+      #   with:
+      #     branch: master # The branch the action should deploy to.
+      #     folder: build # The folder the action should deploy.
