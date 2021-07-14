@@ -1,182 +1,147 @@
 {
-	"portfolio": [
-		{
-			"title": "Palette builder",
-			"subtitle": "A palette building tool, based on the Opium.Fill concept.",
-
-			"tags": ["Components", "SASS", "Adaptive", "SVG"],
-			"images": [
-				{
-					"url": "assets/img/portfolio/palette-builder.png",
-					"alt": "Main app view"
-				},
-				{
-					"url": "assets/img/portfolio/palette-builder-1.png",
-					"alt": "Export modal"
-				}
-			],
-			"spec": {
-				"date": "October 2020",
-				"github": "https://github.com/Illustrova/Palette-builder",
-				"site": ["/Palette-builder", "Live demo"]
-			},
-			"tech": ["Pug", "SASS", "Parcel"],
-			"description": "This is a quick tool I wrote for myself to create, import and export palette following Opium.Fill naming convention. It currently supports JSON, CSS, SASS and Stylus syntax. You can read about Opium.Fill concept here: https://medium.com/@opium.pro/standardisation-of-color-schemes-through-the-eyes-of-a-programmer-53cc25148470"
-		},
-		{
-			"title": "Chat App",
-			"subtitle": "A chat app on socket.io, vanilla JS components and Python",
-
-			"tags": ["Components", "SASS", "Adaptive", "Python"],
-			"images": [
-				{
-					"url": "assets/img/portfolio/chat-app.png",
-					"alt": "Desktop view with open sidebar"
-				}, 
-				{
-					"url": "assets/img/portfolio/chat-app-1.png",
-					"alt": "Desktop view with closed sidebar"
-				},
-				{
-					"url": "assets/img/portfolio/chat-app-2.png",
-					"alt": "Create channel modal"
-				}
-			],
-			"spec": {
-				"date": "May 2020",
-				"github": "https://github.com/Illustrova/Chat-App-Socketio",
-				"site": ["https://chat-app-flask-socketio.herokuapp.com/", "Live demo"]
-			},
-			"tech": ["Flask", "Redis", "Pug", "SASS", "Socket.io", "NPM scripts"],
-			"description": "Sample messaging app, built with Flask, Socket.io and Redis. This project was originally started for \"CS50 Web Programming with Python and JavaScript\" course, and built according course requirements. However the final app functionality was significantly expanded."
-		},
-		{
-			"title": "Pet Alert",
-			"subtitle": "A static template for missing pets listing app",
-
-			"tags": ["SASS", "Adaptive"],
-			"images": [
-				{
-					"url": "assets/img/portfolio/pet-alert.png",
-					"alt": "Main page view on a tablet"
-				}, 
-				{
-					"url": "assets/img/portfolio/pet-alert-2.png",
-					"alt": "Mobile view"
-				},
-				{
-					"url": "assets/img/portfolio/pet-alert-3.png",
-					"alt": "Create alert page view"
-				}
-			],
-			"spec": {
-				"date": "November 2018",
-				"github": "https://github.com/Illustrova/Pet-Alert",
-				"site": ["/Pet-Alert", "Live demo"]
-			},
-			"tech": ["Bootstrap 4", "SASS", "Handlebars (dev)", "NPM scripts"],
-			"description": "Front end for a missing pet listings app, part of a project made for CS50W course. Consists of 5 pages, including listing display pages and a form to create a new listing"
-		},
-		{
-			"title": "Would You Rather..?",
-			"subtitle": "Simple game on React and Redux",
-			"tags": ["React", "Components"],
-			"images": [
-				{
-        "url": "assets/img/portfolio/would-you-rather.png",
-        "alt": "Answered questions view "
-				}
-			],
-			"spec": {
-				"date": "June 2020",
-				"github": "https://github.com/Illustrova/would-you-rather-game-react",
-				"site": ["/would-you-rather-game-react", "Live demo"]
-			},
-			"tech": ["React", "Redux", "Bulma CSS Framework" ],
-			"description": "A polling game, where user has to answer questions, choosing one of two provided options. Made with React and Redux"
-		},
-		{
-			"title": "Tribute Page",
-			"subtitle": "A tribute page to Audrey Hepburn, famous American actress",
-
-			"tags": ["Gulp", "SASS", "Adaptive"],
-			"images": [{
-				"url": "assets/img/portfolio/tribute-page.png",
-				"alt": "Desktop view of the page"
-			}, 
-			{
-				"url": "assets/img/portfolio/tribute-page-2.png",
-				"alt": "Tablet and mobile view"
-			}],
-			"spec": {
-				"date": "January 2018",
-				"github": "https://github.com/Illustrova/Audrey-Tribute-Page",
-				"site": ["/Audrey-Tribute-Page", "Live demo"]
-			},
-			"tech": ["Pug", "SASS", "Swipe.js", "Gulp", "Responsive images with srcset", "Lazy-loaded images with SVG placeholders"],
-			"description": "Made for fun and FreeCodeCamp Challenge. One of the best parts of this project was an introduction to the Primitive library, which creates beautiful abstract svg placeholders for the image. Check the demo on low-speed to notice them!"
-		},
-		{
-			"title": "Memory Game",
-			"subtitle": "Memory game in Pop Art style, with tailored SVG and CSS animations",
-
-			"tags": ["Gulp", "SASS", "SVG"],
-			"images": [{
-				"url": "assets/img/portfolio/memory-game.png",
-				"alt": "Memory game screenshot"
-			}],
-			"spec": {
-				"date": "June 2018",
-				"github": "https://github.com/Illustrova/fend-project-memory-game",
-				"site": ["/Pop-Art-Memory-Game", "Live demo"]
-			},
-			"tech": ["Pug", "SASS", "SVG", "Gulp", "HTML5 Dialog polyfill"],
-			"description": "Had some fun research on the abilities of SVG and CSS animations, while preparing a project for my FEND Nanodegree. Instead of using generic layout, I've built my own one and added some experimental effects. Although the result, particularly card \"explosion\" is too slow to be considered for production, it was a great research about the abilities of SVG."
-		}, 
-		{
-			"title": "Kindergarten Finder",
-			"subtitle": "Kindergarten map and listing, built with React, Google maps API and Facebook API",
-			"tags": ["React", "SASS", "API"],
-			"images": [{
-				"url": "assets/img/portfolio/kindergarten-finder.png",
-				"alt": "Desktop view of the page"
-			}, 
-			{
-				"url": "assets/img/portfolio/kindergarten-finder-2.png",
-				"alt": "Tablet and mobile view"
-			}],
-			"spec": {
-				"date": "July-August 2018",
-				"site": ["/Kindergarten-Finder-React", "Live demo"],
-				"github": "https://github.com/Illustrova/Kindergarten-Finder-React"
-			},
-			"tech": ["React", "Sass", "Google Maps API", "Facebook API"],
-			"description": "Final project for FEND Degree aligned with the real needs, and hopefully the result can be useful for some people. \n ESPA is an European funding program which, among other, provides preschool sponsorship for parents with low income in Greece. Every year the catalogues of nurseries and kindergartens are published on the website as pdf, and as a parent you spend quite some time, googling every address in your area trying to find if it's located close to you. The backend script parses this PDF files and geocodes all the addresses, exporting a nice-formatted json with only useful information. This json is loaded on front end to Google Map, showing all the locations together with data on the ages of children, operation hours, etc. The app also attempts to search for the page of kindergarten on Facebook, and if it exists, shows some useful information from it."
-		},
-		{
-			"title": "Merlin2Excel",
-			"subtitle": "A simple tool for converting Merlin Project timetable into nice Excel template",
-			"tags": [
-				"Node.js"
-			],
-			"images": [
-				{
-					"url": "assets/img/portfolio/merlin2excel.png",
-					"alt": "Screenshot of source file and result"
-				}
-			],
-			"spec": {
-				"date": "March 2018",
-				"time": "~20 hours",
-				"github": "https://github.com/Illustrova/Merlin2Excel-timing-creator"
-			},
-			"tech": [
-				"Node.js",
-				"Moment.js",
-				"xml2js",
-				"Excel4node"
-			],
-			"description": "A simple Node.js tool, created to avoid routine tasks at my office job. It's purpose is so specific, that it's probably useless for anyone else, although it can work with any type of data. The script parses xml file, exported from Merlin project, and creates a nice client-friendly Excel table. It also preserves the formatting (e.g. one task - one line), and applies colors to each type of activity, based on simple dictionary."
-		}
-	]
+  "portfolio": [
+    {
+      "title": "GoRight",
+      "images": [
+        {
+          "url": "assets/img/portfolio/goright.png",
+          "alt": "Main page"
+        },
+        {
+          "url": "assets/img/portfolio/goright-1.png",
+          "alt": "Workshop page"
+        }
+      ],
+      "links": [
+        {
+          "title": "demo",
+          "href": "https://goright.io"
+        },
+        {
+          "title": "github",
+          "href": "https://github.com/goright-io/website"
+        }
+      ],
+      "tech": [
+        "Next.JS",
+        "Tailwind"
+      ],
+      "description": "A website for GoRight design system experts."
+    },
+    {
+      "title": "Design System",
+      "images": [
+        {
+          "url": "assets/img/portfolio/design-system.png",
+          "alt": "Main page"
+        }
+      ],
+      "links": [
+        {
+          "title": "demo",
+          "href": "https://design-system.goright.io"
+        },
+        {
+          "title": "github",
+          "href": "https://github.com/goright-io/design-system"
+        }
+      ],
+      "tech": [
+        "Tailwind",
+        "Webpack",
+        "Storybook"
+      ],
+      "description": "A design system for GoRight website, built with Tailwind CSS, documented with Storybook"
+    },
+    {
+      "title": "Palette",
+      "images": [
+        {
+          "url": "assets/img/portfolio/palette-builder.png",
+          "alt": "Main app view"
+        },
+        {
+          "url": "assets/img/portfolio/palette-builder-1.png",
+          "alt": "Export modal"
+        }
+      ],
+      "links": [
+        {
+          "title": "demo",
+          "href": "/Palette-builder"
+        },
+        {
+          "title": "github",
+          "href": "https://github.com/Illustrova/Palette-builder"
+        }
+      ],
+      "tech": [
+        "SASS",
+        "SVG",
+        "pure JS"
+      ],
+      "description": "A quick tool to create, import and export palette following Opium.Fill naming convention. It currently supports JSON, CSS, SASS and Stylus syntax. Check demo for further details."
+    },
+    {
+      "title": "Chat",
+      "subtitle": "A chat app on socket.io, vanilla JS components and Python",
+      "images": [
+        {
+          "url": "assets/img/portfolio/chat-app.png",
+          "alt": "Desktop view with open sidebar"
+        },
+        {
+          "url": "assets/img/portfolio/chat-app-1.png",
+          "alt": "Desktop view with closed sidebar"
+        },
+        {
+          "url": "assets/img/portfolio/chat-app-2.png",
+          "alt": "Create channel modal"
+        }
+      ],
+      "links": [
+        {
+          "title": "demo",
+          "href": "https://chat-app-flask-socketio.herokuapp.com/"
+        },
+        {
+          "title": "github",
+          "href": "https://github.com/Illustrova/Chat-App-Socketio"
+        }
+      ],
+      "tech": [
+        "Flask",
+        "Redis",
+        "Sockets",
+        "pure JS"
+      ],
+      "description": "Personal project - a chat application, built on sockets with Flask and Redis at the backend and Vanilla JS components for UI."
+    },
+    {
+      "title": "Game",
+      "images": [
+        {
+          "url": "assets/img/portfolio/memory-game.png",
+          "alt": "Memory game screenshot"
+        }
+      ],
+      "tech": [
+        "SVG",
+        "Animations", 
+        "SASS",
+        "pure JS"
+      ],
+      "links": [
+        {
+          "title": "demo",
+          "href": "/Pop-Art-Memory-Game"
+        },
+        {
+          "title": "github",
+          "href": "https://github.com/Illustrova/fend-project-memory-game"
+        }
+      ],
+      "description": "An old experimental project with CSS and SVG animations. No tools and frameworks, just some trigonometry involved :) "
+    }
+  ]
 }

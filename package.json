@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "description": "a personal page",
   "scripts": {
+    "start": "gulp",
     "precommit": "yarn prettier-fix",
     "prettier-fix": "yarn prettier --write",
     "prettier": "prettier \"src/js/**/*.js\""
@@ -18,6 +19,7 @@
     "eslint": "^7.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^2.7.0",
+    "glider-js": "^1.7.7",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^4.1.0",
     "gulp-babel": "^7.0.0",
@@ -32,7 +34,7 @@
     "gulp-pug": "3.3.0",
     "gulp-real-favicon": "^0.3.2",
     "gulp-rename": "^1.4.0",
-    "gulp-responsive": "^3.0.1",
+    "gulp-responsive": "3.0.1",
     "gulp-sass": "^4.1.0",
     "gulp-size": "^3.0.0",
     "gulp-stylint": "^4.0.0",
@@ -66,6 +68,7 @@
   "dependencies": {
     "fullpage.js": "^3.0.8",
     "gulp-print": "^5.0.2",
+    "micromodal": "^0.4.6",
     "mixitup": "^3.3.1"
   }
 }

@@ -1,0 +1,44 @@
+.works {
+  margin-top: auto;
+  text-align: center;
+  flex-shrink: 2;
+  transform: translateY(70%);
+  transition: transform 150ms ease-in-out;
+
+  &__carousel {
+    opacity: 0;
+  }
+
+  .btn--show-works {
+    margin-bottom: 1em;
+    opacity: 0.8;
+    &:before {
+      content: "\25B2";
+      display: block;
+      font-size: 0.75em;
+      padding-bottom: 0.5em;
+      transition: transform 500ms ease-out;
+      transition-delay: 400ms;
+    }
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+  }
+  &.show {
+    transform: translateY(0);
+
+    & .works__carousel {
+      opacity: 1;
+    }
+    .btn--show-works {
+      span {
+        opacity: 0;
+      }
+      &:before {
+        opacity: 1;
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+mixin projectTemplate(project)
+  - var id = project.title.replace(/\s+/g, '-').toLowerCase();
+  template(id=id)
+    .modal__image-container
+      if project && project.images && project.images.length === 0
+        +no-image()
+      else
+        each img in project.images
+          .modal__image 
+            img.image.image--preview(src=img.url.toLowerCase())
+            .image__popover
+              img.image.image--full(src=img.url.toLowerCase())
+    .modal__text-container
+      h2.modal__title(id="projectModal-title")= project.title
+      .modal__text
+        .modal__description= project.description
+        .modal__tech  
+          each tech in project.tech
+            span= tech
+      .modal__links 
+        each link in project.links
+          +a(link.href).link= link.title 

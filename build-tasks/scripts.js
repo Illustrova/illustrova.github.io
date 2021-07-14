@@ -1,12 +1,12 @@
-import gulp from 'gulp';
-import gConfig from '../gulp-config';
-import { getEnv } from './utils';
-import { rollup } from 'rollup';
-import babel from 'rollup-plugin-babel';
-import resolve from 'rollup-plugin-node-resolve';
-import uglify from 'rollup-plugin-uglify';
-import json from 'rollup-plugin-json';
-import pluginLoader from 'gulp-load-plugins';
+import gulp from "gulp";
+import gConfig from "../gulp-config";
+import { getEnv } from "./utils";
+import { rollup } from "rollup";
+import babel from "rollup-plugin-babel";
+import resolve from "rollup-plugin-node-resolve";
+import uglify from "rollup-plugin-uglify";
+import json from "rollup-plugin-json";
+import pluginLoader from "gulp-load-plugins";
 
 const opts = gConfig.pluginOpts;
 const env = getEnv();
@@ -27,7 +27,7 @@ const compileScripts = async function() {
 		json(),
 		resolve(),
 		babel({
-			exclude: ['node_modules/**', '*.json'],
+			exclude: ["node_modules/**", "*.json"],
 			// presets: [['env', { modules: false }]],
 			babelrc: false,
 		}),
@@ -40,13 +40,13 @@ const compileScripts = async function() {
 		plugins,
 	});
 	await bundle.write({
-		file: `${dest.js}/${gConfig.pkg.name}${env.deploy ? '.min' : ''}.js`,
-		format: 'iife',
-		name: 'myScripts',
+		file: `${dest.js}/${gConfig.pkg.name}${env.deploy ? ".min" : ""}.js`,
+		format: "iife",
+		name: "myScripts",
 		sourcemap: env.mapped,
 		onwarn: function(warning) {
 			// Skip certain warnings
-			if (warning.code === 'THIS_IS_UNDEFINED') {
+			if (warning.code === "THIS_IS_UNDEFINED") {
 				return;
 			}
 			console.warn(warning.message);
@@ -61,25 +61,21 @@ const compileScripts = async function() {
 		});
 		await bundle.write({
 			file: `${dest.js}${gConfig.pkg.name}.min.js`,
-			format: 'iife',
-			name: 'myScripts',
+			format: "iife",
+			name: "myScripts",
 			sourcemap: true,
 		});
 	}
 };
-compileScripts.description = `compile script source(${
-	src.scripts.all
-}) using babel before concatenating and safety wrapping output`;
+compileScripts.description = `compile script source(${src.scripts.all}) using babel before concatenating and safety wrapping output`;
 compileScripts.flags = {
-	'--mapped': 'create source maps for scripts',
-	'--deploy': `minify scripts output for deployment from ${dest.js}`,
-	'--dist': `output both un-minified and minified scripts along with sourcemaps to dist directory`,
+	"--mapped": "create source maps for scripts",
+	"--deploy": `minify scripts output for deployment from ${dest.js}`,
+	"--dist": `output both un-minified and minified scripts along with sourcemaps to dist directory`,
 };
 
 const watchScripts = () =>
 	gulp.watch(src.scripts.all, gulp.series(/*lintScripts, */ compileScripts));
-watchScripts.description = `watch for script source(${
-	src.scripts.all
-}) changes and lint then compile on change`;
+watchScripts.description = `watch for script source(${src.scripts.all}) changes and lint then compile on change`;
 
 export { compileScripts, lintScripts, watchScripts };

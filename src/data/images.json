@@ -165,6 +165,166 @@
 			"width": 1000,
 			"height": 666
 		},
+		"design-system_1240": {
+			"path": "'public/assets/img/portfolio/design-system_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"design-system_1600": {
+			"path": "'public/assets/img/portfolio/design-system_1600.png'",
+			"width": 1600,
+			"height": 1000
+		},
+		"design-system_320": {
+			"path": "'public/assets/img/portfolio/design-system_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"design-system_450": {
+			"path": "'public/assets/img/portfolio/design-system_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"design-system_540": {
+			"path": "'public/assets/img/portfolio/design-system_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"design-system_720": {
+			"path": "'public/assets/img/portfolio/design-system_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"design-system_990": {
+			"path": "'public/assets/img/portfolio/design-system_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"design-system": {
+			"path": "'public/assets/img/portfolio/design-system.png'",
+			"width": 1000,
+			"height": 666
+		},
+		"goright_1240": {
+			"path": "'public/assets/img/portfolio/goright_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"goright_1600": {
+			"path": "'public/assets/img/portfolio/goright_1600.png'",
+			"width": 1600,
+			"height": 1000
+		},
+		"goright_320": {
+			"path": "'public/assets/img/portfolio/goright_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"goright_450": {
+			"path": "'public/assets/img/portfolio/goright_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"goright_540": {
+			"path": "'public/assets/img/portfolio/goright_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"goright_720": {
+			"path": "'public/assets/img/portfolio/goright_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"goright_990": {
+			"path": "'public/assets/img/portfolio/goright_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"goright-1_1240": {
+			"path": "'public/assets/img/portfolio/goright-1_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"goright-1_1600": {
+			"path": "'public/assets/img/portfolio/goright-1_1600.png'",
+			"width": 1600,
+			"height": 1000
+		},
+		"goright-1_320": {
+			"path": "'public/assets/img/portfolio/goright-1_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"goright-1_450": {
+			"path": "'public/assets/img/portfolio/goright-1_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"goright-1_540": {
+			"path": "'public/assets/img/portfolio/goright-1_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"goright-1_720": {
+			"path": "'public/assets/img/portfolio/goright-1_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"goright-1_990": {
+			"path": "'public/assets/img/portfolio/goright-1_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"goright-1": {
+			"path": "'public/assets/img/portfolio/goright-1.png'",
+			"width": 1000,
+			"height": 666
+		},
+		"goright-copy_1240": {
+			"path": "'public/assets/img/portfolio/goright-copy_1240.png'",
+			"width": 1240,
+			"height": 826
+		},
+		"goright-copy_1600": {
+			"path": "'public/assets/img/portfolio/goright-copy_1600.png'",
+			"width": 1600,
+			"height": 1000
+		},
+		"goright-copy_320": {
+			"path": "'public/assets/img/portfolio/goright-copy_320.png'",
+			"width": 320,
+			"height": 213
+		},
+		"goright-copy_450": {
+			"path": "'public/assets/img/portfolio/goright-copy_450.png'",
+			"width": 450,
+			"height": 300
+		},
+		"goright-copy_540": {
+			"path": "'public/assets/img/portfolio/goright-copy_540.png'",
+			"width": 540,
+			"height": 360
+		},
+		"goright-copy_720": {
+			"path": "'public/assets/img/portfolio/goright-copy_720.png'",
+			"width": 720,
+			"height": 480
+		},
+		"goright-copy_990": {
+			"path": "'public/assets/img/portfolio/goright-copy_990.png'",
+			"width": 990,
+			"height": 660
+		},
+		"goright-copy": {
+			"path": "'public/assets/img/portfolio/goright-copy.png'",
+			"width": 1000,
+			"height": 666
+		},
+		"goright": {
+			"path": "'public/assets/img/portfolio/goright.png'",
+			"width": 1000,
+			"height": 666
+		},
 		"kindergarten-finder_1240": {
 			"path": "'public/assets/img/portfolio/kindergarten-finder_1240.png'",
 			"width": 1240,

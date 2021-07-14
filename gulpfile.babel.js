@@ -1,32 +1,32 @@
-import gulp from 'gulp';
-import { getEnv } from './build-tasks/utils';
+import gulp from "gulp";
+import { getEnv } from "./build-tasks/utils";
 
 import {
 	compileScripts,
 	lintScripts,
 	watchScripts,
-} from './build-tasks/scripts';
-import { compileStyles, lintStyles, watchStyles } from './build-tasks/styles';
+} from "./build-tasks/scripts";
+import { compileStyles, lintStyles, watchStyles } from "./build-tasks/styles";
 import {
 	compileMarkup,
 	compileAjaxSources,
 	watchMarkup,
-} from './build-tasks/markup';
+} from "./build-tasks/markup";
 import {
 	processImages,
 	getImagesData,
 	watchImages,
-} from './build-tasks/images';
+} from "./build-tasks/images";
 import {
 	generateFavicon,
 	injectFaviconMarkup,
 	checkFaviconUpdate,
-} from './build-tasks/favicon';
+} from "./build-tasks/favicon";
 
-import { compile, lint, watch as watchEverything } from './build-tasks/main';
-import { deploy } from './build-tasks/deploy';
-import { stat } from './build-tasks/stat';
-import { serve as serveEverything } from './build-tasks/server';
+import { compile, lint, watch as watchEverything } from "./build-tasks/main";
+import { deploy } from "./build-tasks/deploy";
+import { stat } from "./build-tasks/stat";
+import { serve as serveEverything } from "./build-tasks/server";
 
 export {
 	deploy,

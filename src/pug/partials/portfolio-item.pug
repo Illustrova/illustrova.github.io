@@ -2,117 +2,22 @@
 //- Item in portfolio grid
 //-====================
 mixin portfolio-item(project)
-	- var href = project.title.replace(/\s+/g, '-').toLowerCase();
-	- var col = locals.vars.columns;
-	- var asp = locals.vars.defaultAspectRatio;
-	figure.mb-2.portfolio-item.mix(class=`col-sm-${12/col.s} col-md-${12/col.m} col-lg-${12/col.l} col-xl-${12/col.xl}`, data-group=project.tags.join(" "))
-		a.portfolio-item-link.d-block.position-relative(href=href + ".html" data-target="#portfolio-item" data-name=project.title data-toggle="modal" data-ajax="projects" id=href)
-			if project.images.length === 0
-				+no-image()
-			else
-				+img(project.images[0].url.toLowerCase(), project.images[0].alt, sizesGrid)(class="img-fluid")
-			.overlay.p-3
-				h3.text-primary= project.title
-				small.desc.text-secondary.text-truncate
-					block
-//-====================
-//- Modal components
-//-====================
+  - var id = project.title.replace(/\s+/g, '-').toLowerCase();
+  - var col = locals.vars.columns;
+  - var asp = locals.vars.defaultAspectRatio;
 
-//- Base part, always stays in markup					
-mixin modal-base()
-	.modal.fade.modal-fullscreen(tabindex="-1" role="dialog" aria-labelledby="", aria-hidden="true" id="portfolio-item")
-		//- No additional classes  to .modal-dialog, because it's overridden in Modal.js
-		.modal-dialog 
-			.modal-content
-				+modal-header()
-				+modal-body()
-
-//- body part, loaded by ajax for each item. Precompiles with gulp		
-mixin modal-ajax(project)
-	.row
-		.col-md-7
-			if project.images.length === 0
-				+no-image()
-			else if project.images.length === 1
-				+project-image(project.images[0])
-			else
-				+project-image-carousel(project.images, project.title)
-		.col-md-5.text-left
-			p.project-subtitle.ml-4.mt-2= project.subtitle
-			+project-spec(project.spec, project.tech)
-	.row
-		+project-desc(project.description)
-
-//-================
-//-Modal elements
-//-================
-
-//-Markup elements
-mixin modal-header()
-	nav.modal-header.align-items-center
-		//-Dummy element for alignment
-		a.nav-item.nav-link.ml-auto.invisible(href="#close" class="close") &times;
-		.modal-title-wrapper.d-flex.align-items-center
-			button.modal-nav-previous.nav-item.nav-link.btn.btn-link.mr-auto(type="button" aria-label="previous" title="Previous project")
-				i(class=locals.config.icons.previous)
-			h2.navbar-brand.modal-title.text-primary.mx-3
-			button.modal-nav-next.nav-item.nav-link.btn.btn-link.ml-auto(type="button" aria-label="next" title="Next project")
-				i(class=locals.config.icons.next)
-		a.nav-item.nav-link.ml-auto(href="#close" class="close" data-dismiss="modal" aria-label="Close" title="Close") &times;
-
-mixin modal-body()
-	.modal-body
-		.container-fluid
-			block
-
-//-Content elements
-mixin project-image(image)
-	+img(image.url, image.alt, sizes60).img-fluid
-
-mixin project-image-carousel(images, projectTitle)
-	- var carouselName = projectTitle.replace(/\s+/g, '-').toLowerCase() + "-carousel";
-	- var n = 0;
-	div(id=carouselName, data-ride="carousel").carousel.slide
-		ol.carousel-indicators.carousel-indicators-dot
-			while (n < images.length)
-				li(data-target="#" + carouselName, class=(n<1) ? "active" : false, data-slide-to=n++)
-		.carousel-inner
-			each image, index in images
-				.carousel-item(class=(index<1) ? "active" : false)
-					+img(image.url, image.alt, sizes60).d-block.w-100
-		a.carousel-control-prev(href="#" + carouselName, role="button" data-slide="prev")
-			span.carousel-control-prev-icon(aria-hidden="true")
-			span.sr-only Previous
-		a.carousel-control-next(href="#" + carouselName, role="button" data-slide="next")
-			span.carousel-control-next-icon(aria-hidden="true")
-			span.sr-only Next
-
-mixin no-image()
-	.no-image
-		.placeholder.text-center
-			i.fas.fa-camera-retro
-
-mixin project-spec(specList, techList)
-	if specList
-		ul.list-group-flush.text-left.pl-1.project-spec
-			each val, key in specList
-				li.list-group-item.project-date.text-secondary
-					i(class=locals.config.icons[key])
-					if key === "date" || key === "time"
-						span.pl-2.text-dark= val
-					else
-						if Array.isArray(val)
-							+a(val[0])(class="pl-2")= val[1] || locals.config.linkText[key]
-						else if (typeof(val) === "string")
-							+a(val)(class="pl-2")= locals.config.linkText[key]
-	if techList
-		h5.mx-3.mb-2 Technologies
-		ul.list-unstyled.unordered-list.project-tech.pl-1.ml-4
-			each tech in techList
-				li= tech
-
-mixin project-desc(desc)
-	.col-md-12.text-left
-		h3.my-3.mr-3 Details
-		p= desc
+  figure.project
+    //- .project__image-container
+    if project.images.length === 0
+      +no-image()
+    else
+      //- +img(project.images[0].url.toLowerCase(), project.images[0].alt, sizesGrid).projecct__image
+      .project__title
+        button.project__title-inner.btn--link(data-micromodal-trigger="projectModal" data-project=id)
+          .project__title-deco
+            include ../../assets/deco-stroke.svg
+          h3.project__title-text= project.title
+      img(src=project.images[0].url.toLowerCase(), alt=project.images[0].alt).project__image
+      
+mixin portfolio-item-dummy()
+  .project.hidden
