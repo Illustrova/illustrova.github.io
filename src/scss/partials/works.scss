@@ -4,7 +4,9 @@
   flex-shrink: 2;
   transform: translateY(70%);
   transition: transform 150ms ease-in-out;
-
+  @media screen and (max-width: $bp-mobile) {
+    transform: translateY(0);
+  }
   &__carousel {
     opacity: 0;
   }
@@ -23,6 +25,9 @@
     &:hover,
     &:focus {
       opacity: 1;
+    }
+    @media screen and (max-width: $bp-mobile) {
+      // maßrgin-top: 3em;
     }
   }
   &.show {
