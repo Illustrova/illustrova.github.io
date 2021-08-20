@@ -16,6 +16,9 @@ $modal-close-duration: 400ms;
     font-size: 75%;
     height: 100%;
   }
+  @media screen and (max-height: $bp-mobile) {
+    height: 100%;
+  }
 
   &[aria-hidden="true"] .modal__body {
     animation: fadeOut $modal-close-duration ease-in;
@@ -40,10 +43,10 @@ $modal-close-duration: 400ms;
     display: flex;
     height: 100%;
     position: relative;
-    padding: 3em;
+    padding: 0 3em 3em;
     @media screen and (max-width: $bp-mobile) {
       flex-direction: column;
-      padding: 1em;
+      padding: 0 1em 1em;
       min-height: 100vh;
     }
   }
@@ -56,29 +59,23 @@ $modal-close-duration: 400ms;
   }
 
   &__close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 2rem;
-    background: transparent;
-    border: none;
-    color: $color-bg;
-    font-size: 3.5em;
-    font-family: inherit;
+    text-align: right;
+    padding: 0 0.5rem;
     z-index: 2;
-    cursor: pointer;
-    &:hover,
-    &:focus {
-      text-shadow: 2px 8px 9px rgba(0, 0, 0, 0.4),
-        0px -5px 35px rgba(255, 255, 255, 0.5);
-      outline: none;
-    }
-    @media screen and (max-width: $bp-mobile) {
-      margin: 1rem;
-      position: relative;
-      order: -1;
-      align-self: end;
-      margin-left: auto;
+    &-btn {
+      background: transparent;
+      border: none;
+      color: $color-bg;
+      font-size: 3.5em;
+      font-family: inherit;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        text-shadow: 2px 8px 9px rgba(0, 0, 0, 0.4),
+          0px -5px 35px rgba(255, 255, 255, 0.5);
+        outline: none;
+      }
     }
   }
 
@@ -132,7 +129,7 @@ $modal-close-duration: 400ms;
   }
   &__text {
     display: flex;
-    flex: 1 1 auto;
+    flex: 1 0 auto;
     @media screen and (max-width: $bp-mobile) {
       font-size: 200%;
       flex-direction: column;
@@ -144,7 +141,7 @@ $modal-close-duration: 400ms;
     width: 100%;
     text-align: left;
     margin: 0;
-    padding: 0.5em 0;
+    padding: 0 0 0.5em 0;
   }
   &__description {
     line-height: 1.2;
@@ -188,8 +185,8 @@ $modal-close-duration: 400ms;
   &__links {
     margin-top: auto;
     margin-bottom: 2em;
+    margin-left: -1em;
     padding-right: 4em;
-    // display: flex;
     justify-content: space-between;
     width: 90%;
     & .link {

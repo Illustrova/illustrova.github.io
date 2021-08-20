@@ -7,5 +7,6 @@ mixin modal(project)
       .modal__background 
         //- include ./svg-bg.svg //simple version
       .modal__dialog(role="dialog" aria-modal="true" aria-labelledby="projectModal-title")
+        .modal__close
+          button.modal__close-btn(aria-label="Close modal" data-micromodal-close) X
         .modal__content(id="modalContent")
-        button.modal__close(aria-label="Close modal" data-micromodal-close) X
