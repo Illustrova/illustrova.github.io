@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   glider.scrollToCenter = function(slideNum) {
     const { breakpoint, opt } = this;
+    if (!breakpoint || breakpoint === 0) return;
 
     const slidesShown = opt.responsive.find(i => i.breakpoint === breakpoint)
       .settings.slidesToShow;
@@ -57,10 +58,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
   /** SETUP MODAL */
   MicroModal.init({
-    onShow: (modal, trigger) => {
-      loadModalContent(trigger.dataset.project);
-      trigger.classList.add("active");
+    onShow: (modal, _, event) => {
+      const trigger = event.currentTarget;
+      if (trigger) {
+        loadModalContent(trigger.dataset.project);
+        trigger.classList.add("active");
+      }
     },
+    // https://github.com/ghosh/Micromodal/issues/324#issuecomment-725771319
+    // onClose: function(modal, element, event) {
+    // },
     awaitCloseAnimation: true,
     onClose: () => {
       activeItem && activeItem.classList.remove("is-active");
@@ -74,10 +81,10 @@ document.addEventListener("DOMContentLoaded", function() {
   );
 
   const modalContentEl = document.getElementById("modalContent");
-  const loadModalContent = project => {
+  function loadModalContent(project) {
     const template = document.getElementById(project);
     const node = document.importNode(template.content, true);
     modalContentEl.innerHTML = "";
     modalContentEl.appendChild(node);
-  };
+  }
 });

@@ -14,6 +14,7 @@ $modal-close-duration: 400ms;
 
   @media screen and (max-width: $bp-tablet) {
     font-size: 75%;
+    height: 100%;
   }
 
   &[aria-hidden="true"] .modal__body {
@@ -38,16 +39,20 @@ $modal-close-duration: 400ms;
   &__content {
     display: flex;
     height: 100%;
-    padding: 3em;
     position: relative;
+    padding: 3em;
     @media screen and (max-width: $bp-mobile) {
       flex-direction: column;
+      padding: 1em;
+      min-height: 100vh;
     }
   }
 
   &__dialog {
     opacity: 0;
     height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   &__close {
@@ -68,23 +73,28 @@ $modal-close-duration: 400ms;
         0px -5px 35px rgba(255, 255, 255, 0.5);
       outline: none;
     }
+    @media screen and (max-width: $bp-mobile) {
+      margin: 1rem;
+      position: relative;
+      order: -1;
+      align-self: end;
+      margin-left: auto;
+    }
   }
 
   &__image-container {
     flex-basis: 30%;
     flex-shrink: 0;
     padding: 0 2em;
-    overflow-y: auto;
+    overflow-y: scroll;
 
     @media screen and (max-width: $bp-mobile) {
-      flex-basis: 40%;
-      max-height: 50vw;
+      flex-basis: auto;
 
       display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;
       padding: 0;
-      margin-top: 4em;
     }
   }
 
@@ -96,13 +106,15 @@ $modal-close-duration: 400ms;
       height: 100%;
       flex: 0 0 auto;
       margin-right: 0.5em;
+      height: 65vw;
+
       &:last-child {
         margin-right: 0;
       }
     }
   }
   &__text-container {
-    width: 100%;
+    max-width: 100%;
     padding-left: 4em;
     font-size: 1.5em;
     display: flex;
@@ -124,6 +136,7 @@ $modal-close-duration: 400ms;
     @media screen and (max-width: $bp-mobile) {
       font-size: 200%;
       flex-direction: column;
+      flex: 0 0 auto;
     }
   }
   &__title {
@@ -176,16 +189,15 @@ $modal-close-duration: 400ms;
     margin-top: auto;
     margin-bottom: 2em;
     padding-right: 4em;
-    display: flex;
+    // display: flex;
     justify-content: space-between;
     width: 90%;
+    & .link {
+      margin: 0 1em;
+    }
     @media screen and (max-width: $bp-mobile) {
       margin-top: 2em;
       font-size: 125%;
-      justify-content: left;
-      & > * {
-        margin-right: 2em;
-      }
     }
   }
 }
