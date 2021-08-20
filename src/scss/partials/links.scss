@@ -1,15 +1,24 @@
 .links {
   display: flex;
   justify-content: space-around;
-  margin: 1em;
   font-size: 1.75rem;
+  margin: 0 3rem;
   margin-top: 5em;
+
+  @media screen and (max-width: $bp-mobile) {
+    font-size: 1.25rem;
+    margin-top: 1em;
+    flex-direction: column;
+  }
 }
 .link {
   color: $color-text;
   text-decoration: none;
   position: relative;
   box-sizing: content-box;
+  margin: 0.25em;
+  // padding: 0 1rem;
+  display: inline-flex;
   &:after {
     content: "";
     position: absolute;
@@ -22,6 +31,7 @@
     transform: scaleX(0);
     transition: transform 150ms cubic-bezier(0.09, 1.12, 0.44, 0.9);
   }
+
   &:hover {
     &:after {
       transform: scaleX(1);
@@ -31,6 +41,11 @@
     text-shadow: 2px 8px 9px rgba(0, 0, 0, 0.5),
       0px -5px 35px rgba(255, 255, 255, 0.5);
     outline: none;
+  }
+  @media screen and (max-width: $bp-mobile) {
+    // width: 100%;
+    margin: 0.5em auto;
+    flex-grow: 1;
   }
 }
 
