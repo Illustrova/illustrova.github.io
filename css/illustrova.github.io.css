@@ -163,6 +163,10 @@ body {
   padding: 0;
   height: 100vh;
   overflow: hidden; }
+  @media screen and (max-height: 700px) {
+    body {
+      overflow: auto;
+      height: 100%; } }
 
 :root {
   -webkit-box-sizing: border-box;
@@ -188,18 +192,25 @@ body {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
-  margin: 0 3rem;
   height: 100%; }
+
+header {
+  margin: 0 3rem; }
 
 /* PARTIALS */
 .heading {
   text-align: center;
   width: 100%;
-  margin-top: 5rem; }
+  margin-top: 5rem;
+  font-size: 1rem; }
+  @media screen and (max-width: 720px) {
+    .heading {
+      font-size: 0.75rem;
+      margin-top: 2em; } }
   .heading__name {
-    font-size: 3.75rem; }
+    font-size: 3.75em; }
   .heading__title {
-    font-size: 1.25rem;
+    font-size: 1.25em;
     letter-spacing: 0.25em; }
 
 .links {
@@ -208,16 +219,28 @@ body {
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  margin: 1em;
   font-size: 1.75rem;
+  margin: 0 3rem;
   margin-top: 5em; }
+  @media screen and (max-width: 720px) {
+    .links {
+      font-size: 1.25rem;
+      margin-top: 1em;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column; } }
 
 .link {
   color: #fff;
   text-decoration: none;
   position: relative;
   -webkit-box-sizing: content-box;
-          box-sizing: content-box; }
+          box-sizing: content-box;
+  margin: 0.25em;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex; }
   .link:after {
     content: "";
     position: absolute;
@@ -242,6 +265,12 @@ body {
   .link:focus {
     text-shadow: 2px 8px 9px rgba(0, 0, 0, 0.5), 0px -5px 35px rgba(255, 255, 255, 0.5);
     outline: none; }
+  @media screen and (max-width: 720px) {
+    .link {
+      margin: 0.5em auto;
+      -webkit-box-flex: 1;
+          -ms-flex-positive: 1;
+              flex-grow: 1; } }
 
 .btn--link {
   padding: 0;
@@ -297,7 +326,8 @@ body {
   background: #f45427; }
   @media screen and (max-width: 1000px) {
     .modal {
-      font-size: 75%; } }
+      font-size: 75%;
+      height: 100%; } }
   .modal[aria-hidden="true"] .modal__body {
     -webkit-animation: fadeOut 400ms ease-in;
             animation: fadeOut 400ms ease-in; }
@@ -317,17 +347,26 @@ body {
     display: -ms-flexbox;
     display: flex;
     height: 100%;
-    padding: 3em;
-    position: relative; }
+    position: relative;
+    padding: 3em; }
     @media screen and (max-width: 720px) {
       .modal__content {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
             -ms-flex-direction: column;
-                flex-direction: column; } }
+                flex-direction: column;
+        padding: 1em;
+        min-height: 100vh; } }
   .modal__dialog {
     opacity: 0;
-    height: 100%; }
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
   .modal__close {
     position: absolute;
     top: 0;
@@ -343,26 +382,34 @@ body {
     .modal__close:hover, .modal__close:focus {
       text-shadow: 2px 8px 9px rgba(0, 0, 0, 0.4), 0px -5px 35px rgba(255, 255, 255, 0.5);
       outline: none; }
+    @media screen and (max-width: 720px) {
+      .modal__close {
+        margin: 1rem;
+        position: relative;
+        -webkit-box-ordinal-group: 0;
+            -ms-flex-order: -1;
+                order: -1;
+        -ms-flex-item-align: end;
+            align-self: end;
+        margin-left: auto; } }
   .modal__image-container {
     -ms-flex-preferred-size: 30%;
         flex-basis: 30%;
     -ms-flex-negative: 0;
         flex-shrink: 0;
     padding: 0 2em;
-    overflow-y: auto; }
+    overflow-y: scroll; }
     @media screen and (max-width: 720px) {
       .modal__image-container {
-        -ms-flex-preferred-size: 40%;
-            flex-basis: 40%;
-        max-height: 50vw;
+        -ms-flex-preferred-size: auto;
+            flex-basis: auto;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: nowrap;
             flex-wrap: nowrap;
         overflow-x: auto;
-        padding: 0;
-        margin-top: 4em; } }
+        padding: 0; } }
   .modal__image {
     -ms-flex-negative: 0;
         flex-shrink: 0;
@@ -374,11 +421,12 @@ body {
         -webkit-box-flex: 0;
             -ms-flex: 0 0 auto;
                 flex: 0 0 auto;
-        margin-right: 0.5em; }
+        margin-right: 0.5em;
+        height: 65vw; }
         .modal__image:last-child {
           margin-right: 0; } }
   .modal__text-container {
-    width: 100%;
+    max-width: 100%;
     padding-left: 4em;
     font-size: 1.5em;
     display: -webkit-box;
@@ -411,7 +459,10 @@ body {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
             -ms-flex-direction: column;
-                flex-direction: column; } }
+                flex-direction: column;
+        -webkit-box-flex: 0;
+            -ms-flex: 0 0 auto;
+                flex: 0 0 auto; } }
   .modal__title {
     font-size: 4em;
     width: 100%;
@@ -463,22 +514,16 @@ body {
     margin-top: auto;
     margin-bottom: 2em;
     padding-right: 4em;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
     width: 90%; }
+    .modal__links .link {
+      margin: 0 1em; }
     @media screen and (max-width: 720px) {
       .modal__links {
         margin-top: 2em;
-        font-size: 125%;
-        -webkit-box-pack: left;
-            -ms-flex-pack: left;
-                justify-content: left; }
-        .modal__links > * {
-          margin-right: 2em; } }
+        font-size: 125%; } }
 
 @-webkit-keyframes fadeOut {
   from {
@@ -549,6 +594,11 @@ body {
   -o-transition: transform 150ms ease-in-out;
   transition: transform 150ms ease-in-out;
   transition: transform 150ms ease-in-out, -webkit-transform 150ms ease-in-out; }
+  @media screen and (max-width: 720px) {
+    .works {
+      -webkit-transform: translateY(0);
+          -ms-transform: translateY(0);
+              transform: translateY(0); } }
   .works__carousel {
     opacity: 0; }
   .works .btn--show-works {
