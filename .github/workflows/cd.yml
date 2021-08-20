@@ -24,11 +24,11 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm install
-      - name: Build and deploy
-        run: gulp deploy
+      - name: Build
+        run: gulp compile
       
-      # - name: Deploy 🚀
-      #   uses: JamesIves/github-pages-deploy-action@4.1.0
-      #   with:
-      #     branch: master # The branch the action should deploy to.
-      #     folder: build # The folder the action should deploy.
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: master # The branch the action should deploy to.
+          folder: public # The folder the action should deploy.
