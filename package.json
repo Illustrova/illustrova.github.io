@@ -66,7 +66,7 @@
   "license": "MIT",
   "repository": "",
   "dependencies": {
-    "fullpage.js": "^3.0.8",
+    "fullpage.js": "^4.0.5",
     "gulp-print": "^5.0.2",
     "micromodal": "^0.4.6",
     "mixitup": "^3.3.1"
